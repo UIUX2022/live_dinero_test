@@ -1,0 +1,66 @@
+@import "../../css/variables.scss";
+.cat_section_head {
+  background: rgba(20, 136, 204, 0.1);
+  border-radius: 5px;
+  img {
+    width: 130px;
+  }
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: $dark_text;
+  }
+}
+.section_heading {
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+}
+.owl-theme-2 {
+  position: relative;
+  .owl-nav {
+    position: absolute;
+    top: -40px;
+    right: 0px;
+    .owl-prev {
+      width: 25px;
+      border: 1px solid $theme_color !important;
+      border-radius: 13px;
+      color: $theme_color !important;
+      :hover{
+        transform: scale(1.1);
+      }
+    }
+    .owl-next {
+      width: 25px;
+      border: 1px solid $theme_color !important;
+      border-radius: 13px;
+      color: $theme_color !important;
+      &:hover{
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .cat_section_head {
+    img {
+      width: 100px;
+    }
+    h2 {
+      font-size: 20px;
+    }
+  }
+}
+@media (max-width: 425px) {
+  .cat_section_head {
+    img {
+      width: 80px;
+    }
+    h2 {
+      font-size: 14px;
+    }
+  }
+}

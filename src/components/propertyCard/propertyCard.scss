@@ -1,0 +1,59 @@
+@import "../../css/variables.scss";
+.AddsCardContainer {
+  border-radius: 10px;
+  border: 1px solid $theme_color;
+  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  img {
+    width: 100%;
+    border-radius: 10px 10px 0px 0px;
+  }
+  .cardDetails {
+    position: relative;
+    h4 {
+      font-size: 16px;
+      font-weight: 500;
+      color: $light_text;
+      padding-right: 30px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+      overflow: hidden;
+      width: auto;
+    }
+    .roomdetails {
+      display: flex;
+      gap: 25px;
+      p {
+        margin: 0px;
+        font-size: 12px;
+        color: $light_text;
+        font-weight: 600;
+      }
+      svg {
+        color: $theme_color;
+        font-size: 14px;
+      }
+    }
+    h3 {
+      font-size: 20px;
+      color: $dark_text;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+    .aboutAdd {
+      text-align: center;
+      font-size: 14px;
+      color: $dark_text;
+    }
+    .addWish {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      svg {
+        font-size: 25px;
+        color: $dark_text;
+      }
+    }
+  }
+}
+

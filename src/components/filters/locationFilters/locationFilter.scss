@@ -1,0 +1,37 @@
+@import '../../../css/variables.scss';
+.display_cat {
+    margin: 0;
+    max-height: 250px;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    /* width */
+    &::-webkit-scrollbar {
+      width: 4px;
+    }
+  
+    /* Track */
+    &::-webkit-scrollbar-track {
+      background: $white;
+      border-radius: 5px;
+    }
+  
+    /* Handle */
+    &::-webkit-scrollbar-thumb {
+      background: $theme_color;
+      border-radius: 5px;
+    }
+  
+    /* Handle on hover */
+    &::-webkit-scrollbar-thumb:hover {
+      background: #555;
+    }
+    h6{
+      font-size:14px;
+      color: $dark_text;
+    }
+    p{
+      font-size:12px;
+      margin-bottom: 0px;
+      color: $light_text;
+    }
+  }

@@ -1,0 +1,96 @@
+@import "../../css/variables.scss";
+
+.landCartCategory {
+  background-color: $white;
+  border-radius: 5px;
+  img {
+    width: 150px;
+    a {
+    }
+  }
+}
+.card_details {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  h3 {
+    font-size: 22px;
+    margin-bottom: 0px;
+    a{
+        color: $dark_text;
+    }
+  }
+  h6{
+    color: $light_text;
+    font-size:14px;
+  }
+  .card_profile {
+    svg {
+      font-size: 22px;
+      color: red;
+    }
+  }
+  .phone_link {
+    button {
+      height: 40px;
+      width: 180px;
+      border-radius: 3px;
+      border: 1px solid $theme_color;
+      background-color: $white;
+      text-transform: uppercase;
+      font-weight: 600;
+      svg {
+        font-size: 22px;
+      }
+    }
+  }
+  .whatsapp_link {
+    button {
+      height: 40px;
+      width: 75px;
+      background: linear-gradient(180deg, #1488cc 0%, #2b32b2 100%);
+      border-radius: 3px;
+      border: none;
+      color: $white;
+      svg {
+        font-size: 24px;
+      }
+    }
+  }
+}
+@media (max-width: 425px){
+    .landCartCategory img {
+        width: 100px;
+    }
+    .card_details .phone_link button {
+        height: 33px;
+        width: 155px;
+    }
+    .card_details .whatsapp_link button {
+        height: 33px;
+        width: 55px;
+    }    
+}
+@media (max-width: 375px){
+    .landCartCategory img {
+        width: 80px;
+    }
+    .card_details h3 {
+        font-size: 18px;
+    }
+    .card_details .phone_link button {
+        height: 30px;
+        width: 130px;
+    }
+    .card_details .whatsapp_link button svg {
+        font-size: 18px;
+    }
+    .card_details .whatsapp_link button {
+        height: 30px;
+        width: 45px;
+    }   
+    .card_details .phone_link button svg {
+        font-size: 18px;
+    } 
+}

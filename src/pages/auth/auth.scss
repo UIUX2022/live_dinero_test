@@ -1,0 +1,132 @@
+@import "../../css/variables.scss";
+.registerPage {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+    url("../../images/loginbg.jpg");
+  width: 100%;
+  background-attachment: fixed;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  .error{
+    color: red;
+    font-size: 10px;
+    position: absolute;
+    z-index: 10;
+  }
+}
+.registerPageDiv {
+  max-width: 820px;
+  background-color: #fff;
+  border-radius: 15px;
+  position: relative;
+  h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: $theme_color;
+    margin: 0px;
+  }
+  p {
+    font-size: 16px;
+    font-weight: 400;
+    color: #263238;
+  }
+  h6 {
+    font-size: 22px;
+    font-weight: 500;
+    @media (max-width: 425px) {
+      font-size: 20px;
+      padding: 18px 0px;
+    }
+  }
+  .login-input {
+    border: 1.72px solid #ced4da;
+    border-radius: 5px;
+    position: relative;
+    .form-control {
+      border: none;
+      padding: 6px 20px;
+      &:focus {
+        box-shadow: none;
+        border: none;
+      }
+    }
+    label {
+      position: absolute;
+      top: -50%;
+      transform: translate(0%, 5%);
+      left: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background-color: #fff;
+      padding: 2px 4px;
+      font-size: 14px;
+      font-weight: 400;
+      color: $dark_text;
+      svg {
+        color: $theme_color;
+        font-size: 20px;
+        font-weight: 600;
+      }
+    }
+    > svg {
+      position: absolute;
+      right: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  .checkLabek {
+    font-size: 12px;
+    color: $dark_text;
+    a {
+      color: $theme_color;
+      font-weight: 500;
+    }
+  }
+  .eng-btn {
+    background: linear-gradient(92.71deg, #1488cc 12.75%, #2b32b2 137.59%);
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    border: none;
+    color: #fff;
+    font-size: 16px;
+    padding: 8px 8px;
+    width: 210px;
+    transition: 0.3s;
+    &:active {
+      letter-spacing: 1px;
+      transform: scale(1.02);
+    }
+    @media (max-width: 425px) {
+      font-size: 14px;
+      width: 160px;
+    }
+  }
+}
+.outhImg {
+  text-align: center;
+  img {
+    width: 80%;
+  }
+}
+
+.backtoHome {
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  background-color: $theme_color;
+  border-radius: 50%;
+  right: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  svg {
+    font-size: 26px;
+    color: #fff;
+  }
+}

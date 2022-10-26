@@ -1,0 +1,25 @@
+@import "../../css/variables.scss";
+.catrgory_card {
+  max-width: 170px;
+  margin: auto;
+}
+.card_head_img {
+  border-radius: 50%;
+  width: 110px;
+  height: 110px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.catrgory_card {
+  h5 {
+    font-size: 14px;
+    font-weight: 500;
+    color: $dark_text;
+    margin-top: 5px;
+  }
+  img {
+  width: 90px;
+  }
+}

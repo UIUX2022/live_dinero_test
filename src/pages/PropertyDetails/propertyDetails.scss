@@ -1,0 +1,101 @@
+@import "../../css/variables.scss";
+
+.property_detailPage {
+  background: #e5e5e5;
+}
+.property_details_info {
+  background: $white;
+  border: 2px solid $white;
+  border-radius: 5px;
+  padding: 15px;
+}
+.perporty_description {
+  background: $white;
+  border: 2px solid $white;
+  border-radius: 5px;
+  padding: 15px;
+  p {
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 32px;
+  }
+}
+.perporty_sale_details {
+  background: $white;
+  border: 2px solid $white;
+  border-radius: 5px;
+  padding: 8px;
+  h5 {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  svg {
+    font-size: 22px;
+  }
+  p {
+    color: $dark_text;
+    font-weight: 500;
+  }
+}
+.perporty_saler_details {
+  background: $white;
+  border: 2px solid $white;
+  border-radius: 5px;
+  padding: 8px;
+  h3 {
+    font-size: 22px;
+    font-weight: 500;
+    line-height: 34px;
+  }
+  .perporty_saler_info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+    h4 {
+      margin-bottom: 0px;
+      font-size: 20px;
+    }
+    p {
+      font-size: 16px;
+      font-weight: 400;
+      color: $dark_text;
+      margin-bottom: 0px;
+    }
+  }
+}
+.perporty_seller_contact {
+  .phone_btn {
+    flex: 3;
+    border: 1px solid $theme_color;
+    filter: drop-shadow(0px 1px 4px rgba(0, 0, 0, 0.25));
+    border-radius: 5px;
+    font-size: 16px;
+    color: $theme_color;
+    background-color: $white;
+    svg {
+      font-size: 22px;
+    }
+  }
+  .whats_btn {
+    flex: 1;
+    background: $theme_color;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    color: $light_text;
+    border: none;
+    svg {
+      font-size: 24px;
+    }
+  }
+}
+.whats_btn {
+  svg {
+    color: #fff;
+  }
+}

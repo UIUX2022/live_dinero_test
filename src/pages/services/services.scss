@@ -1,0 +1,114 @@
+@import "../../css/variables.scss";
+.servicePage_section{
+    background: #E5E5E5;
+}
+.servicePage_header {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../../../public/img/catPage_img.png");
+  background-image: center center;
+  background-size: 100% 100%;
+  color: #fff;
+  h1 {
+    color: #fff;
+    font-size: 600;
+    font-size: 36px;
+    letter-spacing: -2px;
+  }
+  p {
+    font-weight: 500;
+    font-size: 22px;
+  }
+}
+.services_page_cat{
+  background-color: #fff;
+}
+.cart_list_header{
+    background-color: #fff;
+    border-radius: 5px;;
+}
+.header_filter select{
+min-width: 130px;
+padding: 2px 8px;
+border: 2px solid $theme_color;
+border-radius:5px;
+@media (max-width:425px){
+  min-width: 100%;
+}
+}
+.cat_filters{
+  position:sticky;
+  top: -10px;
+}
+.header_filter{
+    color: $light_text;
+    position: relative;
+    svg{
+      font-size:30px;
+      fill: $theme_color;
+      color: $theme_color;
+    }
+    .grid_icon{
+      @media (max-width:425px){
+        position:absolute;
+        right: 0px;
+        top: -30px;
+      }
+    }
+    
+}
+.breadcrumb li{
+ font-size: 14px;;
+}
+.propsSales_filters {
+  .ant-collapse {
+    border: 0px solid $white;
+    border-radius:5px;
+    overflow: hidden;
+    background-color: #E5E5E5;
+    
+  }
+  .ant-collapse > .ant-collapse-item {
+     border-bottom: 1px solid #EBEBEB;
+    margin-top: 10px;
+    border: 1px solid rgba(0,0,0,0.1);
+    overflow: hidden;
+    border-radius: 5px;
+    background-color: #E5E5E5;
+    &:first-child{
+      margin-top:0px;
+    }
+  }
+  .ant-collapse > .ant-collapse-item > .ant-collapse-header {
+    background-color: #fff;
+   
+
+    span {
+      color: $theme_color;
+      font-size: 16px;
+      font-weight: 500;
+    }
+  }
+  .ant-collapse-content {
+    border-top: 0px solid #d9d9d9;
+    background-color: #fff;
+  }
+  .ant-collapse > .ant-collapse-item:last-child {
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 10px;
+  }
+}
+.propsSales_filters {
+  position: sticky; // Newly Added CSS
+  top: 0;
+}
+@media (max-width: 425px) {
+  .servicePage_header {
+    p {
+      font-weight: 500;
+      font-size: 14px;
+    }
+    h1 {
+      font-size: 30px;
+    }
+  }
+}
