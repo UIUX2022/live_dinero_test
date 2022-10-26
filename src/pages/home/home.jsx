@@ -121,42 +121,8 @@ const Home = () => {
             </Row>
           </div>
         </div>
-        <div className="property_card_list pt-4">
-          <div className="container-fluid px-lg-5 px-md-3 px-1 pt-1">
-            <div class="section_heading">
-              <h2>Feartured Constructions</h2>
-            </div>
-            <OwlCarousel className="owl-theme owl-theme-2" {...options1}>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-            </OwlCarousel>
-          </div>
-        </div>
+        <FeaeturedAdds />
+
         <div className="cat_section my-4">
           <div className="container-fluid">
             <div className="row">
@@ -210,7 +176,43 @@ const Home = () => {
             </OwlCarousel>
           </div>
         </div> */}
-        <FeaeturedAdds />
+        <div className="property_card_list pt-4">
+          <div className="container-fluid px-lg-5 px-md-3 px-1 pt-1">
+            <div class="section_heading">
+              <h2>Feartured Constructions</h2>
+            </div>
+            <OwlCarousel className="owl-theme owl-theme-2" {...options1}>
+              <div class="item">
+                <ProfileCard />
+              </div>
+              <div class="item">
+                <ProfileCard />
+              </div>
+              <div class="item">
+                <ProfileCard />
+              </div>
+              <div class="item">
+                <ProfileCard />
+              </div>
+              <div class="item">
+                <ProfileCard />
+              </div>
+              <div class="item">
+                <ProfileCard />
+              </div>
+              <div class="item">
+                <ProfileCard />
+              </div>
+              <div class="item">
+                <ProfileCard />
+              </div>
+              <div class="item">
+                <ProfileCard />
+              </div>
+            </OwlCarousel>
+          </div>
+        </div>
+
         <div className="cat_section my-4">
           <div className="container-fluid">
             <div className="row">
