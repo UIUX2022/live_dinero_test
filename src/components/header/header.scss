@@ -154,6 +154,33 @@
   font-family: "Poppins", sans-serif;
   font-size: 14px;
 }
+.header_btns {
+  button.user_menu {
+    width: auto;
+    padding: 0 5px;
+    svg {
+      font-size: 22px;
+    }
+    .ant-dropdown-menu-item-icon {
+      font-size: 18px;
+      svg {
+        color: $theme_color;
+      }
+    }
+  }
+}
+.ant-dropdown-menu-item-icon {
+  font-size: 18px;
+  color: $theme_color;
+}
+.ant-dropdown-menu-item.ant-dropdown-menu-item-danger {
+  .ant-dropdown-menu-item-icon {
+    color: #ff4d4f;
+  }
+  &:hover{
+    color: #fff;
+  }
+}
 .header_btns button.primray {
   background-color: $theme_color;
   color: $white;

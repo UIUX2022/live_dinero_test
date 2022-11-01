@@ -1,0 +1,19 @@
+@import "../../css/variables.scss";
+.AddnewCard {
+  border: 1px dashed $theme_color;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 250px;
+  svg {
+    font-size: 65px;
+    color: $theme_color;
+  }
+  p {
+    color: #757575;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}

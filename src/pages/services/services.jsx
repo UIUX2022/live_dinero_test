@@ -67,7 +67,7 @@ const Services = () => {
   };
   useEffect(() => {
     getServicesDetail();
-  }, []);
+  }, [id]);
 
   return (
     <>

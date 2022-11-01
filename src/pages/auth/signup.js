@@ -19,6 +19,7 @@ const Register = () => {
     gender: "",
     password: "",
     password_confirmation: "",
+    account_type:""
   };
   const [passShow, setPassShow] = useState(false);
 
@@ -26,81 +27,59 @@ const Register = () => {
   // Formik SignUp from validation
   //  ===============================================================
   const validationSchema = Yup.object({
-    name: Yup.string()
-      .min(3, "Please add min 3 digits")
-      .max(50, "You can add max 50 digits")
-      .required("This feild is required"),
-    email: Yup.string()
-      .email("Please input your valid email!")
-      .required("This feild is required"),
-    country_code: Yup.string().required("This feild is required"),
-    mobile_no: Yup.string()
-      .min(8, "Please enter valid phone # (min : 8)")
-      .max(8, "Please enter valid phone # (max : 8)")
-      .required("This feild is required"),
-    gender: Yup.string().required("Please select you gender"),
-    password: Yup.string()
-      .min(8, "Password required min 8 digits")
-      .max(50, "You can add max 50 digits")
-      .required("This feild is required"),
-    password_confirmation: Yup.string()
-      .when("password", {
-        is: (val) => (val && val.length > 0 ? true : false),
-        then: Yup.string().oneOf(
-          [Yup.ref("password")],
-          "Both password need to be the same"
-        ),
-      })
-      .required("This feild is required"),
+    // name: Yup.string()
+    //   .min(3, "Please add min 3 digits")
+    //   .max(50, "You can add max 50 digits")
+    //   .required("This feild is required"),
+    // email: Yup.string()
+    //   .email("Please input your valid email!")
+    //   .required("This feild is required"),
+    // country_code: Yup.string().required("This feild is required"),
+    // mobile_no: Yup.string()
+    //   .min(8, "Please enter valid phone # (min : 8)")
+    //   .max(8, "Please enter valid phone # (max : 8)")
+    //   .required("This feild is required"),
+    // gender: Yup.string().required("Please select you gender"),
+    // password: Yup.string()
+    //   .min(8, "Password required min 8 digits")
+    //   .max(50, "You can add max 50 digits")
+    //   .required("This feild is required"),
+    // password_confirmation: Yup.string()
+    //   .when("password", {
+    //     is: (val) => (val && val.length > 0 ? true : false),
+    //     then: Yup.string().oneOf(
+    //       [Yup.ref("password")],
+    //       "Both password need to be the same"
+    //     ),
+    //   })
+    //   .required("This feild is required"),
   });
 
   const onSubmit = async (values, submitProps, event) => {
     console.log("my submit  values is", values);
     getData(values);
-    // await axios
-    //   .post("auth/register", {
-    //       name: values.name,
-    //       email: values.email,
-    //       country_code: values.country_code,
-    //       mobile_no: values.mobile_no,
-    //       gender: values.gender,
-    //       date_of_birth: values.date_of_birth,
-    //       password: values.password,
-    //       password_confirmation: values.password_confirmation
-    //   })
-    //   .then((respone) => {
-    //     console.log("resjister API response is", respone);
-    //   })
-    //   .catch((error) => {
-    //     console.log("register api is", error);
-    //   });
-
-    // notification["success"]({
-    //   message: "Address add successfully",
-    // });
-    fetch("https://buyer.storak.qa/api/auth/register", {
-      method: "POST",
-      headers: {
-        accept: "application/json",
-        "Content-type": "application/json",
-      },
-      body: {
-        name: values.name,
-        email: values.email,
-        country_code: values.country_code,
-        mobile_no: values.mobile_no,
-        gender: values.gender,
-        date_of_birth: values.date_of_birth,
-        password: values.password,
-        password_confirmation: values.password_confirmation,
-      },
-    })
+    await axios
+      .post("auth/register", {
+        name: "abu Sufian",
+        email: "sufian111@gmail.com",
+        country_code: "974",
+        mobile_no: "12345678",
+        gender: "male",
+        date_of_birth: "12-7-2022",
+        password: "12345678",
+        password_confirmation: "12345678",
+        account_type:"individual"
+      })
       .then((respone) => {
         console.log("resjister API response is", respone);
       })
       .catch((error) => {
-        console.log("register api is", error);
+        console.log("Error register api is", error);
       });
+
+    notification["success"]({
+      message: "Address add successfully",
+    });
   };
   const formik = useFormik({
     initialValues,
@@ -268,7 +247,23 @@ const Register = () => {
                           ) : null}
                         </div>
                       </div>
-                      <div className="col-6"></div>
+                      <div className="col-6">
+                        <div className="login-input mt-4">
+                          <label>
+                            <Icon icon="clarity:world-solid" />
+                            Acount type
+                          </label>
+                          <select
+                            className="form-control"
+                            name="country_code"
+                            onChange={formik.handleChange}
+                            onBlur={formik.handleBlur}
+                            defaultValue={formik.values.country_code}
+                          >
+                            <option value="individual">individual</option>
+                          </select>
+                        </div>
+                      </div>
                       <div className="col-md-6 mt-4">
                         <div className="login-input mt-3">
                           <label>

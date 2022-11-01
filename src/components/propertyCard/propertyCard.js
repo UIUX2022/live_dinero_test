@@ -2,7 +2,7 @@ import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import "./propertyCard.scss";
-const ProppertyCard = (props) => {
+const PropertyCard = (props) => {
   const [cardData, SetCArdData] = useState(props.data);
 
   return (
@@ -33,8 +33,8 @@ const ProppertyCard = (props) => {
             <Icon icon="bi:heart" />
           </div>
         </div>
-      </div>{" "}
+      </div>
     </Link>
   );
 };
-export default ProppertyCard;
+export default PropertyCard;

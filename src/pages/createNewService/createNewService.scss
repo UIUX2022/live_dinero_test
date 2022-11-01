@@ -1,0 +1,192 @@
+// Antd Steps design
+@import "../../css/variables.scss";
+.mySteps {
+  width: 100%;
+  .ant-steps-item-process > .ant-steps-item-container > .ant-steps-item-icon {
+    background-color: $theme_color;
+  }
+  .ant-steps-item-process .ant-steps-item-icon {
+    border-color: $theme_color;
+  }
+  .ant-steps-small .ant-steps-item-title {
+    padding-right: 14px;
+    font-size: 14px;
+    line-height: 40px;
+  }
+  .ant-steps-small .ant-steps-item-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 600;
+    position: relative;
+  }
+  .ant-steps-item-icon .ant-steps-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .ant-steps-small .ant-steps-item-title::after {
+    top: 50%;
+  }
+  .ant-steps-item-finish
+    > .ant-steps-item-container
+    > .ant-steps-item-content
+    > .ant-steps-item-title::after {
+    background-color: $theme_color;
+  }
+  .ant-steps-item-finish .ant-steps-item-icon {
+    border-color: $theme_color;
+  }
+  .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+    color: $theme_color;
+  }
+}
+
+// services from
+.serviceForm {
+  .form-control {
+    border: none;
+    border-bottom: 2px solid $theme_color;
+    border-radius: 0px;
+    padding: 10px 15px;
+    font-size: 16px;
+    &::placeholder {
+      font-size: 16px;
+    }
+    &:focus {
+      box-shadow: none;
+      border-bottom: 2px solid $theme_color;
+    }
+  }
+  h6 {
+    font-size: 18px;
+    color: #757575;
+    padding: 15px 0px;
+    border-bottom: 1px solid $theme_color;
+  }
+}
+.save_Steps {
+  background-color: $theme_color;
+  border: none;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  border-radius: 5px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  padding: 8px 20px;
+}
+.my-dropdown {
+  position: relative;
+  svg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 25px;
+    font-size: 22px;
+  }
+}
+@media  (max-width: 768px) {
+  .ant-steps-vertical {
+    flex-direction: row !important;
+  }
+  .ant-steps-vertical > .ant-steps-item .ant-steps-item-content {
+    display: none;
+  }
+  .mySteps .ant-steps-small .ant-steps-item-title {
+    display: none;
+  }
+}
+@media (max-width: 375px) {
+  .mySteps {
+    .ant-steps-small .ant-steps-item-icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+}
+// set2
+.serviceCover {
+  position: relative;
+  img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  .servicesCoverImg {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      font-size: 18px;
+      font-family: "Poppins";
+      font-weight: 600;
+      color: #fff;
+      margin: 0px;
+    }
+    button {
+      border: none;
+      background-color: transparent;
+      color: $theme_color;
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+}
+@media (max-width: 425px) {
+  .serviceCover {
+    img {
+      width: 100%;
+      height: 210px;
+    }
+  }
+  .servicesCoverImg {
+    p {
+      font-size: 16px !important;
+      font-weight: 500 !important;
+    }
+    button {
+      font-size: 20px !important;
+      font-weight: 500 !important;
+    }
+  }
+}
+// Setep 3
+.newImgCard {
+  border: 1px dashed $theme_color;
+  border-radius: 5px;
+  height: 230px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  p {
+    font-size: 18px;
+    font-weight: 600;
+    color: #757575;
+  }
+  button {
+    border: none;
+    border-radius: 5px;
+    padding: 8px 15px;
+    background-color: transparent;
+    font-size: 18px;
+    font-weight: 600;
+    color: $theme_color;
+  }
+}
+.uploadImgCard {
+  img {
+    width: 100%;
+    height: 230px;
+    border-radius: 5px;
+  }
+}

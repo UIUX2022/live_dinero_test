@@ -1,14 +1,21 @@
 import { Icon } from "@iconify/react";
-import Img from "../../images/authImg.png";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
 import { notification } from "antd";
+import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
 import * as Yup from "yup";
 import "./auth.scss";
-
+import {
+  addUser,
+  addtoken,
+  startLoader,
+  endLoader,
+} from "../../redux/actions/index";
 const Login = () => {
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.authReducer.token);
   const initialValues = {
     email: "",
     password: "",
@@ -21,14 +28,25 @@ const Login = () => {
     password: Yup.string().required("This feild is required"),
   });
   const onSubmit = async (values) => {
+    dispatch(startLoader());
     await axios
       .post("auth/login", {
         email: values.email,
         password: values.password,
       })
       .then((resp) => {
-        console.log("Login API resp", resp);
+        if (resp.data.status == undefined) {
+          console.log("Login API resp", resp.data);
+          dispatch(addtoken(resp.data.token));
+          dispatch(addUser(resp.data.user));
+        } else {
+          notification.error({
+            message: "Error",
+            description: `${resp.data.errors}`,
+          });
+        }
       });
+    dispatch(endLoader());
   };
   // ===============================================================
   // Formik Login from validation
@@ -41,6 +59,7 @@ const Login = () => {
   });
 
   const [passShow, setPassShow] = useState(false);
+
   return (
     <div className="registerPage">
       <div className="registerPageDiv pt-4">

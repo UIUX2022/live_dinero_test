@@ -3,9 +3,27 @@
   img {
   }
 }
+.header-img {
+  position: relative;
+  &:after {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10;
+    border-radius: 0px 0px 10px 10px;
+  }
+  img {
+    width: 100%;
+  }
+}
 .service_pro_details {
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
+  background-color:$white;
   .servies_name {
     h3 {
       color: $dark_text;
@@ -17,6 +35,13 @@
       font-size: 16px;
       color: $theme_color;
     }
+  }
+  position: relative;
+  .check_fav {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
   }
 }
 .servies_pro_img {
@@ -31,9 +56,40 @@
     object-fit: cover;
   }
 }
+.silder_div {
+  background-color: $white;
+  border-radius: 5px;
+}
+.user_info {
+  background-color: $white;
+  border-radius: 5px;
+  a{
+    color: $dark_text;
+  }
+  .user_info_item{
+    width: 50px;
+    height: 50px;
+    border: 1px solid $theme_color;
+    position: relative;
+    border-radius:30px;
+    color: $theme_color;
+    svg{
+      position: absolute;
+      font-size:25px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  p{
+    font-size:12px;
+    text-align: center;
+    padding-top: 4px;
+  }
+}
 .service_contact_info {
   .service_contact_card {
-    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+   background-color: $white;
     border-radius: 5px;
     text-align: center;
     p {
@@ -57,7 +113,7 @@
 .services_slider {
   overflow: hidden;
   border-radius: 5px;
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+  background-color: $white;
   .carousel {
     .thumbs-wrapper {
       margin: 5px;
@@ -94,8 +150,8 @@
       align-items: center;
       gap: 4px;
       color: $theme_color;
-      svg{
-        font-size:22px;
+      svg {
+        font-size: 22px;
       }
     }
   }
@@ -113,6 +169,7 @@
     font-size: 20px;
     vertical-align: middle;
     font-weight: 600;
+    background-color:$white;
     svg {
       font-size: 22px;
     }
@@ -129,4 +186,23 @@
       font-size: 26px;
     }
   }
+}
+
+@media (max-width:768px){
+  .user_info .user_info_item {
+    width: 40px;
+    height: 40px;
+  }
+  .user_info p {
+    font-size:10px
+  }
+  .service_contact_info .service_contact_card p{
+    font-size:16px;
+  }
+  .service_contact_info .service_contact_card button{
+    font-size:12px;
+  }
+  .services_slider p {
+    line-height: 28px;
+}
 }

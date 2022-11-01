@@ -1,0 +1,80 @@
+@import '../../css/variables.scss';
+.profileUpdate {
+  text-align: center;
+  label {
+    font-size: 16px;
+    font-weight: 500;
+    color: $dark_text;
+  }
+  img {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    @media screen and (max-width: 1024px) {
+      width: 100px;
+      height: 100px;
+    }
+  }
+}
+.removeProfile {
+  color: $theme_color;
+  background-color: #fff;
+  border: 1px dashed $theme_color;
+  @media screen and (max-width: 1024px) {
+    font-size: 12px;
+    padding: 10px !important;
+  }
+}
+.profile_form {
+  .input-col {
+    position: relative;
+  }
+  svg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 15px;
+  }
+  .form-control {
+    border: none;
+    border-bottom: 2px solid $theme_color;
+    border-radius: 0px;
+    &:focus {
+      border: none;
+      box-shadow: none;
+      border-bottom: 2px solid $theme_color;
+    }
+  }
+  .form-submit {
+    button {
+      font-family: "Poppins", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 32px;
+      letter-spacing: 1px;
+      border: none;
+      background: $theme_color;
+      color: #fff;
+      padding: 5px 10px;
+      border-radius: 5px;
+    }
+  }
+}
+@media screen and (max-width: 425px) {
+  .profile_form {
+    .form-submit {
+      button {
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 22px;
+      }
+    }
+  }
+  .profilePic {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}

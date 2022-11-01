@@ -1,63 +1,62 @@
 import "./header.scss";
-import { Menu } from "antd";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Logo from "../../images/logo.png";
 import axios from "axios";
 import { Icon } from "@iconify/react";
+import { useDispatch, useSelector } from "react-redux";
+import { startLoader, endLoader } from "../../redux/actions/index";
+import { Button, Dropdown, Menu } from "antd";
+
 const Header = () => {
+  const token = useSelector((state) => state.authReducer.token);
+
+  const dispatch = useDispatch();
   const [current, setCurrent] = useState("mail");
   const [services, setServices] = useState(null);
   const [subservices, setSubServices] = useState(null);
 
-  const items = [
-    {
-      label: <Link to="/">Home</Link>,
-      key: "mail",
-    },
+  const menu = (
+    <Menu>
+      <Menu.Item icon={<Icon icon="carbon:user-avatar-filled" />}>
+        <Link to="/profile/manage-profile">&nbsp;Profile</Link>
+      </Menu.Item>
+      <Menu.Item icon={<Icon icon="entypo:tools" />}>
+        <Link to="/profile/order">&nbsp;Services</Link>
+      </Menu.Item>
+      <Menu.Item icon={<Icon icon="teenyicons:search-property-solid" />}>
+        <Link to="/profile/address">&nbsp;Property Info</Link>
+      </Menu.Item>
 
-    {
-      label: <Link to="/services">Services</Link>,
-      key: "SubMenu",
-
-      children: [
-        {
-          type: "group",
-          label: "Item 1",
-        },
-      ],
-    },
-    {
-      label: (
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          About Us
-        </a>
-      ),
-      key: "about",
-    },
-    {
-      label: (
-        <a href="https://ant.design" target="_blank" rel="noopener noreferrer">
-          Contact Us
-        </a>
-      ),
-      key: "contact",
-    },
-  ];
-  const onClick = (e) => {
-    console.log("click ", e);
-    setCurrent(e.key);
-  };
+      <Menu.Item icon={<Icon icon="icon-park-outline:transaction-order" />}>
+        <Link to="/profile/wishlist">&nbsp;Orders</Link>
+      </Menu.Item>
+      <Menu.Item icon={<Icon icon="entypo:wallet" />}>
+        <Link to="/profile/store">&nbsp;wallet</Link>
+      </Menu.Item>
+      <Menu.Item icon={<Icon icon="fa-solid:address-card" />}>
+        <Link to="/profile/my-reviews">&nbsp;address</Link>
+      </Menu.Item>
+      <Menu.Item icon={<Icon icon="clarity:notification-solid-badged" />}>
+        <Link to="/profile/my-question">&nbsp;Notifications</Link>
+      </Menu.Item>
+      <Menu.Item danger icon={<Icon icon="ant-design:logout-outlined" />}>
+        &nbsp;Logout
+      </Menu.Item>
+    </Menu>
+  );
 
   // ==============================================
   // Get  Services with sub services API
   // ==============================================
   const getSubServices = async () => {
+    dispatch(startLoader());
     await axios
       .get("services-with-sub")
       .then((response) => {
         setSubServices(response.data.services);
-        console.log("services api with sub-services", response.data.services);
+
+        dispatch(endLoader());
       })
       .catch((error) => {
         console.log("error services api with sub-services", error);
@@ -76,12 +75,6 @@ const Header = () => {
             </Link>
           </div>
           <div className="main_menu text-center d-none d-lg-block">
-            {/* <Menu
-              onClick={onClick}
-              selectedKeys={[current]}
-              mode="horizontal"
-              items={items}
-            /> */}
             <ul className="mx-auto">
               <li className="main_menu_items active">
                 <Link to="/">Home</Link>
@@ -112,7 +105,7 @@ const Header = () => {
                                     key={`submenu${index}`}
                                   >
                                     <Link
-                                      to="/"
+                                      to={`/services/${sub_item.id}`}
                                       className="d-flex gap-1 align-item-center"
                                     >
                                       <img src="/img/cat_2.png" />
@@ -140,9 +133,23 @@ const Header = () => {
             <a href="#" className="me-2">
               <button className="primray py-1">POST AD</button>
             </a>
-            <Link to="/login">
-              <button className="py-1">Log in</button>
-            </Link>
+            {token ? (
+              <Dropdown
+                overlay={menu}
+                placement="bottom"
+                arrow={{
+                  pointAtCenter: true,
+                }}
+              >
+                <Button className="user_menu">
+                  <Icon icon="bx:user" />
+                </Button>
+              </Dropdown>
+            ) : (
+              <Link to="/login">
+                <button className="py-1">Log in</button>
+              </Link>
+            )}
           </div>
         </div>
       </div>

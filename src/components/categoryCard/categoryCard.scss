@@ -23,3 +23,14 @@
   width: 90px;
   }
 }
+@media (max-width:768px){
+  .catrgory_card h5{
+    font-size:12px;
+  }
+}
+@media (max-width:425px){
+  .card_head_img{
+    width:80px;
+    height:80px;
+  }
+}

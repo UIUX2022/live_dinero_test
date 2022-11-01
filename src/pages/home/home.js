@@ -9,6 +9,7 @@ import ProfileCard from "../../components/profileCard/profileCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FeaeturedAdds from "../../components/fearturedAdds/fearturedAdds";
+import CategorySilder from "../../components/categorySlider/categorySlider";
 const Home = () => {
   const options = {
     margin: 30,
@@ -89,7 +90,7 @@ const Home = () => {
   useEffect(() => {
     getServices();
   }, []);
-  console.log("get data of services==========>", services);
+
   return (
     <>
       <MainLayout>
@@ -104,26 +105,12 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <Row>
-              {constr &&
-                constr.sub_services.map((item, index) => {
-                  return (
-                    <Col lg={3} md={4} sm={6} xs={12} id={`cat${index}`}>
-                      <CategoryCard
-                        name={item.title}
-                        id={item.id}
-                        img="./img/cat_1.png"
-                        bg="rgba(20, 136, 204, 0.1)"
-                      />
-                    </Col>
-                  );
-                })}
-            </Row>
+            {constr ? <CategorySilder data={constr.sub_services} /> : null}
           </div>
         </div>
         <FeaeturedAdds />
 
-        <div className="cat_section my-4">
+        <div className="cat_section my-3">
           <div className="container-fluid">
             <div className="row">
               <div className="col-12">
@@ -133,50 +120,13 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <Row>
-              {consult &&
-                consult.sub_services.map((item2) => {
-                  return (
-                    <Col lg={3} md={4} sm={6} xs={12}>
-                      <CategoryCard
-                        name={item2.title}
-                        img="./img/cat_1.png"
-                        bg="rgba(20, 136, 204, 0.1)"
-                      />
-                    </Col>
-                  );
-                })}
-            </Row>
+            {consult ? (
+              <CategorySilder data={consult.sub_services} />
+            ) : null}
           </div>
         </div>
-        {/* <div className="property_card_list pt-4">
-          <div className="container-fluid px-lg-5 px-md-3 px-1 pt-1">
-            <div class="section_heading">
-              <h2>Feartured Constructions</h2>
-            </div>
-            <OwlCarousel className="owl-theme owl-theme-2" {...options}>
-              <div class="item">
-                <ProppertyCard />
-              </div>
-              <div class="item">
-                <ProppertyCard />
-              </div>
-              <div class="item">
-                <ProppertyCard />
-              </div>
-              <div class="item">
-                <ProppertyCard />
-              </div>
-              <div class="item">
-                <ProppertyCard />
-              </div>
-              <div class="item">
-                <ProppertyCard />
-              </div>
-            </OwlCarousel>
-          </div>
-        </div> */}
-        <div className="property_card_list pt-4">
+
+        <div className="property_card_list">
           <div className="container-fluid px-lg-5 px-md-3 px-1 pt-1">
             <div class="section_heading">
               <h2>Feartured Constructions</h2>
@@ -213,7 +163,7 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="cat_section my-4">
+        <div className="cat_section my-md-3 my-1">
           <div className="container-fluid">
             <div className="row">
               <div className="col-12">
@@ -223,20 +173,10 @@ const Home = () => {
                 </div>
               </div>
             </div>
-            <Row>
-              {interdesign &&
-                interdesign.sub_services.map((item3) => {
-                  return (
-                    <Col lg={3} md={4} sm={6} xs={12}>
-                      <CategoryCard
-                        name={item3.title}
-                        img="./img/cat_1.png"
-                        bg="rgba(20, 136, 204, 0.1)"
-                      />
-                    </Col>
-                  );
-                })}
-            </Row>
+
+            {interdesign ? (
+              <CategorySilder data={interdesign.sub_services} />
+            ) : null}
           </div>
         </div>
       </MainLayout>

@@ -9,9 +9,9 @@ const ProfileCard = () => {
         <img src={Profile} className="p-1" />
         <div className="user_details">
           <h3>
-            <Link to="/">Rai Sufian</Link>
+            <Link to="/profiledetails">Rai Sufian</Link>
           </h3>
-          <h6 className="py-2">Suhaim Bin Hamad St</h6>
+          <h6 className="py-1">Suhaim Bin Hamad St</h6>
           <div className="d-flex justify-content-center align-items-center gap-1">
             <a href="#" className="phone_link">
               <button className="w-100">
