@@ -185,6 +185,11 @@
   background-color: $theme_color;
   color: $white;
 }
+.menuMobile_icon{
+  svg{
+    font-size:25px;
+  }
+}
 @keyframes subMenuAni {
   from {
     transform: translateY(+20px);

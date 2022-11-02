@@ -1,15 +1,12 @@
 import "./home.scss";
 import MainLayout from "../../layouts/mainLayout/mainLayout.jsx";
 import HeroSection from "../../components/heroSection/heroSection";
-import CategoryCard from "../../components/categoryCard/categoryCard";
-import OwlCarousel from "react-owl-carousel";
-import { Row, Col } from "antd";
-import ProppertyCard from "../../components/propertyCard/propertyCard";
-import ProfileCard from "../../components/profileCard/profileCard";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import FeaeturedAdds from "../../components/fearturedAdds/fearturedAdds";
 import CategorySilder from "../../components/categorySlider/categorySlider";
+import { baseURLImg } from "../../routes/routes";
+import FeaturedAgencies from "../../components/featuredAgencies/featureAgencies";
 const Home = () => {
   const options = {
     margin: 30,
@@ -41,35 +38,6 @@ const Home = () => {
     },
   };
 
-  const options1 = {
-    margin: 30,
-    responsiveClass: true,
-    nav: true,
-    dots: false,
-    autoplay: true,
-    loop: true,
-    smartSpeed: 1000,
-    responsive: {
-      0: {
-        items: 1,
-      },
-      400: {
-        items: 2,
-      },
-      600: {
-        items: 3,
-      },
-      700: {
-        items: 4,
-      },
-      1000: {
-        items: 5,
-      },
-      1200: {
-        items: 6,
-      },
-    },
-  };
 
   const [services, Setservices] = useState(null);
   const [constr, setconstr] = useState(null);
@@ -84,7 +52,8 @@ const Home = () => {
       Setservices(resp.data.services);
       setconstr(resp.data.services[1]);
       setconsult(resp.data.services[0]);
-      setinterDesing(resp.data.services[4]);
+      setinterDesing(resp.data.services[2]);
+      // console.log(" get user services:---------------->", resp.data); // Api response check
     });
   };
   useEffect(() => {
@@ -101,14 +70,20 @@ const Home = () => {
               <div className="col-12">
                 <div className="cat_section_head d-flex justify-content-between align-items-center px-lg-5 px-md-3 px-1 pt-1">
                   <h2>{constr && constr.title}</h2>
-                  <img src="./img/cat_img.png" />
+                  <img
+                    src={`${baseURLImg}services/logo/lg/${
+                      constr && constr.logo_image
+                    }`}
+                  />
                 </div>
               </div>
             </div>
             {constr ? <CategorySilder data={constr.sub_services} /> : null}
           </div>
         </div>
-        <FeaeturedAdds />
+        <div className="featuredAdds_section">
+          <FeaeturedAdds />
+        </div>
 
         <div className="cat_section my-3">
           <div className="container-fluid">
@@ -116,51 +91,23 @@ const Home = () => {
               <div className="col-12">
                 <div className="cat_section_head d-flex justify-content-between align-items-center px-lg-5 px-md-3 px-1 pt-1">
                   <h2>{consult && consult.title}</h2>
-                  <img src="./img/cat_img.png" />
+                  <img
+                    src={`${baseURLImg}services/logo/lg/${
+                      consult && consult.logo_image
+                    }`}
+                  />
                 </div>
               </div>
             </div>
-            {consult ? (
-              <CategorySilder data={consult.sub_services} />
-            ) : null}
+            {consult ? <CategorySilder data={consult.sub_services} /> : null}
           </div>
+        </div>
+        <div className="featuredAgancies_section">
+          <FeaturedAgencies />
         </div>
 
         <div className="property_card_list">
-          <div className="container-fluid px-lg-5 px-md-3 px-1 pt-1">
-            <div class="section_heading">
-              <h2>Feartured Constructions</h2>
-            </div>
-            <OwlCarousel className="owl-theme owl-theme-2" {...options1}>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-              <div class="item">
-                <ProfileCard />
-              </div>
-            </OwlCarousel>
-          </div>
+         
         </div>
 
         <div className="cat_section my-md-3 my-1">
@@ -169,7 +116,11 @@ const Home = () => {
               <div className="col-12">
                 <div className="cat_section_head d-flex justify-content-between align-items-center px-lg-5 px-md-3 px-1 pt-1">
                   <h2>{interdesign && interdesign.title}</h2>
-                  <img src="./img/cat_img.png" />
+                  <img
+                    src={`${baseURLImg}services/logo/lg/${
+                      interdesign && interdesign.logo_image
+                    }`}
+                  />
                 </div>
               </div>
             </div>

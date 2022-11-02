@@ -1,16 +1,41 @@
 import "./propertyDetails.scss";
 import { Icon } from "@iconify/react";
-import { Carousel } from "antd";
-import Img from "../../images/slider_img.png";
 import Profile from "../../images/profileUser.png";
 import MainLayout from "../../layouts/mainLayout/mainLayout.jsx";
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import ImageGallery from "react-image-gallery";
+import { Link } from "react-router-dom";
 import axios from "axios";
 const PropertyDetailPage = () => {
   let { id } = useParams();
-  const [details, Setdetails] = useState();
-
+  const [details, Setdetails] = useState({});
+  const images = [
+    {
+      original: "https://picsum.photos/id/1018/1000/600/",
+      thumbnail: "https://picsum.photos/id/1018/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1015/1000/600/",
+      thumbnail: "https://picsum.photos/id/1015/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1018/1000/600/",
+      thumbnail: "https://picsum.photos/id/1018/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1015/1000/600/",
+      thumbnail: "https://picsum.photos/id/1015/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+  ];
   // =============================================
   // Get API for Property data
   // =============================================
@@ -23,7 +48,7 @@ const PropertyDetailPage = () => {
   useEffect(() => {
     getDetails();
   }, []);
-  console.log("detail pahe id is", id);
+
   return (
     <>
       <MainLayout>
@@ -34,13 +59,13 @@ const PropertyDetailPage = () => {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb">
                     <li className="breadcrumb-item">
-                      <a href="#">Home</a>
+                      <Link to="/">Home</Link>
                     </li>
                     <li className="breadcrumb-item">
-                      <a href="#">Library</a>
+                      <Link to={`/services/${details?.service?.id}`}>{details?.service?.title}</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      Data
+                      {details?.type?.type}
                     </li>
                   </ol>
                 </nav>
@@ -51,20 +76,9 @@ const PropertyDetailPage = () => {
                 <div className="property py-2">
                   <div className="row">
                     <div className="col-lg-8">
-                      <Carousel autoplay>
-                        <div>
-                          <img src={Img} />
-                        </div>
-                        <div>
-                          <img src={Img} />
-                        </div>
-                        <div>
-                          <img src={Img} />
-                        </div>
-                        <div>
-                          <img src={Img} />
-                        </div>
-                      </Carousel>
+                      <div className="silder_div my-2">
+                        <ImageGallery items={images} />
+                      </div>
                       <div className="property_details_info mt-4">
                         <h4>Property Details</h4>
                         <div className="row justify-content-between">
@@ -107,7 +121,7 @@ const PropertyDetailPage = () => {
                         </div>
                         <p>{details && details.title} </p>
                         <div className="d-flex justify-content-between mt-4">
-                          <span>Zone 4, Doha Qatar.</span>
+                          <span>{details?.city?.name},{details?.country?.name}.</span>
                           <span>10 Min ago</span>
                         </div>
                       </div>

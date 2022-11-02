@@ -28,7 +28,7 @@ const PropertyCard = (props) => {
             </div>
           </div>
           <h3>QAR {cardData.price}</h3>
-          <div className="aboutAdd">Zone 4, Doha Qatar . 10 Min ago</div>
+          <div className="aboutAdd">{cardData.city.name}, {cardData.country.name}</div>
           <div className="addWish">
             <Icon icon="bi:heart" />
           </div>

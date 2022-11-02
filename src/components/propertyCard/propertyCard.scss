@@ -9,6 +9,16 @@
   }
   .cardDetails {
     position: relative;
+    &::after{
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      height:100%;
+      width: 5px;
+      background-color:$theme_color;
+      content: "";
+      border-radius:0px 0px 0px 5px;
+    }
     h4 {
       font-size: 16px;
       font-weight: 500;

@@ -2,10 +2,11 @@ import "./categorySilder.scss";
 import OwlCarousel from "react-owl-carousel";
 import { useState, useEffect } from "react";
 import CategoryCard from "../categoryCard/categoryCard";
+import { baseURLImg } from "../../routes/routes";
 const CategorySlider = (props) => {
   // const [data, setData] = useState(props.data);
 
-  const [data, setData] = useState(props.data)
+  const [data, setData] = useState(props.data);
   const options = {
     margin: 30,
     responsiveClass: true,
@@ -45,7 +46,7 @@ const CategorySlider = (props) => {
               <CategoryCard
                 name={item.title}
                 id={item.id}
-                img="./img/cat_1.png"
+                img={`${baseURLImg}services/logo/lg/${item.logo_image}`}
                 bg="rgba(20, 136, 204, 0.1)"
               />
             );

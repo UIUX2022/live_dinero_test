@@ -12,7 +12,7 @@ const Pricefilter = () => {
       <div className="PriceFilter">
         <h6>Low prices</h6>
               <Slider range defaultValue={[2000, 5000]} disabled={disabled} />
-              <div class="d-flex pt-2 justify-content-between align-items-center">
+              <div className="d-flex pt-2 justify-content-between align-items-center">
                   <span>QAR</span>
                   <button>Apply</button>
               </div>

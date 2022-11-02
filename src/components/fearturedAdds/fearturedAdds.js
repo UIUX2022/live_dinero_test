@@ -3,6 +3,9 @@ import ProppertyCard from "../propertyCard/propertyCard";
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+// =================================================================
+//  Get Api for Featured Adds
+// =================================================================
 const FearturedAdds = () => {
   const [feartAdds, SetfeatAdds] = useState(null);
   const getFearturedAdds = async () => {
@@ -50,9 +53,9 @@ const FearturedAdds = () => {
   };
   return (
     <>
-      <div className="property_card_list pt-3">
+      <div className="property_card_list">
         <div className="container-fluid px-lg-5 px-md-3 px-1 pt-1">
-          <div class="section_heading">
+          <div className="section_heading">
             <h2>Feartured Constructions</h2>
           </div>
           {feartAdds ? (
@@ -60,7 +63,7 @@ const FearturedAdds = () => {
               {feartAdds &&
                 feartAdds.map((item1,index) => {
                   return (
-                    <div class="item" key={index}>
+                    <div className="item" key={index}>
                       <ProppertyCard data={item1} />
                     </div>
                   );

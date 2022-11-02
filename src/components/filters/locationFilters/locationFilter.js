@@ -20,7 +20,7 @@ const LocationsFilter = () => {
         <div className="display_cat">
           {data.map((data1, index) => {
             return (
-              <div className="px-1" key={index}>
+              <div className="px-1" key={data1 + index}>
                 <h6 className="px-1">{data1.name}</h6>
                 {data1.child.map((data2) => {
                   return (

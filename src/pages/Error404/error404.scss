@@ -1,0 +1,45 @@
+@import "../../css/variables.scss";
+.error_page {
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  img {
+    width: 200px;
+  }
+  h5 {
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 30px;
+    color: $theme_color;
+  }
+  h4 {
+    color: $dark_text;
+    font-size: 100px;
+    font-weight: 700;
+    line-height: 90px;
+  }
+  p {
+    font-weight: 600;
+    color: $dark_text;
+    text-align: center;
+  }
+}
+@media (max-width: 425px) {
+  .error_page {
+    img {
+      width: 120px;
+    }
+    h5 {
+      font-size: 30px;
+      font-weight: 700;
+      line-height: 25px;
+      color: $theme_color;
+    }
+    h4 {
+      color: $dark_text;
+      font-size: 70px;
+      line-height: 60px;
+    }
+  }
+}

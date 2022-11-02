@@ -8,7 +8,8 @@ import LocationFilter from "../../components/filters/locationFilters/locationFil
 import Pricefilter from "../../components/filters/priceFilter/priceFilter";
 import ProfileCard from "../../components/profileCard/profileCard";
 import ProdileCard2 from "../../components/profileLandCard/ProfileLandCArd";
-import { Collapse } from "antd";
+import PropertyLandCard from "../../components/propertyLandCard/propertyLandCard";
+import { Collapse, Tooltip } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -16,8 +17,9 @@ import PropertyCard from "../../components/propertyCard/propertyCard";
 const Services = () => {
   const { id } = useParams();
   const [gridCard, setGridCard] = useState(true);
-  const [servicedata, setServicedata] = useState(null);
-  const [ads, SetAds] = useState(null);
+  const [servicedata, setServicedata] = useState({});
+  const [filterOptions, setFilterOPtions] = useState([]);
+  const [ads, SetAds] = useState([]);
   const { Panel } = Collapse;
   const options = {
     margin: 30,
@@ -30,10 +32,10 @@ const Services = () => {
     smartSpeed: 1000,
     responsive: {
       0: {
-        items: 2,
+        items: 3,
       },
       400: {
-        items: 3,
+        items: 4,
       },
       600: {
         items: 4,
@@ -57,7 +59,7 @@ const Services = () => {
     await axios
       .get(`service/${id}`)
       .then((resp) => {
-        console.log("get services API is ", resp.data.services);
+        // console.log("get services API is ", resp.data.services);
         setServicedata(resp.data.services);
         SetAds(resp.data.services.ads);
       })
@@ -65,10 +67,26 @@ const Services = () => {
         console.log("error services API is ", error);
       });
   };
+
+  // =========================================================================
+  // Get API for Filter options
+  // =========================================================================
+  const getFilterOptions = async () => {
+    await axios
+      .get("sort-options")
+      .then((response) => {
+        // console.log("filter options", response.data.sort_options);
+        setFilterOPtions(response.data.sort_options);
+      })
+      .catch((error) => {
+        console.log("error services API is ", error);
+      });
+  };
   useEffect(() => {
     getServicesDetail();
+    getFilterOptions();
   }, [id]);
-
+  
   return (
     <>
       <MainLayout>
@@ -77,8 +95,7 @@ const Services = () => {
             <div className="container my-lg-5 my-md-3 my-2">
               <div className="row">
                 <div className="col-12 text-center">
-                  <h1>Consultants</h1>
-                  <p>Thousands of talented consultants in one place.</p>
+                  <h1>{servicedata && servicedata.title}</h1>
                 </div>
               </div>
             </div>
@@ -197,17 +214,11 @@ const Services = () => {
                   <div className="cart_list">
                     <div className="cart_list_header py-2 px-2">
                       <div className="row align-items-center">
-                        <div className="col-lg-6 ">
+                        <div className="col-md-5 ">
                           <nav aria-label="breadcrumb" className="">
                             <ol className="breadcrumb mb-0">
                               <li className="breadcrumb-item">
                                 <Link to="/">Home</Link>
-                              </li>
-                              <li
-                                className="breadcrumb-item active"
-                                aria-current="page"
-                              >
-                                Services
                               </li>
                               <li
                                 className="breadcrumb-item active"
@@ -218,9 +229,9 @@ const Services = () => {
                             </ol>
                           </nav>
                         </div>
-                        <div className="col-lg-6 mt-2">
-                          <div className="header_filter d-flex justify-content-lg-end justify-content-between gap-2 align-items-lg-center align-items-end">
-                            <div>
+                        <div className="col-md-7 mt-2 mt-md-0">
+                          <div className="header_filter d-flex justify-content-md-end justify-content-between gap-2 align-items-lg-center align-items-end">
+                            {/* <div>
                               <span>Filter By:&nbsp;</span>
                               <select defaultValue="10">
                                 <option selected>Default</option>
@@ -228,26 +239,40 @@ const Services = () => {
                                 <option value="2">Two</option>
                                 <option value="3">Three</option>
                               </select>
-                            </div>
+                            </div> */}
                             <div>
                               <span>Sort By:&nbsp;</span>
-                              <select defaultValue="20">
-                                <option selected>Default</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                              <select defaultValue="default">
+                                <option selected value="">
+                                  Default
+                                </option>
+                                {filterOptions &&
+                                  filterOptions.map((option, index) => {
+                                    return (
+                                      <>
+                                        <option
+                                          value={option.value}
+                                          id={`options${index}`}
+                                        >
+                                          {option.title}
+                                        </option>
+                                      </>
+                                    );
+                                  })}
                               </select>
                             </div>
-                            <div
-                              className="grid_icon"
-                              onClick={() => setGridCard(!gridCard)}
-                            >
-                              {gridCard ? (
-                                <Icon icon="bx:menu" />
-                              ) : (
-                                <Icon icon="gg:menu-grid-r" />
-                              )}
-                            </div>
+                            <Tooltip placement="top" title="View Change">
+                              <div
+                                className="grid_icon"
+                                onClick={() => setGridCard(!gridCard)}
+                              >
+                                {gridCard ? (
+                                  <Icon icon="bx:menu" />
+                                ) : (
+                                  <Icon icon="gg:menu-grid-r" />
+                                )}
+                              </div>
+                            </Tooltip>
                           </div>
                         </div>
                       </div>
@@ -283,12 +308,12 @@ const Services = () => {
                               return (
                                 <>
                                   {adItems.ad_type_id == 1 ? (
-                                    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-10">
-                                      <PropertyCard data={adItems} />
+                                    <div className="col-xl-6 col-12">
+                                      <PropertyLandCard data={adItems} />
                                     </div>
                                   ) : (
                                     <div className="col-xl-6 col-lg-12">
-                                      <ProdileCard2 />
+                                      <ProdileCard2 data={adItems} />
                                     </div>
                                   )}
                                 </>
@@ -297,6 +322,14 @@ const Services = () => {
                         </div>
                       </>
                     )}
+                    {ads.length == 0 ? (
+                      <div className="empty_data_result mt-2">
+                        <div className="text-center py-5">
+                          <img src="/img/products.png" alt="empty-img" />
+                          <p>Sorry No Result</p>
+                        </div>
+                      </div>
+                    ) : null}
                   </div>
                 </div>
               </div>

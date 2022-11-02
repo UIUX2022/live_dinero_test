@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { startLoader, endLoader } from "../../redux/actions/index";
 import { Button, Dropdown, Menu } from "antd";
 
+
 const Header = () => {
   const token = useSelector((state) => state.authReducer.token);
 
@@ -66,7 +67,7 @@ const Header = () => {
     getSubServices();
   }, []);
   return (
-    <div className="header_section px-5">
+    <div className="header_section px-1 px-md-5">
       <div className="container-fluid pt-2 ">
         <div className="d-flex justify-content-between align-items-center">
           <div className="header_logo py-1">
@@ -150,6 +151,9 @@ const Header = () => {
                 <button className="py-1">Log in</button>
               </Link>
             )}
+          </div>
+          <div className="menuMobile_icon d-lg-none">
+            <Icon icon="ci:menu-alt-01" />
           </div>
         </div>
       </div>

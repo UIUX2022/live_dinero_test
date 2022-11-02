@@ -10,9 +10,10 @@
   color: #fff;
   h1 {
     color: #fff;
-    font-size: 600;
+    font-weight: 600;
     font-size: 36px;
-    letter-spacing: -2px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
   }
   p {
     font-weight: 500;
@@ -24,16 +25,16 @@
 }
 .cart_list_header{
     background-color: #fff;
-    border-radius: 5px;;
+    border-radius: 3px;;
 }
 .header_filter select{
-min-width: 130px;
+min-width: 165px;
 padding: 2px 8px;
-border: 2px solid $theme_color;
-border-radius:5px;
-@media (max-width:425px){
-  min-width: 100%;
-}
+border: 1px solid $theme_color;
+border-radius:3px;
+// @media (max-width:425px){
+//   min-width: 100%;
+// }
 }
 .cat_filters{
   position:sticky;
@@ -48,11 +49,7 @@ border-radius:5px;
       color: $theme_color;
     }
     .grid_icon{
-      @media (max-width:425px){
-        position:absolute;
-        right: 0px;
-        top: -30px;
-      }
+      cursor: pointer;
     }
     
 }
@@ -94,21 +91,29 @@ border-radius:5px;
   }
   .ant-collapse > .ant-collapse-item:last-child {
     border: 1px solid rgba(0,0,0,0.1);
-    border-radius: 10px;
+    border-radius: 5px;
   }
 }
 .propsSales_filters {
   position: sticky; // Newly Added CSS
   top: 0;
 }
+.empty_data_result{
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ background-color:#fff;
+ height:50vh;
+ img{
+  width: 80px;
+ }
+}
 @media (max-width: 425px) {
   .servicePage_header {
-    p {
-      font-weight: 500;
-      font-size: 14px;
-    }
+
     h1 {
-      font-size: 30px;
+      font-size: 22px;
+      line-height: 70px;
     }
   }
 }

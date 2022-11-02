@@ -10,6 +10,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .catrgory_card {
@@ -17,7 +18,12 @@
     font-size: 14px;
     font-weight: 500;
     color: $dark_text;
+    line-height: 20px;
     margin-top: 5px;
+    white-space: nowrap; 
+    width:100%; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
   }
   img {
   width: 90px;
