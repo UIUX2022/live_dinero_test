@@ -1,6 +1,8 @@
 @import '../../css/variables.scss';
 .profileUpdate {
   text-align: center;
+  background-color: #fff;
+  min-height: 100vh;
   label {
     font-size: 16px;
     font-weight: 500;
@@ -11,6 +13,8 @@
     height: 140px;
     border-radius: 50%;
     object-fit: cover;
+    border: 1px solid $theme_color;
+    cursor: pointer;
     @media screen and (max-width: 1024px) {
       width: 100px;
       height: 100px;
@@ -26,6 +30,7 @@
     padding: 10px !important;
   }
 }
+
 .profile_form {
   .input-col {
     position: relative;
@@ -38,12 +43,11 @@
   }
   .form-control {
     border: none;
-    border-bottom: 2px solid $theme_color;
-    border-radius: 0px;
+    border-radius: 3px;
+    background-color:#f9f9f9;
     &:focus {
       border: none;
       box-shadow: none;
-      border-bottom: 2px solid $theme_color;
     }
   }
   .form-submit {

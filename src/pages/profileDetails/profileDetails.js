@@ -4,12 +4,11 @@ import MainLayout from "../../layouts/mainLayout/mainLayout.jsx";
 import Profile from "../../images/profileUser.png";
 import ProfileBg from "../../images/profilebg.png";
 import ImageGallery from "react-image-gallery";
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import {baseURL} from '../../routes/routes'
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { baseURL,baseURLImg } from "../../routes/routes";
 
 const ServicesDetail = () => {
-
   const [userDetails, setUserDetails] = useState(null);
 
   const images = [
@@ -45,11 +44,11 @@ const ServicesDetail = () => {
     await axios.get("ad/14").then((resp) => {
       console.log("get user profile api data -------->", resp.data.ad);
       setUserDetails(resp.data.ad);
-    })
- }
+    });
+  };
   useEffect(() => {
     getProfileDetail();
-  },[])
+  }, []);
   return (
     <>
       <MainLayout>
@@ -76,6 +75,7 @@ const ServicesDetail = () => {
               <div className="col-12">
                 <div className="header-img mb-3">
                   <img src={ProfileBg} alt="serice_head" />
+                  <h3>{userDetails?.service.title}</h3>
                 </div>
               </div>
             </div>
@@ -85,7 +85,12 @@ const ServicesDetail = () => {
               <div className="col-md-8">
                 <div className="service_pro_details p--md-3 p-2 d-flex align-items-center gap-3">
                   <div className="servies_pro_img">
-                    <img src={`${baseURL}storage/images/ads/detail/${userDetails && userDetails.images[0].image_name}`} alt="pro_img" />
+                    <img
+                      src={`${baseURLImg}ads/detail/${
+                        userDetails && userDetails.images[0].image_name
+                      }`}
+                      alt="pro_img"
+                    />
                   </div>
                   <div className="servies_name">
                     <h3>{userDetails && userDetails.title}</h3>
@@ -102,9 +107,7 @@ const ServicesDetail = () => {
                   <div className="slider"></div>
                   <div className="px-2 py-2">
                     <h3>About My Profile </h3>
-                    <p>
-                      {userDetails && userDetails.short_description}
-                    </p>
+                    <p>{userDetails && userDetails.short_description}</p>
                   </div>
                 </div>
               </div>

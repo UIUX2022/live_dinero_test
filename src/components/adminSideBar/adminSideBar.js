@@ -3,8 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 import { Icon } from "@iconify/react";
 const AdminSidebar = () => {
   const local = useLocation(AdminSidebar);
-  console.log("user current location is", local);
-  
   return (
     <div className="sidebar">
       <div className="userProfile">
@@ -17,28 +15,28 @@ const AdminSidebar = () => {
       <ul className="my-3 sideBar-menu">
         <li
           className={`sideBarLink ${
-            local.pathname == "/profile_setting" ? " active" : " "
+            local.pathname == "/user/profile/setting" ? " active" : " "
           }`}
         >
-          <Link to="/profile_setting">
+          <Link to="/user/profile/setting">
             <Icon icon="carbon:user-avatar-filled" />
             <span>Profile</span>
           </Link>
         </li>
         <li className={`sideBarLink ${
-            local.pathname == "/user/services" ||  local.pathname == "/user/create/services" ? " active" : " "
+            local.pathname == "/user/services" ? " active" : " "
           }`}>
           <Link to="/user/services">
             <Icon icon="entypo:tools" />
-            <span>Services</span>
+            <span>Ads</span>
           </Link>
         </li>
         <li className={`sideBarLink ${
-            local.pathname == "/user/propertyAdds" || local.pathname == "/user/create/properyAdd" ? " active" : " "
+            local.pathname == "/user/create/services" ? " active" : " "
           }`}>
-          <Link to="/user/propertyAdds">
+          <Link to="/user/create/services">
             <Icon icon="teenyicons:search-property-solid" />
-            <span> Property Info</span>
+            <span>Create Ad</span>
           </Link>
         </li>
         <li className="sideBarLink">

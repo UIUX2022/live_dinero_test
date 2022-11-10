@@ -2,7 +2,7 @@ import "./featuredAdds.scss";
 import OwlCarousel from "react-owl-carousel";
 import ProfileCard from "../profileCard/profileCard";
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 const FeaturedAgencies = () => {
   const [listAgencies, setListAgencies] = useState([]);
   const options1 = {
@@ -37,49 +37,32 @@ const FeaturedAgencies = () => {
   // =================================================================
   //  Get Api for Featured Agencices
   // =================================================================
-    const getFeatured = async () => {
-        await axios.get("agencies/active").then((resp) => {
-            console.log("get api Data is ===============>", resp);
-        })
-    }
-    useEffect(() => {
-        getFeatured();
+  const getFeatured = async () => {
+    await axios.get("agencies/featured").then((resp) => {
+      setListAgencies(resp.data.agencies);
+    });
+  };
+  useEffect(() => {
+    getFeatured();
   }, []);
+  console.log("get api Data is ===============>", listAgencies);
   return (
     <>
       <div className="container-fluid px-lg-5 px-md-3 px-1 pt-1">
         <div className="section_heading">
           <h2>Feartured Constructions</h2>
         </div>
-        <OwlCarousel className="owl-theme owl-theme-2" {...options1}>
-          <div className="item">
-            <ProfileCard />
-          </div>
-          <div className="item">
-            <ProfileCard />
-          </div>
-          <div className="item">
-            <ProfileCard />
-          </div>
-          <div className="item">
-            <ProfileCard />
-          </div>
-          <div className="item">
-            <ProfileCard />
-          </div>
-          <div className="item">
-            <ProfileCard />
-          </div>
-          <div className="item">
-            <ProfileCard />
-          </div>
-          <div className="item">
-            <ProfileCard />
-          </div>
-          <div className="item">
-            <ProfileCard />
-          </div>
-        </OwlCarousel>
+        {listAgencies ? (
+          <OwlCarousel className="owl-theme owl-theme-2" {...options1}>
+            {listAgencies.map((cardItem, index) => {
+              return (
+                <div className="item">
+                  <ProfileCard data={cardItem} />
+                </div>
+              );
+            })}
+          </OwlCarousel>
+        ) : null}
       </div>
     </>
   );

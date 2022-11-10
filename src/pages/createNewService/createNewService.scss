@@ -47,16 +47,15 @@
 .serviceForm {
   .form-control {
     border: none;
-    border-bottom: 2px solid $theme_color;
-    border-radius: 0px;
+    border-radius: 3px;
     padding: 10px 15px;
     font-size: 16px;
+    background-color: #f9f9f9;
     &::placeholder {
       font-size: 16px;
     }
     &:focus {
       box-shadow: none;
-      border-bottom: 2px solid $theme_color;
     }
   }
   h6 {
@@ -81,7 +80,7 @@
   position: relative;
   svg {
     position: absolute;
-    top: 50%;
+    top: 66%;
     transform: translateY(-50%);
     right: 25px;
     font-size: 22px;

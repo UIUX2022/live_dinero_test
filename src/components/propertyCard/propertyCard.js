@@ -5,14 +5,15 @@ import "./propertyCard.scss";
 const PropertyCard = (props) => {
   const [cardData, SetCArdData] = useState(props.data);
 
+  console.log("")
   return (
-    <Link to={`/propertydetails/${cardData.id}`}>
+    <Link to={`/propertydetails/${cardData?.id}`}>
       <div className="AddsCardContainer mt-3 mx-1">
         <div className="coverImg">
           <img src="/img/addbg.jpg" alt="cover" />
         </div>
         <div className="cardDetails p-2">
-          <h4>{cardData.title}</h4>
+          <h4>{cardData?.title}</h4>
           <div className="roomdetails my-2">
             <div className="roomItams d-flex justify-content-center align-content-center gap-1">
               <Icon icon="cil:room" />
@@ -27,8 +28,8 @@ const PropertyCard = (props) => {
               <p>1361.25sq</p>
             </div>
           </div>
-          <h3>QAR {cardData.price}</h3>
-          <div className="aboutAdd">{cardData.city.name}, {cardData.country.name}</div>
+          <h3>QAR {cardData?.price}</h3>
+          <div className="aboutAdd">{cardData?.city.name}, {cardData?.country.name}</div>
           <div className="addWish">
             <Icon icon="bi:heart" />
           </div>

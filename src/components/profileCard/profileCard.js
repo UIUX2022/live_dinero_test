@@ -2,14 +2,16 @@ import "./profileCard.scss";
 import Profile from "../../images/profileUser.png";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-const ProfileCard = () => {
+const ProfileCard = ({ data }) => {
   return (
     <>
       <div className="profile_card px-2 py-2 mt-3">
         <img src={Profile} className="p-1" />
         <div className="user_details">
           <h3>
-            <Link to="/profiledetails">Rai Sufian</Link>
+            <Link to={`/profiledetails/${data?.user_id}`}>
+              {data?.display_name}
+            </Link>
           </h3>
           <h6 className="py-1">Suhaim Bin Hamad St</h6>
           <div className="d-flex justify-content-center align-items-center gap-1">

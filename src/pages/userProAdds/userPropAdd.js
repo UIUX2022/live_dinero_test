@@ -6,20 +6,21 @@ const UserPropertyAdd = () => {
   const data = {
     id: "99",
     price: 0,
+    name:"sufian"
   };
   return (
     <Adminlayout>
       <div className="pageTitle">Your All Ads </div>
       <div className="row">
-        <div className="col-lg-4 col-md-6">
-          <PropertyCard data />
+        {/* <div className="col-lg-4 col-md-6">
+          <PropertyCard data={data} />
         </div>
         <div className="col-lg-4 col-md-6">
-          <PropertyCard data />
-        </div>
-        <div className="col-lg-4 col-md-6">
-          <PropertyCard data />
-        </div>
+          <PropertyCard data={data} />
+        </div> */}
+        {/* <div className="col-lg-4 col-md-6">
+          <PropertyCard data={data} />
+        </div> */}
         <div className="col-lg-4 col-md-6">
           <AddNewPropertyCard />
         </div>

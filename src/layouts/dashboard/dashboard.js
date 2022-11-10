@@ -10,7 +10,7 @@ const Adminlayout = ({ pagename, children }) => {
       <div className="admin_layout container">
         <div className="row">
           <div className="col-12">
-            <div class="adminPanel py-4">
+            <div className="adminPanel py-4">
               <AdminSidebar />
               <div className="layoutChild">{children}</div>
             </div>

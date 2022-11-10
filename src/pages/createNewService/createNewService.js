@@ -7,12 +7,13 @@ import Step3 from "../../components/CreateNewSerive/step_3";
 import Step4 from "../../components/CreateNewSerive/step_4";
 const CreateService = () => {
   const [activeStep, setActiveStep] = useState(0);
+  const [adInfo, setAdInfo] = useState({})
 
   switch (activeStep) {
     case 0:
       return (
         <Adminlayout>
-          <Step1 activeStep={activeStep} setActiveStep={setActiveStep} />
+          <Step1 activeStep={activeStep} setActiveStep={setActiveStep} setAdInfo={setAdInfo} />
         </Adminlayout>
       );
     case 1:

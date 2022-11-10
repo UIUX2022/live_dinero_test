@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const AddNewService = () => {
   return (
     <>
-      <Link to="/user/create/properyAdd">
+      <Link to="/user/create/services">
         <div className="addNewCard mt-3">
           <div className="CardItems text-center">
             <Icon icon="carbon:add-alt" />

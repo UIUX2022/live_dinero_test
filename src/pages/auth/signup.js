@@ -7,19 +7,20 @@ import { useFormik } from "formik";
 import { notification } from "antd";
 import axios from "axios";
 import * as Yup from "yup";
+import { COUNTRIES  } from "../../components/countryCode/countryCode";
 
 const Register = () => {
   const [data, getData] = useState(null);
   const initialValues = {
     name: "",
     email: "",
-    country_code: "+974",
+    country_code: "",
     mobile_no: "",
     date_of_birth: "",
     gender: "",
     password: "",
     password_confirmation: "",
-    account_type:""
+    account_type: "",
   };
   const [passShow, setPassShow] = useState(false);
 
@@ -68,7 +69,7 @@ const Register = () => {
         date_of_birth: "12-7-2022",
         password: "12345678",
         password_confirmation: "12345678",
-        account_type:"individual"
+        account_type: "individual",
       })
       .then((respone) => {
         console.log("resjister API response is", respone);
@@ -150,7 +151,7 @@ const Register = () => {
                       </div>
                       <div className="col-md-6">
                         <div className="row">
-                          <div className="col-md-4">
+                          <div className="col-md-4 pl-0">
                             <div className="login-input mt-4">
                               <label>
                                 <Icon icon="clarity:world-solid" />
@@ -163,7 +164,13 @@ const Register = () => {
                                 onBlur={formik.handleBlur}
                                 defaultValue={formik.values.country_code}
                               >
-                                <option value="+974">+974</option>
+                                {COUNTRIES.map((country, index) => {
+                                  return (
+                                    <>
+                                      <option value={country.mobileCode} id={country.mobileCode}>{country.mobileCode}</option>
+                                    </>
+                                  );
+                                })}
                               </select>
                             </div>
                             {formik.touched.country_code &&
@@ -250,7 +257,7 @@ const Register = () => {
                       <div className="col-6">
                         <div className="login-input mt-4">
                           <label>
-                            <Icon icon="clarity:world-solid" />
+                          <Icon icon="entypo:add-user" />
                             Acount type
                           </label>
                           <select
@@ -301,7 +308,7 @@ const Register = () => {
                             Confirm Password
                           </label>
                           <input
-                            type={passShow ? "text" : "password"}
+                            type="password"
                             className="form-control"
                             value={formik.values.password_confirmation}
                             onChange={formik.handleChange}
