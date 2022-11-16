@@ -1,6 +1,6 @@
 import { Icon } from "@iconify/react";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { notification } from "antd";
 import { useSelector, useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import {
   endLoader,
 } from "../../redux/actions/index";
 const Login = () => {
+  const navigation = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authReducer.token);
   const initialValues = {
@@ -35,10 +36,10 @@ const Login = () => {
         password: values.password,
       })
       .then((resp) => {
-        if (resp.data.status == undefined) {
-          console.log("Login API resp", resp.data);
+        if (resp.data.status == 200) {
           dispatch(addtoken(resp.data.token));
           dispatch(addUser(resp.data.user));
+         
         } else {
           notification.error({
             message: "Error",
@@ -60,6 +61,12 @@ const Login = () => {
 
   const [passShow, setPassShow] = useState(false);
 
+  useEffect(() => {
+    if (token) {
+      return navigation("/");
+    }
+ 
+  }, [token]);
   return (
     <div className="registerPage">
       <div className="registerPageDiv pt-4">

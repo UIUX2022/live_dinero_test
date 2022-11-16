@@ -38,12 +38,12 @@ const Home = () => {
     },
   };
 
-
   const [services, Setservices] = useState(null);
   const [constr, setconstr] = useState(null);
   const [consult, setconsult] = useState(null);
   const [interdesign, setinterDesing] = useState(null);
-
+  const [IDF, setIDF] = useState(null);
+  const [Home_lifrstyle, setHome_lifrstyle] = useState(null);
   //==============================================
   //  Get API for Services
   // ==============================================
@@ -53,7 +53,9 @@ const Home = () => {
       setconstr(resp.data.services[1]);
       setconsult(resp.data.services[0]);
       setinterDesing(resp.data.services[2]);
-      // console.log(" get user services:---------------->", resp.data); // Api response check
+      setIDF(resp.data.services[4]);
+      setHome_lifrstyle(resp.data.services[5]);
+      console.log(" get user services:---------------->", resp.data); // Api response check
     });
   };
   useEffect(() => {
@@ -64,69 +66,82 @@ const Home = () => {
     <>
       <MainLayout>
         <HeroSection />
-        <div className="cat_section my-4">
-          <div className="container-fluid">
+        <div className="cat_section mx-lg-5 mx-md-3 mx-2 my-4 pb-3">
+          <div className="container-fuild">
             <div className="row">
-              <div className="col-12">
-                <div className="cat_section_head d-flex justify-content-between align-items-center px-lg-5 px-md-3 px-1 pt-1">
+              <div className="col-12 b-3">
+                <div className="cat_section_head d-flex justify-content-between align-items-center p-lg-3 p-md-2 p-2">
                   <h2>{constr && constr.title}</h2>
-                  <img
-                    src={`${baseURLImg}services/logo/lg/${
-                      constr && constr.logo_image
-                    }`}
-                  />
                 </div>
               </div>
             </div>
             {constr ? <CategorySilder data={constr.sub_services} /> : null}
           </div>
         </div>
-        <div className="featuredAdds_section">
+        {/* <div className="featuredAdds_section">
           <FeaeturedAdds />
-        </div>
+        </div> */}
 
-        <div className="cat_section my-3">
-          <div className="container-fluid">
+        <div className="cat_section mx-lg-5 mx-md-3 mx-2 my-4 pb-3">
+          <div className="container-fuild">
             <div className="row">
               <div className="col-12">
-                <div className="cat_section_head d-flex justify-content-between align-items-center px-lg-5 px-md-3 px-1 pt-1">
+                <div className="cat_section_head d-flex justify-content-between align-items-center p-lg-3 p-md-2 p-2">
                   <h2>{consult && consult.title}</h2>
-                  <img
-                    src={`${baseURLImg}services/logo/lg/${
-                      consult && consult.logo_image
-                    }`}
-                  />
                 </div>
               </div>
             </div>
             {consult ? <CategorySilder data={consult.sub_services} /> : null}
           </div>
         </div>
-        <div className="featuredAgancies_section">
+
+        {/* <div className="featuredAgancies_section">
           <FeaturedAgencies />
-        </div>
+        </div> */}
 
-        <div className="property_card_list">
-         
-        </div>
-
-        <div className="cat_section my-md-3 my-1">
+        <div className="cat_section mx-lg-5 mx-md-3 mx-2 my-4 pb-3">
           <div className="container-fluid">
             <div className="row">
               <div className="col-12">
-                <div className="cat_section_head d-flex justify-content-between align-items-center px-lg-5 px-md-3 px-1 pt-1">
+                <div className="cat_section_head d-flex justify-content-between align-items-center p-lg-3 p-md-2 p-2">
                   <h2>{interdesign && interdesign.title}</h2>
-                  <img
-                    src={`${baseURLImg}services/logo/lg/${
-                      interdesign && interdesign.logo_image
-                    }`}
-                  />
                 </div>
               </div>
             </div>
 
             {interdesign ? (
               <CategorySilder data={interdesign.sub_services} />
+            ) : null}
+          </div>
+        </div>
+
+        {/* IDF */}
+        <div className="cat_section mx-lg-5 mx-md-3 mx-2 my-4 pb-3">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-12">
+                <div className="cat_section_head d-flex justify-content-between align-items-center p-lg-3 p-md-2 p-2">
+                  <h2>{IDF && IDF.title}</h2>
+                </div>
+              </div>
+            </div>
+
+            {IDF ? <CategorySilder data={IDF.sub_services} /> : null}
+          </div>
+        </div>
+        {/* Home_lifrstyl */}
+        <div className="cat_section mx-lg-5 mx-md-3 mx-2 my-4 pb-3">
+          <div className="container-fluid">
+            <div className="row">
+              <div className="col-12">
+                <div className="cat_section_head d-flex justify-content-between align-items-center p-lg-3 p-md-2 p-2">
+                  <h2>{Home_lifrstyle && Home_lifrstyle.title}</h2>
+                </div>
+              </div>
+            </div>
+
+            {Home_lifrstyle ? (
+              <CategorySilder data={Home_lifrstyle.sub_services} />
             ) : null}
           </div>
         </div>

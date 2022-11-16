@@ -1,29 +1,35 @@
 import "./herosection.scss";
 import { Carousel } from "antd";
-import slider1 from '../../images/slider_img.png';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import { baseURLImg } from "../../routes/routes";
+import { Link } from "react-router-dom";
 const HeroSection = () => {
-  const contentStyle = {
-    height: "160px",
-    color: "#fff",
-    lineHeight: "160px",
-    textAlign: "center",
-    background: "#364d79",
+  const [banners, setBanners] = useState([]);
+  const getSliderImgs = async () => {
+    await axios.get("banners/active").then((resp) => {
+      setBanners(resp.data.banners);
+    });
   };
+  useEffect(() => {
+    getSliderImgs();
+  }, []);
   return (
     <div className="hero_section">
       <Carousel autoplay>
-              <div>
-              <img src={slider1} /> 
-        </div>
-        <div>
-        <img src={slider1} /> 
-        </div>
-        <div>
-        <img src={slider1} /> 
-        </div>
-        <div>
-        <img src={slider1} /> 
-        </div>
+        {banners &&
+          banners.map((banner, index) => {
+            return (
+              <div key={index}>
+                <Link to={banner.link}>
+                  <img
+                    src={`${baseURLImg}banners/lg/${banner.image_name}`}
+                    alt="slider_img"
+                  />
+                </Link>
+              </div>
+            );
+          })}
       </Carousel>
     </div>
   );

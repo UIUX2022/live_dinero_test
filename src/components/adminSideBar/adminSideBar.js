@@ -1,20 +1,55 @@
 import "./adminSideBar.scss";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Icon } from "@iconify/react";
+import { useSelector, useDispatch } from "react-redux";
+import { addUser, addtoken } from "../../redux/actions";
+import axios from "axios";
+
 const AdminSidebar = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigate();
+  const token = useSelector((state) => state.authReducer.token);
+  const user = useSelector((state) => state.authReducer.user);
   const local = useLocation(AdminSidebar);
+  const getjwtToken = "bearer-" + token;
+  const logOut = async () => {
+    dispatch(addUser({}));
+    dispatch(addtoken(""));
+    navigation("/");
+    await axios
+      .post(
+        "auth/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((resp) => {
+        console.log("log out response is", resp);
+        if (resp.data.status == 200) {
+          dispatch(addUser({}));
+          dispatch(addtoken(""));
+        }
+      })
+      .catch((error) => {
+        console.log("logout Api error is", error);
+      });
+  };
+
   return (
     <div className="sidebar">
       <div className="userProfile">
         <img src="/img/profileUser.png" alt="pic" />
         <div>
-          <h6>Ahmad Nur Fawaid</h6>
-          <p>ahmadnur@gmail.com</p>
+          <h6>{user.name}</h6>
+          <p>{user.email}</p>
         </div>
       </div>
       <ul className="my-3 sideBar-menu">
         <li
-          className={`sideBarLink ${
+          className={`sideBarLink px-2 ${
             local.pathname == "/user/profile/setting" ? " active" : " "
           }`}
         >
@@ -23,63 +58,50 @@ const AdminSidebar = () => {
             <span>Profile</span>
           </Link>
         </li>
-        <li className={`sideBarLink ${
+        <li
+          className={`sideBarLink px-2 ${
             local.pathname == "/user/services" ? " active" : " "
-          }`}>
+          }`}
+        >
           <Link to="/user/services">
             <Icon icon="entypo:tools" />
             <span>Ads</span>
           </Link>
         </li>
-        <li className={`sideBarLink ${
+        <li
+          className={`sideBarLink px-2 ${
             local.pathname == "/user/create/services" ? " active" : " "
-          }`}>
+          }`}
+        >
           <Link to="/user/create/services">
-            <Icon icon="teenyicons:search-property-solid" />
+            <Icon icon="uil:create-dashboard" />
             <span>Create Ad</span>
           </Link>
         </li>
-        <li className="sideBarLink">
+
+        <li className="sideBarLink px-2">
           <Link to="/">
-            <Icon icon="icon-park-outline:transaction-order" />
-            <span>Orders</span>
+            <Icon icon="clarity:notification-solid-badged" />
+            <span>Notifications</span>
           </Link>
         </li>
-        <li className="sideBarLink">
+        <li className="sideBarLink px-2">
           <Link to="/">
-            <Icon icon="entypo:wallet" />
-            <span>Wallet</span>
+            <Icon icon="ant-design:customer-service-twotone" />
+            <span>Customer Care </span>
           </Link>
-          <li className="sideBarLink">
-            <Link to="/">
-              <Icon icon="fa-solid:address-card" />
-              <span>Addresses </span>
-            </Link>
-          </li>
-          <li className="sideBarLink">
-            <Link to="/">
-              <Icon icon="clarity:notification-solid-badged" />
-              <span>Notifications</span>
-            </Link>
-          </li>
-          <li className="sideBarLink">
-            <Link to="/">
-              <Icon icon="ant-design:customer-service-twotone" />
-              <span>Customer Care </span>
-            </Link>
-          </li>
-          <li className="sideBarLink">
-            <Link to="/">
-              <Icon icon="clarity:settings-solid-badged" />
-              <span>Settings</span>
-            </Link>
-          </li>
-          <li className="sideBarLink">
-            <Link to="/">
-              <Icon icon="ant-design:logout-outlined" />
-              <span>Log Out </span>
-            </Link>
-          </li>
+        </li>
+        <li className="sideBarLink px-2">
+          <Link to="/user/restPassword">
+            <Icon icon="clarity:settings-solid-badged" />
+            <span>Reset Password</span>
+          </Link>
+        </li>
+        <li className="sideBarLink px-2 logou_out_item" onClick={logOut}>
+          <a>
+            <Icon icon="ant-design:logout-outlined" />
+            <span>Log Out </span>
+          </a>
         </li>
       </ul>
     </div>

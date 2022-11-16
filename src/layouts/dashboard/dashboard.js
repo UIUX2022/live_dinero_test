@@ -2,6 +2,7 @@ import React from "react";
 import "./dashboard.scss";
 import AdminSidebar from "../../components/adminSideBar/adminSideBar";
 import Header from "../../components/header/header";
+import Footer from "../../components/footer/footer";
 
 const Adminlayout = ({ pagename, children }) => {
   return (
@@ -17,6 +18,7 @@ const Adminlayout = ({ pagename, children }) => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

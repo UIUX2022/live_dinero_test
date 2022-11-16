@@ -1,0 +1,27 @@
+@import "../../css/variables.scss";
+.category_slider {
+  .owl-nav {
+    margin-top: 0px;
+    position: absolute;
+    top: -45px;
+    right: 1rem;
+    display: flex;
+    justify-content: space-between;
+  }
+  .owl-carousel .owl-nav button.owl-prev,
+  .owl-carousel .owl-nav button.owl-next {
+    width: 25px;
+    height: 25px;
+    margin: 1px;
+    border-radius: 13px;
+    background-color: #f5f5f5;
+    &:hover {
+      background-color: $light_text;
+    }
+  }
+  @media (max-width: 425px) {
+    .owl-nav {
+      top: -35px;
+    }
+  }
+}

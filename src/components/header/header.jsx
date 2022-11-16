@@ -1,47 +1,85 @@
 import "./header.scss";
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import Logo from "../../images/logo.png";
 import axios from "axios";
 import { Icon } from "@iconify/react";
 import { useDispatch, useSelector } from "react-redux";
-import { startLoader, endLoader } from "../../redux/actions/index";
+import {
+  startLoader,
+  endLoader,
+  addUser,
+  addtoken,
+} from "../../redux/actions/index";
 import { Button, Dropdown, Menu } from "antd";
-
+import { baseURLImg } from "../../routes/routes";
 
 const Header = () => {
+  const navigation = useNavigate();
+  const local = useLocation();
   const token = useSelector((state) => state.authReducer.token);
-
+  const user = useSelector((state) => state.authReducer.user);
   const dispatch = useDispatch();
   const [current, setCurrent] = useState("mail");
   const [services, setServices] = useState(null);
   const [subservices, setSubServices] = useState(null);
 
+  // ==============================================
+  // Post Api for logout
+  // ==============================================
+  const logOut = async () => {
+    dispatch(startLoader());
+    await axios
+      .post(
+        "auth/logout",
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((resp) => {
+        if (resp.data.status == 200) {
+          dispatch(addUser({}));
+          dispatch(addtoken(""));
+          navigation("/");
+        }
+      })
+      .catch((error) => {
+        console.log("logout successful ", error.response);
+        if (error.response.status == 401) {
+          dispatch(addUser({}));
+          dispatch(addtoken(""));
+          navigation("/");
+        }
+      });
+    dispatch(endLoader());
+  };
   const menu = (
     <Menu>
       <Menu.Item icon={<Icon icon="carbon:user-avatar-filled" />}>
-        <Link to="/profile/manage-profile">&nbsp;Profile</Link>
+        <Link to="/user/profile/setting">&nbsp;{user.name} Profile</Link>
       </Menu.Item>
       <Menu.Item icon={<Icon icon="entypo:tools" />}>
-        <Link to="/profile/order">&nbsp;Services</Link>
+        <Link to="/user/services">&nbsp;Ads</Link>
       </Menu.Item>
       <Menu.Item icon={<Icon icon="teenyicons:search-property-solid" />}>
-        <Link to="/profile/address">&nbsp;Property Info</Link>
-      </Menu.Item>
-
-      <Menu.Item icon={<Icon icon="icon-park-outline:transaction-order" />}>
-        <Link to="/profile/wishlist">&nbsp;Orders</Link>
-      </Menu.Item>
-      <Menu.Item icon={<Icon icon="entypo:wallet" />}>
-        <Link to="/profile/store">&nbsp;wallet</Link>
-      </Menu.Item>
-      <Menu.Item icon={<Icon icon="fa-solid:address-card" />}>
-        <Link to="/profile/my-reviews">&nbsp;address</Link>
+        <Link to="/user/create/services">&nbsp;Create Ad</Link>
       </Menu.Item>
       <Menu.Item icon={<Icon icon="clarity:notification-solid-badged" />}>
         <Link to="/profile/my-question">&nbsp;Notifications</Link>
       </Menu.Item>
-      <Menu.Item danger icon={<Icon icon="ant-design:logout-outlined" />}>
+      <Menu.Item
+        icon={<Icon icon="clarity:settings-solid-badged" className="log_out" />}
+      >
+        <Link to="/user/restPassword">&nbsp;Reset Password</Link>
+      </Menu.Item>
+      <Menu.Item
+        danger
+        icon={<Icon icon="ant-design:logout-outlined" />}
+        onClick={logOut}
+      >
         &nbsp;Logout
       </Menu.Item>
     </Menu>
@@ -55,20 +93,21 @@ const Header = () => {
     await axios
       .get("services-with-sub")
       .then((response) => {
+        // console.log("get data about services", response.data);
         setSubServices(response.data.services);
-
-        dispatch(endLoader());
       })
       .catch((error) => {
         console.log("error services api with sub-services", error);
       });
+    dispatch(endLoader());
   };
   useEffect(() => {
     getSubServices();
   }, []);
+  
   return (
     <div className="header_section px-1 px-md-5">
-      <div className="container-fluid pt-2 ">
+      <div className="container-fuild pt-2 mx-auto">
         <div className="d-flex justify-content-between align-items-center">
           <div className="header_logo py-1">
             <Link to="/">
@@ -77,10 +116,22 @@ const Header = () => {
           </div>
           <div className="main_menu text-center d-none d-lg-block">
             <ul className="mx-auto">
-              <li className="main_menu_items active">
+              <li
+                className={
+                  local.pathname == "/"
+                    ? "main_menu_items active"
+                    : "main_menu_items"
+                }
+              >
                 <Link to="/">Home</Link>
               </li>
-              <li className="main_menu_items custom_dropdown">
+              <li
+                className={
+                  local.pathname == "/services/"
+                    ? "main_menu_items custom_dropdown active"
+                    : "main_menu_items custom_dropdown"
+                }
+              >
                 <Link to="/">
                   Services <Icon icon="akar-icons:chevron-down" />
                 </Link>
@@ -91,8 +142,18 @@ const Header = () => {
                         return (
                           <li key={index}>
                             <div className="d-flex justify-content-between align-items-center">
-                              <Link className="dropdown_item">
-                                <img src="/img/cat_2.png" />
+                              <Link
+                                className="dropdown_item"
+                                to={`/services/${item.id}`}
+                              >
+                                <img
+                                  src={`${baseURLImg}services/logo/lg/${item.logo_image}`}
+                                  alt="alt_img"
+                                  onError={(e) => {
+                                    e.target.onerror = null;
+                                    e.target.src = "/img/main_placeholder.png";
+                                  }}
+                                />
                                 &nbsp;{item.title}
                               </Link>
                               <Icon icon="akar-icons:chevron-down" />
@@ -109,7 +170,15 @@ const Header = () => {
                                       to={`/services/${sub_item.id}`}
                                       className="d-flex gap-1 align-item-center"
                                     >
-                                      <img src="/img/cat_2.png" />
+                                      <img
+                                        src={`${baseURLImg}services/logo/lg/${sub_item.logo_image}`}
+                                        onError={(e) => {
+                                          e.target.onerror = null;
+                                          e.target.src =
+                                            "/img/main_placeholder.png";
+                                        }}
+                                      />
+
                                       <p>{sub_item.title}</p>
                                     </Link>
                                   </div>
@@ -131,9 +200,6 @@ const Header = () => {
             </ul>
           </div>
           <div className="header_btns d-flex gap-2 d-none d-lg-block">
-            <a href="#" className="me-2">
-              <button className="primray py-1">POST AD</button>
-            </a>
             {token ? (
               <Dropdown
                 overlay={menu}
@@ -151,6 +217,9 @@ const Header = () => {
                 <button className="py-1">Log in</button>
               </Link>
             )}
+            <Link to="/user/create/services" className="ms-2">
+              <button className="primray py-1">POST AD</button>
+            </Link>
           </div>
           <div className="menuMobile_icon d-lg-none">
             <Icon icon="ci:menu-alt-01" />

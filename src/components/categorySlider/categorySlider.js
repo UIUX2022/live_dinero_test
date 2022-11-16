@@ -4,14 +4,12 @@ import { useState, useEffect } from "react";
 import CategoryCard from "../categoryCard/categoryCard";
 import { baseURLImg } from "../../routes/routes";
 const CategorySlider = (props) => {
-  // const [data, setData] = useState(props.data);
-
   const [data, setData] = useState(props.data);
   const options = {
     margin: 30,
     responsiveClass: true,
-    nav: false,
-    dots: true,
+    nav: true,
+    dots: false,
     autoplay: true,
     loop: true,
     smartSpeed: 500,
@@ -36,7 +34,6 @@ const CategorySlider = (props) => {
       },
     },
   };
-
   return (
     <>
       <div className="category_slider">
@@ -44,6 +41,7 @@ const CategorySlider = (props) => {
           {data.map((item, index) => {
             return (
               <CategoryCard
+                key={index}
                 name={item.title}
                 id={item.id}
                 img={`${baseURLImg}services/logo/lg/${item.logo_image}`}

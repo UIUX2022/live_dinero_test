@@ -19,14 +19,12 @@ export const authReducer = (state = initialState, action) => {
       };
     }
     case "USERADD": {
-      console.log("current user is ", action.payload);
       return {
         ...state,
         user: action.payload,
       };
     }
     case "TOKENADD": {
-      console.log("current token is ", action.payload);
       return {
         ...state,
         token: action.payload,

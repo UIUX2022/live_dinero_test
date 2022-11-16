@@ -5,8 +5,9 @@
 }
 .card_head_img {
   border-radius: 50%;
-  width: 110px;
-  height: 110px;
+  width: 100px;
+  height: 100px;
+  padding: 12px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,28 +16,28 @@
 
 .catrgory_card {
   h5 {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 500;
     color: $dark_text;
     line-height: 20px;
     margin-top: 5px;
-    white-space: nowrap; 
-    width:100%; 
+    white-space: nowrap;
+    width: 100%;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
   }
   img {
-  width: 90px;
+    width: 90px;
   }
 }
-@media (max-width:768px){
-  .catrgory_card h5{
-    font-size:12px;
+@media (max-width: 768px) {
+  .catrgory_card h5 {
+    font-size: 12px;
   }
 }
-@media (max-width:425px){
-  .card_head_img{
-    width:80px;
-    height:80px;
+@media (max-width: 425px) {
+  .card_head_img {
+    width: 80px;
+    height: 80px;
   }
 }

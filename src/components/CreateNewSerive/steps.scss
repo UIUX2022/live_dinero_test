@@ -1,8 +1,25 @@
-.input-feilds{
-    position: relative;
-    .error{
-      position: absolute;
-      color: red;
-      font-size:12px;
-    }
+@import "../../css/variables.scss";
+.input-feilds {
+  position: relative;
+  .error {
+    position: absolute;
+    color: red;
+    font-size: 12px;
   }
+}
+.ad_profile {
+  img {
+    border: 2px solid $theme_color;
+    width: 250px;
+    height: 160px;
+    object-fit: cover;
+  }
+}
+.service_att_tab {
+  background-color: #f9f9f9;
+  padding: 10px;
+  border-radius:5px;
+  h5 {
+    font-size: 18px;
+  }
+}

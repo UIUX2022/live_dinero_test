@@ -13,13 +13,17 @@ import { Collapse, Tooltip } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { startLoader, endLoader } from "../../redux/actions";
+import { useDispatch } from "react-redux";
 import PropertyCard from "../../components/propertyCard/propertyCard";
+import { baseURLImg } from "../../routes/routes";
 const Services = () => {
   const { id } = useParams();
   const [gridCard, setGridCard] = useState(true);
   const [servicedata, setServicedata] = useState({});
   const [filterOptions, setFilterOPtions] = useState([]);
   const [ads, SetAds] = useState([]);
+  const dispatch = useDispatch();
   const { Panel } = Collapse;
   const options = {
     margin: 30,
@@ -56,16 +60,18 @@ const Services = () => {
   // Get API for services data
   // =========================================================================
   const getServicesDetail = async () => {
+    dispatch(startLoader());
     await axios
       .get(`service/${id}`)
       .then((resp) => {
-        // console.log("get services API is ", resp.data.services);
+        console.log("get services API is ", resp.data.services);
         setServicedata(resp.data.services);
         SetAds(resp.data.services.ads);
       })
       .catch((error) => {
         console.log("error services API is ", error);
       });
+    dispatch(endLoader());
   };
 
   // =========================================================================
@@ -86,12 +92,17 @@ const Services = () => {
     getServicesDetail();
     getFilterOptions();
   }, [id]);
-  
+
   return (
     <>
       <MainLayout>
         <div className="servicePage_section">
-          <div className="servicePage_header py-lg-5 py-md-3 py-2">
+          <div
+            className="servicePage_header py-lg-5 py-md-3 py-2"
+            style={{
+              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${baseURLImg}services/cover/lg/${servicedata.cover_image})`,
+            }}
+          >
             <div className="container my-lg-5 my-md-3 my-2">
               <div className="row">
                 <div className="col-12 text-center">

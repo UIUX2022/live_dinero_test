@@ -14,7 +14,7 @@ const CategoryCard = ({ name, img, bg, id }) => {
               className=""
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "/img/cat_2.png";
+                e.target.src = "/img/placeholder.png";
               }}
             />
           </div>

@@ -124,6 +124,7 @@
     width: 30px;
     height: 30px;
     object-fit: contain;
+    border-radius: 15px;
   }
   p {
     margin-bottom: 0px;
@@ -143,6 +144,9 @@
       color: $theme_color;
       font-weight: 500;
     }
+  }
+  .container-fuild {
+    max-width: 1250px;
   }
 }
 .header_btns button {
@@ -177,17 +181,20 @@
   .ant-dropdown-menu-item-icon {
     color: #ff4d4f;
   }
-  &:hover{
+  &:hover {
     color: #fff;
+    .ant-dropdown-menu-item-icon {
+      color: #fff;
+    }
   }
 }
 .header_btns button.primray {
   background-color: $theme_color;
   color: $white;
 }
-.menuMobile_icon{
-  svg{
-    font-size:25px;
+.menuMobile_icon {
+  svg {
+    font-size: 25px;
   }
 }
 @keyframes subMenuAni {

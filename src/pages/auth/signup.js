@@ -1,5 +1,5 @@
 import "./auth.scss";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Img from "../../images/authImg.png";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
@@ -7,9 +7,15 @@ import { useFormik } from "formik";
 import { notification } from "antd";
 import axios from "axios";
 import * as Yup from "yup";
-import { COUNTRIES  } from "../../components/countryCode/countryCode";
+import { COUNTRIES } from "../../components/countryCode/countryCode";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, addtoken } from "../../redux/actions";
+import { redirect, useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigation = useNavigate();
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.authReducer.token);
   const [data, getData] = useState(null);
   const initialValues = {
     name: "",
@@ -28,59 +34,70 @@ const Register = () => {
   // Formik SignUp from validation
   //  ===============================================================
   const validationSchema = Yup.object({
-    // name: Yup.string()
-    //   .min(3, "Please add min 3 digits")
-    //   .max(50, "You can add max 50 digits")
-    //   .required("This feild is required"),
-    // email: Yup.string()
-    //   .email("Please input your valid email!")
-    //   .required("This feild is required"),
-    // country_code: Yup.string().required("This feild is required"),
-    // mobile_no: Yup.string()
-    //   .min(8, "Please enter valid phone # (min : 8)")
-    //   .max(8, "Please enter valid phone # (max : 8)")
-    //   .required("This feild is required"),
-    // gender: Yup.string().required("Please select you gender"),
-    // password: Yup.string()
-    //   .min(8, "Password required min 8 digits")
-    //   .max(50, "You can add max 50 digits")
-    //   .required("This feild is required"),
-    // password_confirmation: Yup.string()
-    //   .when("password", {
-    //     is: (val) => (val && val.length > 0 ? true : false),
-    //     then: Yup.string().oneOf(
-    //       [Yup.ref("password")],
-    //       "Both password need to be the same"
-    //     ),
-    //   })
-    //   .required("This feild is required"),
+    name: Yup.string()
+      .min(3, "Please add min 3 digits")
+      .max(50, "You can add max 50 digits")
+      .required("This feild is required"),
+    email: Yup.string()
+      .email("Please input your valid email!")
+      .required("This feild is required"),
+    country_code: Yup.string().required("This feild is required"),
+    mobile_no: Yup.string()
+      .min(8, "Please enter valid phone # (min : 8)")
+      .max(8, "Please enter valid phone # (max : 8)")
+      .required("This feild is required"),
+    gender: Yup.string().required("Please select you gender"),
+    password: Yup.string()
+      .min(8, "Password required min 8 digits")
+      .max(50, "You can add max 50 digits")
+      .required("This feild is required"),
+    password_confirmation: Yup.string()
+      .when("password", {
+        is: (val) => (val && val.length > 0 ? true : false),
+        then: Yup.string().oneOf(
+          [Yup.ref("password")],
+          "Both password need to be the same"
+        ),
+      })
+      .required("This feild is required"),
+    account_type: Yup.string().required("This feild is required"),
   });
 
   const onSubmit = async (values, submitProps, event) => {
-    console.log("my submit  values is", values);
     getData(values);
     await axios
-      .post("auth/register", {
-        name: "abu Sufian",
-        email: "sufian111@gmail.com",
-        country_code: "974",
-        mobile_no: "12345678",
-        gender: "male",
-        date_of_birth: "12-7-2022",
-        password: "12345678",
-        password_confirmation: "12345678",
-        account_type: "individual",
-      })
-      .then((respone) => {
-        console.log("resjister API response is", respone);
+      .post(
+        "auth/register",
+        {
+          name: values.name,
+          email: values.email,
+          country_code: values.country_code,
+          mobile_no: values.mobile_no,
+          gender: values.gender,
+          date_of_birth: values.date_of_birth,
+          password: values.password,
+          password_confirmation: values.password_confirmation,
+          account_type: values.account_type,
+        },
+        {}
+      )
+      .then((response) => {
+        console.log("resjister API response is", response);
+        if (response.data.status == 200) {
+          notification["success"]({
+            message: `${response.data.message}`,
+          });
+          dispatch(addUser(response.data.user));
+          dispatch(addtoken(response.data.token));
+        } else {
+          notification["error"]({
+            message: `${response.data.errors}`,
+          });
+        }
       })
       .catch((error) => {
         console.log("Error register api is", error);
       });
-
-    notification["success"]({
-      message: "Address add successfully",
-    });
   };
   const formik = useFormik({
     initialValues,
@@ -90,7 +107,11 @@ const Register = () => {
   // ===============================================================
   // Submit from with api
   //  ===============================================================
-  const signUp = async () => {};
+  useEffect(() => {
+    if (token) {
+      return navigation("/user/profile/setting");
+    }
+  }, [token]);
   return (
     <div className="registerPage">
       <div className="registerPageDiv pt-4">
@@ -167,7 +188,12 @@ const Register = () => {
                                 {COUNTRIES.map((country, index) => {
                                   return (
                                     <>
-                                      <option value={country.mobileCode} id={country.mobileCode}>{country.mobileCode}</option>
+                                      <option
+                                        value={country.mobileCode}
+                                        id={country.mobileCode}
+                                      >
+                                        {country.mobileCode}
+                                      </option>
                                     </>
                                   );
                                 })}
@@ -257,18 +283,24 @@ const Register = () => {
                       <div className="col-6">
                         <div className="login-input mt-4">
                           <label>
-                          <Icon icon="entypo:add-user" />
+                            <Icon icon="entypo:add-user" />
                             Acount type
                           </label>
                           <select
                             className="form-control"
-                            name="country_code"
+                            name="account_type"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            defaultValue={formik.values.country_code}
                           >
+                             <option value=""></option>
                             <option value="individual">individual</option>
                           </select>
+                          {formik.touched.account_type &&
+                          formik.errors.account_type ? (
+                            <div className="error">
+                              {formik.errors.account_type}
+                            </div>
+                          ) : null}
                         </div>
                       </div>
                       <div className="col-md-6 mt-4">
