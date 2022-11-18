@@ -1,98 +1,90 @@
 import "./footer.scss";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 const Footer = () => {
+  const [services, setService] = useState([]);
+  //  ================================================
+  // Get api for Services
+  // =================================================
+  const getServices = async () => {
+    await axios.get("services").then((resp) => {
+      
+      setService(resp.data.services);
+    });
+  };
+  useEffect(() => {
+    getServices();
+  });
   return (
     <>
-      <section className="footer-section pt-5">
-        <div className="container-fluid">
+      <section className="footer-section pt-4 px-1 px-md-5">
+        <div className="container-fluid ">
           <div className="row">
-            <div className="col-lg-3 col-12 text-lg-center">
-              <div className="px-5 px-lg-3">
+            <div className="col-lg-2 col-12">
+              <div className="px-5 px-lg-3 mt-3">
                 <img
-                  src="/img/whitelogo.png"
+                  src="/img/logo-white.png"
                   alt="logo"
                   className="footerlogo"
                 />
-                <div className="footerAddress mt-5">
-                  <p>Doha, Qatar</p>
-                  <a href="#">Call us : 123-456-7890</a>
-                </div>
               </div>
             </div>
-            <div className="col-md-4 col-lg-2">
+            <div className="col-md-4 col-lg-3">
               <div className="footer-links mt-3 px-5 px-md-0">
-                <h4>Our Products</h4>
+                <h4>Our Services</h4>
+                <ul>
+                  {services &&
+                    services.map((item, index) => {
+                      return (
+                        <>
+                          <li key={index}>
+                            <Link to={`/services/${item.id}`}>
+                              {item.title}
+                            </Link>
+                          </li>
+                        </>
+                      );
+                    })}
+                </ul>
+              </div>
+            </div>
+            <div className="col-md-4 col-lg-3">
+              <div className="footer-links mt-3 px-5 px-md-0">
+                <h4>UseFull Links</h4>
                 <ul>
                   <li>
-                    <Link to="/">The Support Suite</Link>
+                    <Link to="/">Your Account</Link>
                   </li>
                   <li>
-                    <Link to="/">The Sales Suite</Link>
+                    <Link to="/">Contact Us</Link>
                   </li>
                   <li>
-                    <Link to="/">Support</Link>
+                    <Link to="/">Terms And Conditions</Link>
                   </li>
                   <li>
-                    <Link to="/"> Guide</Link>
-                  </li>
-                  <li>
-                    <Link to="/"> Explore</Link>
+                    <Link to="/">Privacy Policy</Link>
                   </li>
                 </ul>
               </div>
             </div>
-            <div className="col-md-4 col-lg-2" md={4} lg={2}>
-              <div className="footer-links mt-3 px-5 px-md-0">
-                <h4>Our Products</h4>
-                <ul>
-                  <li>
-                    <Link to="/">The Support Suite</Link>
-                  </li>
-                  <li>
-                    <Link to="/">The Sales Suite</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Support</Link>
-                  </li>
-                  <li>
-                    <Link to="/"> Guide</Link>
-                  </li>
-                  <li>
-                    <Link to="/"> Explore</Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="col-md-4 col-lg-2">
-              <div className="footer-links mt-3 px-5 px-md-0">
-                <h4>Our Products</h4>
-                <ul>
-                  <li>
-                    <Link to="/">The Support Suite</Link>
-                  </li>
-                  <li>
-                    <Link to="/">The Sales Suite</Link>
-                  </li>
-                  <li>
-                    <Link to="/">Support</Link>
-                  </li>
-                  <li>
-                    <Link to="/"> Guide</Link>
-                  </li>
-                  <li>
-                    <Link to="/"> Explore</Link>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div className="col-md-12 col-lg-3">
-              <div className="footerMap">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d115443.09541843645!2d51.44195675873958!3d25.28414778835866!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e45c534ffdce87f%3A0x44d9319f78cfd4b1!2sDoha%2C%20Qatar!5e0!3m2!1sen!2s!4v1655129002179!5m2!1sen!2s"></iframe>
+            <div className="col-md-4 col-lg-4">
+              <div className="footer_newLetter mt-3 footer-links ">
+                <h4>News Letter</h4>
+                <form>
+                  <input type="email" className="form-control" />
+                  <input
+                    type="submit"
+                    className="form-control mt-2 submit_btn"
+                    value="SUBMIT"
+                  />
+                </form>
+                <p>Note: Submit your email for news updates</p>
               </div>
             </div>
           </div>
         </div>
+        <hr className="new1" />
         <div className="footer_button py-2 text-center">
           <div>Copyright 2022 - 2023 © Storck Digital.</div>
         </div>

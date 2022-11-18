@@ -43,7 +43,7 @@ const CategorySlider = (props) => {
               <CategoryCard
                 key={index}
                 name={item.title}
-                id={item.id}
+                id={item.slug}
                 img={`${baseURLImg}services/logo/lg/${item.logo_image}`}
                 bg="rgba(20, 136, 204, 0.1)"
               />

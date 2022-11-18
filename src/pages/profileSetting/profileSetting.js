@@ -125,7 +125,7 @@ const ProfileSetting = () => {
     complete_address: Yup.string().required("This feild is required"),
   });
   const onSubmit = async (values) => {
-    dispatch(startLoader())
+    dispatch(startLoader());
 
     const params = values;
     const result = await PostApiWithHeader({
@@ -146,7 +146,7 @@ const ProfileSetting = () => {
         message: `${result.data.error}`,
       });
     }
-    dispatch(endLoader())
+    dispatch(endLoader());
   };
   const formik = useFormik({
     initialValues,
@@ -179,7 +179,7 @@ const ProfileSetting = () => {
   useEffect(() => {
     getCities(formik.values.state_id);
   }, [formik.values.state_id]);
-  console.log(user, formik.values.country_id);
+
   return (
     <AdminLayout>
       <div className="profileUpdate">
@@ -202,7 +202,10 @@ const ProfileSetting = () => {
                     onSubmit={formik.handleSubmit}
                   >
                     <div className="row">
-                      <div md={12} className=" mt-4 col-md-12 text-start">
+                      <div
+                        md={12}
+                        className=" mt-4 col-md-12 text-start input-feilds"
+                      >
                         <label>Name:</label>
                         <input
                           type="text"
@@ -217,7 +220,10 @@ const ProfileSetting = () => {
                           <div className="error">{formik.errors.name}</div>
                         ) : null}
                       </div>
-                      <div md={12} className=" mt-4 col-md-12 text-start">
+                      <div
+                        md={12}
+                        className=" mt-4 col-md-12 text-start input-feilds"
+                      >
                         <label>Email:</label>
                         <input
                           type="email"
@@ -232,7 +238,7 @@ const ProfileSetting = () => {
                           <div className="error">{formik.errors.email}</div>
                         ) : null}
                       </div>
-                      <div className="text-start mt-4 col-md-6">
+                      <div className="text-start mt-4 col-md-6 input-feilds">
                         <label>Gender</label>
                         <select
                           className="form-control "
@@ -348,7 +354,7 @@ const ProfileSetting = () => {
                           <div className="error">{formik.errors.city_id}</div>
                         ) : null}
                       </div>
-                      <div className="text-start mt-4 col-md-6">
+                      <div className="text-start mt-4 col-md-6 input-feilds">
                         <label>DOB</label>
                         <input
                           type="date"
@@ -360,7 +366,7 @@ const ProfileSetting = () => {
                           name="date_of_birth"
                         />
                       </div>
-                      <div className="text-start mt-4 col-md-6">
+                      <div className="text-start mt-4 col-md-6 input-feilds">
                         <div className="row">
                           <div className="text-start col-3 pe-0">
                             <label>Code</label>
@@ -410,7 +416,7 @@ const ProfileSetting = () => {
                           </div>
                         </div>
                       </div>
-                      <div className="text-start mt-4 col-md-6">
+                      <div className="text-start mt-4 col-md-6 input-feilds">
                         <label>Acount type</label>
                         <select
                           className="form-control "
@@ -429,7 +435,7 @@ const ProfileSetting = () => {
                           </div>
                         ) : null}
                       </div>
-                      <div className="mt-4 col-12 input-feilds text-start">
+                      <div className="mt-4 col-12 input-feilds text-start input-feilds">
                         <label
                           style={{
                             fontWeight: "500",

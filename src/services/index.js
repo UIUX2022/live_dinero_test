@@ -7,7 +7,7 @@ export const GetApiWithHeader = async ({ route, token }) => {
     });
 
     if (resp) {
-      console.log("our current result is ", resp.data);
+      // console.log("our current result is ", resp.data);
       if (resp.data.state == 401 || resp.data.state == 500) {
         console.log("our current result is ", resp.data);
         return "login";

@@ -9,7 +9,7 @@ const ProfileCard = ({ data }) => {
         <img src={Profile} className="p-1" />
         <div className="user_details">
           <h3>
-            <Link to={`/profiledetails/${data?.user_id}`}>
+            <Link to={`/addetails/${data?.user_id}`}>
               {data?.display_name}
             </Link>
           </h3>

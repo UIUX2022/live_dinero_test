@@ -19,10 +19,12 @@ import PropertyCard from "../../components/propertyCard/propertyCard";
 import { baseURLImg } from "../../routes/routes";
 const Services = () => {
   const { id } = useParams();
+
   const [gridCard, setGridCard] = useState(true);
   const [servicedata, setServicedata] = useState({});
   const [filterOptions, setFilterOPtions] = useState([]);
   const [ads, SetAds] = useState([]);
+  const [siblings, setSiblings] = useState([]);
   const dispatch = useDispatch();
   const { Panel } = Collapse;
   const options = {
@@ -62,11 +64,12 @@ const Services = () => {
   const getServicesDetail = async () => {
     dispatch(startLoader());
     await axios
-      .get(`service/${id}`)
+      .get(`service-detail/${id}`)
       .then((resp) => {
-        console.log("get services API is ", resp.data.services);
-        setServicedata(resp.data.services);
-        SetAds(resp.data.services.ads);
+        
+        setServicedata(resp.data.service);
+        SetAds(resp.data.service.ads);
+        setSiblings(resp.data.service.sub_services);
       })
       .catch((error) => {
         console.log("error services API is ", error);
@@ -81,11 +84,11 @@ const Services = () => {
     await axios
       .get("sort-options")
       .then((response) => {
-        // console.log("filter options", response.data.sort_options);
+   
         setFilterOPtions(response.data.sort_options);
       })
       .catch((error) => {
-        console.log("error services API is ", error);
+        console.log("error filter options ", error);
       });
   };
   useEffect(() => {
@@ -96,7 +99,7 @@ const Services = () => {
   return (
     <>
       <MainLayout>
-        <div className="servicePage_section">
+        <div className="servicePage_section ">
           <div
             className="servicePage_header py-lg-5 py-md-3 py-2"
             style={{
@@ -114,90 +117,21 @@ const Services = () => {
           <div className="services_page_cat">
             <div className="container-fluid px-lg-5 px-md-3 px-1">
               <OwlCarousel className="owl-theme" {...options}>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_2.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_2.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_3.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_4.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_5.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_6.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_1.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_3.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_2.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_5.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_4.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
-                <div className="item">
-                  <CategoryCard
-                    name="Land"
-                    img="/img/cat_6.png"
-                    bg="rgba(20, 136, 204, 0.1)"
-                  />
-                </div>
+                {siblings &&
+                  siblings.map((item, index) => {
+                    
+                    return (
+                      <>
+                        <div className="item">
+                          <CategoryCard
+                            name={item.title}
+                            img={`${baseURLImg}services/logo/lg/${item.logo_image}`}
+                            bg="rgba(20, 136, 204, 0.1)"
+                          />
+                        </div>
+                      </>
+                    );
+                  })}
               </OwlCarousel>
             </div>
           </div>
@@ -242,15 +176,6 @@ const Services = () => {
                         </div>
                         <div className="col-md-7 mt-2 mt-md-0">
                           <div className="header_filter d-flex justify-content-md-end justify-content-between gap-2 align-items-lg-center align-items-end">
-                            {/* <div>
-                              <span>Filter By:&nbsp;</span>
-                              <select defaultValue="10">
-                                <option selected>Default</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
-                              </select>
-                            </div> */}
                             <div>
                               <span>Sort By:&nbsp;</span>
                               <select defaultValue="default">
@@ -289,7 +214,7 @@ const Services = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="services_pro_list ">
+                  <div className="services_pro_list px-md-2">
                     {gridCard == 1 ? (
                       <>
                         <div className="row justify-content-center justify-content-md-start">
@@ -298,11 +223,17 @@ const Services = () => {
                               return (
                                 <>
                                   {adItems.ad_type_id == 1 ? (
-                                    <div className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-10">
+                                    <div
+                                      className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-10"
+                                      key={index}
+                                    >
                                       <PropertyCard data={adItems} />
                                     </div>
                                   ) : (
-                                    <div className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-10">
+                                    <div
+                                      className="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-10"
+                                      key={index}
+                                    >
                                       <ProfileCard data={adItems} />
                                     </div>
                                   )}
@@ -319,11 +250,17 @@ const Services = () => {
                               return (
                                 <>
                                   {adItems.ad_type_id == 1 ? (
-                                    <div className="col-xl-6 col-12">
+                                    <div
+                                      className="col-xl-6 col-12"
+                                      key={index}
+                                    >
                                       <PropertyLandCard data={adItems} />
                                     </div>
                                   ) : (
-                                    <div className="col-xl-6 col-lg-12">
+                                    <div
+                                      className="col-xl-6 col-lg-12"
+                                      key={index}
+                                    >
                                       <ProdileCard2 data={adItems} />
                                     </div>
                                   )}

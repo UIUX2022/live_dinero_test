@@ -12,7 +12,7 @@ import {
   addtoken,
 } from "../../redux/actions/index";
 import { Button, Dropdown, Menu } from "antd";
-import { baseURLImg } from "../../routes/routes";
+
 
 const Header = () => {
   const navigation = useNavigate();
@@ -22,7 +22,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState("mail");
   const [services, setServices] = useState(null);
-  const [subservices, setSubServices] = useState(null);
+  
 
   // ==============================================
   // Post Api for logout
@@ -85,119 +85,23 @@ const Header = () => {
     </Menu>
   );
 
-  // ==============================================
-  // Get  Services with sub services API
-  // ==============================================
-  const getSubServices = async () => {
-    dispatch(startLoader());
-    await axios
-      .get("services-with-sub")
-      .then((response) => {
-        // console.log("get data about services", response.data);
-        setSubServices(response.data.services);
-      })
-      .catch((error) => {
-        console.log("error services api with sub-services", error);
-      });
-    dispatch(endLoader());
-  };
-  useEffect(() => {
-    getSubServices();
-  }, []);
-  
+
   return (
     <div className="header_section px-1 px-md-5">
-      <div className="container-fuild pt-2 mx-auto">
+      <div className="container-fuild py-1 mx-auto">
         <div className="d-flex justify-content-between align-items-center">
-          <div className="header_logo py-1">
+          <div className="header_logo py-2">
             <Link to="/">
               <img src={Logo} width="100" />
             </Link>
           </div>
-          <div className="main_menu text-center d-none d-lg-block">
-            <ul className="mx-auto">
-              <li
-                className={
-                  local.pathname == "/"
-                    ? "main_menu_items active"
-                    : "main_menu_items"
-                }
-              >
-                <Link to="/">Home</Link>
-              </li>
-              <li
-                className={
-                  local.pathname == "/services/"
-                    ? "main_menu_items custom_dropdown active"
-                    : "main_menu_items custom_dropdown"
-                }
-              >
-                <Link to="/">
-                  Services <Icon icon="akar-icons:chevron-down" />
-                </Link>
-                <div className="custom_dropdown_block">
-                  <ul>
-                    {subservices &&
-                      subservices.map((item, index) => {
-                        return (
-                          <li key={index}>
-                            <div className="d-flex justify-content-between align-items-center">
-                              <Link
-                                className="dropdown_item"
-                                to={`/services/${item.id}`}
-                              >
-                                <img
-                                  src={`${baseURLImg}services/logo/lg/${item.logo_image}`}
-                                  alt="alt_img"
-                                  onError={(e) => {
-                                    e.target.onerror = null;
-                                    e.target.src = "/img/main_placeholder.png";
-                                  }}
-                                />
-                                &nbsp;{item.title}
-                              </Link>
-                              <Icon icon="akar-icons:chevron-down" />
-                            </div>
-
-                            <div className="dropdown_details">
-                              {item.sub_services.map((sub_item, index) => {
-                                return (
-                                  <div
-                                    className="sub_cat_items px-2"
-                                    key={`submenu${index}`}
-                                  >
-                                    <Link
-                                      to={`/services/${sub_item.id}`}
-                                      className="d-flex gap-1 align-item-center"
-                                    >
-                                      <img
-                                        src={`${baseURLImg}services/logo/lg/${sub_item.logo_image}`}
-                                        onError={(e) => {
-                                          e.target.onerror = null;
-                                          e.target.src =
-                                            "/img/main_placeholder.png";
-                                        }}
-                                      />
-
-                                      <p>{sub_item.title}</p>
-                                    </Link>
-                                  </div>
-                                );
-                              })}
-                            </div>
-                          </li>
-                        );
-                      })}
-                  </ul>
-                </div>
-              </li>
-              <li className="main_menu_items">
-                <Link to="/">About Us</Link>
-              </li>
-              <li className="main_menu_items">
-                <Link to="/">Contact Us</Link>
-              </li>
-            </ul>
+          <div className="searchBar px-5">
+            <form className="search_barInput">
+              <input className="form-control" placeholder="Find Your Near By Property"/>
+              <button type="submit" className="search_btn">
+                <Icon icon="material-symbols:search" />
+              </button>
+            </form>
           </div>
           <div className="header_btns d-flex gap-2 d-none d-lg-block">
             {token ? (

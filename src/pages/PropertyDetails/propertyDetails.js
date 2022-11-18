@@ -10,32 +10,8 @@ import axios from "axios";
 const PropertyDetailPage = () => {
   let { id } = useParams();
   const [details, Setdetails] = useState({});
-  const images = [
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-  ];
+  const [detailsImgs, SetdetailsImgs] = useState([]);
+  const images = [];
   // =============================================
   // Get API for Property data
   // =============================================
@@ -43,12 +19,25 @@ const PropertyDetailPage = () => {
     await axios.get(`ad/${id}`).then((resp) => {
       console.log("get detail page Data", resp.data.ad);
       Setdetails(resp.data.ad);
+      const Imgs = resp.data.ad.images;
+      Imgs.map((item, index) => {
+        console.log("current img", item);
+        SetdetailsImgs([
+          ...detailsImgs,
+          {
+            original: "https://picsum.photos/id/1018/1000/600/",
+            thumbnail: "https://picsum.photos/id/1018/250/150/",
+          },
+        ]);
+      });
+      SetdetailsImgs();
     });
   };
+
   useEffect(() => {
     getDetails();
   }, []);
-
+  console.log("my currents Images is", detailsImgs);
   return (
     <>
       <MainLayout>
@@ -57,14 +46,19 @@ const PropertyDetailPage = () => {
             <div className="row">
               <div className="col-12 mt-3">
                 <nav aria-label="breadcrumb">
-                  <ol className="breadcrumb">
+                  <ol className="breadcrumb mb-0">
                     <li className="breadcrumb-item">
                       <Link to="/">Home</Link>
                     </li>
                     <li className="breadcrumb-item">
-                      <Link to={`/services/${details?.service?.id}`}>{details?.service?.title}</Link>
+                      <Link to={`/services/${details?.service?.id}`}>
+                        {details?.service?.title}
+                      </Link>
                     </li>
-                    <li className="breadcrumb-item active" aria-current="page">
+                    <li
+                      className="breadcrumb-item active text-capitalize"
+                      aria-current="page"
+                    >
                       {details?.type?.type}
                     </li>
                   </ol>
@@ -121,7 +115,7 @@ const PropertyDetailPage = () => {
                         </div>
                         <p>{details && details.title} </p>
                         <div className="d-flex justify-content-between mt-4">
-                          <span>{details?.city?.name},{details?.country?.name}.</span>
+                          <span>{details?.country?.name}.</span>
                           <span>10 Min ago</span>
                         </div>
                       </div>
@@ -130,7 +124,7 @@ const PropertyDetailPage = () => {
                         <div className="perporty_saler_info pt-2 ">
                           <img src={Profile} alt="seller_profile" />
                           <div className="px-1">
-                            <h4>Person-1</h4>
+                            <h4>{details?.user?.name}</h4>
                             <p>Member since may 2022</p>
                           </div>
                         </div>

@@ -1,9 +1,5 @@
 @import "../../css/variables.scss";
-.servicePage_section{
-    background: #E5E5E5;
-}
 .servicePage_header {
- 
   background-image: center center;
   background-size: 100% 100%;
   color: #fff;
@@ -19,64 +15,61 @@
     font-size: 22px;
   }
 }
-.services_page_cat{
+.services_page_cat {
   background-color: #fff;
 }
-.cart_list_header{
-    background-color: #fff;
-    border-radius: 3px;;
+.cart_list_header {
+  background-color: #fff;
+  border-radius: 3px;
 }
-.header_filter select{
-min-width: 165px;
-padding: 2px 8px;
-border: 1px solid $theme_color;
-border-radius:3px;
-// @media (max-width:425px){
-//   min-width: 100%;
-// }
+.header_filter select {
+  min-width: 165px;
+  padding: 2px 8px;
+  border: 1px solid $theme_color;
+  border-radius: 3px;
+  // @media (max-width:425px){
+  //   min-width: 100%;
+  // }
 }
-.cat_filters{
-  position:sticky;
+.cat_filters {
+  position: sticky;
   top: -10px;
 }
-.header_filter{
-    color: $light_text;
-    position: relative;
-    svg{
-      font-size:30px;
-      fill: $theme_color;
-      color: $theme_color;
-    }
-    .grid_icon{
-      cursor: pointer;
-    }
-    
+.header_filter {
+  color: $light_text;
+  position: relative;
+  svg {
+    font-size: 30px;
+    fill: $theme_color;
+    color: $theme_color;
+  }
+  .grid_icon {
+    cursor: pointer;
+  }
 }
-.breadcrumb li{
- font-size: 14px;;
+.breadcrumb li {
+  font-size: 14px;
 }
 .propsSales_filters {
   .ant-collapse {
     border: 0px solid $white;
-    border-radius:5px;
+    border-radius: 5px;
     overflow: hidden;
-    background-color: #E5E5E5;
-    
+    background-color: #e5e5e5;
   }
   .ant-collapse > .ant-collapse-item {
-     border-bottom: 1px solid #EBEBEB;
+    border-bottom: 1px solid #ebebeb;
     margin-top: 10px;
-    border: 1px solid rgba(0,0,0,0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     overflow: hidden;
     border-radius: 5px;
-    background-color: #E5E5E5;
-    &:first-child{
-      margin-top:0px;
+    background-color: #e5e5e5;
+    &:first-child {
+      margin-top: 0px;
     }
   }
   .ant-collapse > .ant-collapse-item > .ant-collapse-header {
     background-color: #fff;
-   
 
     span {
       color: $theme_color;
@@ -89,7 +82,7 @@ border-radius:3px;
     background-color: #fff;
   }
   .ant-collapse > .ant-collapse-item:last-child {
-    border: 1px solid rgba(0,0,0,0.1);
+    border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 5px;
   }
 }
@@ -97,19 +90,21 @@ border-radius:3px;
   position: sticky; // Newly Added CSS
   top: 0;
 }
-.empty_data_result{
- display: flex;
- align-items: center;
- justify-content: center;
- background-color:#fff;
- height:50vh;
- img{
-  width: 80px;
- }
+.empty_data_result {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  height: 50vh;
+  img {
+    width: 80px;
+  }
+}
+.services_pro_list {
+  background-color: $white;
 }
 @media (max-width: 425px) {
   .servicePage_header {
-
     h1 {
       font-size: 22px;
       line-height: 70px;

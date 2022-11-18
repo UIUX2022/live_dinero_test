@@ -27,7 +27,6 @@ const UserServiceCard = ({ data, updateAdList }) => {
         token,
         params,
       });
-      console.log(" update Status of ad result", result);
       if (result.data.status == 200) {
         notification["success"]({
           message: `${result.data.address}`,
@@ -100,28 +99,30 @@ const UserServiceCard = ({ data, updateAdList }) => {
           <p className="mb-0">
             {data.complete_address}, {data.country.name}
           </p>
-          <div className="d-flex gap-3 card_likes_details py-1 align-items-center">
-            <div className="d-flex align-items-center">
-              <Icon icon="wpf:like" />
-              &nbsp;{data.likes}
+          <div className="d-flex justify-content-between">
+            <div className="d-flex gap-3 card_likes_details py-1 align-items-center">
+              <div className="d-flex align-items-center">
+                <Icon icon="wpf:like" />
+                &nbsp;{data.likes}
+              </div>
+              <div className="d-flex align-items-center">
+                <Icon icon="mdi:report-problem" />
+                &nbsp;{data.reports}
+              </div>
+              <div className="d-flex align-items-center">
+                <Icon icon="mdi:eye-outline" />
+                &nbsp;{data.views}
+              </div>
             </div>
-            <div className="d-flex align-items-center">
-              <Icon icon="mdi:report-problem" />
-              &nbsp;{data.reports}
+            <div className="Card_btns d-sm-flex gap-1 justify-content-end">
+              <button className="edit_btn">
+                <Icon icon="material-symbols:edit" />
+                &nbsp; Edit
+              </button>
+              <button className="del_btn" onClick={showDelModal}>
+                <Icon icon="material-symbols:delete-outline-rounded" />
+              </button>
             </div>
-            <div className="d-flex align-items-center">
-              <Icon icon="mdi:eye-outline" />
-              &nbsp;{data.views}
-            </div>
-          </div>
-          <div className="Card_btns d-sm-flex gap-1 justify-content-between">
-            <button className="edit_btn">
-              <Icon icon="material-symbols:edit" />
-              &nbsp; Edit
-            </button>
-            <button className="del_btn" onClick={showDelModal}>
-              <Icon icon="material-symbols:delete-outline-rounded" />
-            </button>
           </div>
         </div>
       </div>

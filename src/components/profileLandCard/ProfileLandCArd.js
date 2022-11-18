@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 const ProfileLandCard = () => {
   return (
     <>
+      
       <div className="landCartCategory d-flex mt-3 gap-2 p-2">
         <img src={profile} />
         <div className="card_details py-1">
