@@ -5,8 +5,9 @@ import { baseURLImg } from "../../routes/routes";
 import "./propertyCard.scss";
 const PropertyCard = (props) => {
   const [cardData, SetCArdData] = useState(props.data);
+
   return (
-    <Link to={`/addetails/${cardData && cardData.id}`}>
+    <Link to={`/addetails/${cardData && cardData.slug}`}>
       <div className="AddsCardContainer mt-3 mx-1">
         <div className="coverImg">
           <img

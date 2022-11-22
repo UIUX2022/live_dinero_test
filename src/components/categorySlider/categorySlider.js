@@ -4,11 +4,7 @@ import { useState, useEffect } from "react";
 import CategoryCard from "../categoryCard/categoryCard";
 import { baseURLImg } from "../../routes/routes";
 const CategorySlider = (props) => {
-  const [data, setData] = useState();
-  console.log("slider is working this time", props);
-  useEffect(() => {
-    setData(props.data);
-  }, [props]);
+
   const options = {
     margin: 30,
     responsiveClass: true,
@@ -42,7 +38,7 @@ const CategorySlider = (props) => {
     <>
       <div className="category_slider">
         <OwlCarousel className="owl-theme" {...options}>
-          {data?.map((item, index) => {
+          {props.data?.map((item, index) => {
             return (
               <CategoryCard
                 key={index}
