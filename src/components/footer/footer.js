@@ -1,9 +1,6 @@
 import "./footer.scss";
-import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-
+import {  useSelector } from "react-redux";
 const Footer = () => {
   const services = useSelector((state) => state.authReducer.services);
 

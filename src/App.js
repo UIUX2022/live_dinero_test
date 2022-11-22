@@ -21,11 +21,14 @@ import ProfileSetting from "./pages/profileSetting/profileSetting";
 import Error404 from "./pages/Error404/error404";
 import ProtectedRoute from "./protectedRoute";
 import ReserPasswords from "./pages/resetPassword/resetPassword";
+import { useDispatch } from "react-redux";
+import { getOurService } from "./redux/actions";
 // import ProtectedRoute from "./protectedRoute";
 import { useSelector } from "react-redux";
 function App() {
+  const dispatch = useDispatch();
   const token = useSelector((state) => state.authReducer.token);
-
+  dispatch(getOurService());
   return (
     <>
       <Preloader />
@@ -50,7 +53,7 @@ function App() {
             path="/user/propertyAdds"
             element={token ? <UserPropertyAdd /> : <ProtectedRoute />}
           />
-          
+
           <Route
             path="/user/profile/setting"
             element={token ? <ProfileSetting /> : <ProtectedRoute />}

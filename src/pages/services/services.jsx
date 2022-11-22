@@ -66,7 +66,6 @@ const Services = () => {
     await axios
       .get(`service-detail/${id}`)
       .then((resp) => {
-        
         setServicedata(resp.data.service);
         SetAds(resp.data.service.ads);
         setSiblings(resp.data.service.sub_services);
@@ -84,7 +83,6 @@ const Services = () => {
     await axios
       .get("sort-options")
       .then((response) => {
-   
         setFilterOPtions(response.data.sort_options);
       })
       .catch((error) => {
@@ -100,18 +98,18 @@ const Services = () => {
     <>
       <MainLayout>
         <div className="servicePage_section ">
-          <div
-            className="servicePage_header py-lg-5 py-md-3 py-2"
-            style={{
-              backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(${baseURLImg}services/cover/lg/${servicedata.cover_image})`,
-            }}
-          >
-            <div className="container my-lg-5 my-md-3 my-2">
-              <div className="row">
-                <div className="col-12 text-center">
-                  <h1>{servicedata && servicedata.title}</h1>
-                </div>
-              </div>
+          <div className="servicePage_header">
+            <div className="page_header_img">
+              <img
+                src={`${baseURLImg}services/cover/lg/${servicedata.cover_image}`}
+                onError={(e) => {
+                  e.target.onerror = null;
+                  e.target.src = "/img/service_page.jpg";
+                }}
+              />
+            </div>
+            <div className="page_header_title">
+              <h1>{servicedata && servicedata.title}</h1>
             </div>
           </div>
           <div className="services_page_cat">
@@ -119,7 +117,6 @@ const Services = () => {
               <OwlCarousel className="owl-theme" {...options}>
                 {siblings &&
                   siblings.map((item, index) => {
-                    
                     return (
                       <>
                         <div className="item">

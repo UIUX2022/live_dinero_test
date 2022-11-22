@@ -8,12 +8,14 @@ const HeroSection = () => {
   const [banners, setBanners] = useState([]);
   const getSliderImgs = async () => {
     await axios.get("banners/active").then((resp) => {
-      console.log("my current banner is", resp.data);
       setBanners(resp.data.banners);
     });
   };
   useEffect(() => {
     getSliderImgs();
+    return () => {
+      getSliderImgs();
+    }
   }, []);
   return (
     <div className="hero_section">

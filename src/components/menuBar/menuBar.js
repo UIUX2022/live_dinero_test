@@ -1,35 +1,19 @@
 import "./menuBar.scss";
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { startLoader, endLoader, getOurService } from "../../redux/actions";
+import { useSelector } from "react-redux";
+
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+
 import { baseURLImg } from "../../routes/routes";
 const MainMenu = () => {
-  const dispatch = useDispatch();
   const ourServices = useSelector((state) => state.authReducer.services);
-  const [subservices, setSubServices] = useState(ourServices);
-  // ==============================================
-  // Get  Services with sub services API
-  // ==============================================
-  // const getSubServices = async () => {
-  //   dispatch(startLoader());
-  //   await axios
-  //     .get("services-with-sub")
-  //     .then((response) => {
-  //       setSubServices(response.data.services);
-  //     })
-  //     .catch((error) => {
-  //       console.log("error services api with sub-services", error);
-  //     });
-  //   dispatch(endLoader());
-  // };
-  useEffect(() => {
-    // getSubServices();
-    dispatch(getOurService());
-  }, []);
+  const [subservices, setSubServices] = useState();
 
+
+  useEffect(() => {
+    setSubServices(ourServices);
+  }, [ourServices]);
   return (
     <div className="main_section px-1 px-xl-5 ">
       <div className="container-fuild mx-auto">

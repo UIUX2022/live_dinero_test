@@ -17,18 +17,11 @@ const PropertyDetailPage = () => {
   // =============================================
   const getDetails = async () => {
     await axios.get(`ad/${id}`).then((resp) => {
-      console.log("get detail page Data", resp.data.ad);
       Setdetails(resp.data.ad);
-      const Imgs = resp.data.ad.images;
+      const Imgs = [1, 2, 3, 4, 5, 6];
       Imgs.map((item, index) => {
         console.log("current img", item);
-        SetdetailsImgs([
-          ...detailsImgs,
-          {
-            original: "https://picsum.photos/id/1018/1000/600/",
-            thumbnail: "https://picsum.photos/id/1018/250/150/",
-          },
-        ]);
+        SetdetailsImgs([...detailsImgs, "new value"]);
       });
       SetdetailsImgs();
     });
