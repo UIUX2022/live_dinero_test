@@ -2,6 +2,7 @@ const initialState = {
   loader: false,
   user: {},
   token: "",
+  services: [],
 };
 
 export const authReducer = (state = initialState, action) => {
@@ -28,6 +29,13 @@ export const authReducer = (state = initialState, action) => {
       return {
         ...state,
         token: action.payload,
+      };
+    }
+    case "ADDSERVICE": {
+     
+      return {
+        ...state,
+        services: action.payload,
       };
     }
     default:

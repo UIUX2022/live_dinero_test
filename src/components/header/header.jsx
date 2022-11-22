@@ -85,7 +85,6 @@ const Header = () => {
     </Menu>
   );
 
-
   return (
     <div className="header_section px-1 px-md-5">
       <div className="container-fuild py-1 mx-auto">

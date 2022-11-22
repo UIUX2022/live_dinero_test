@@ -2,20 +2,11 @@ import "./footer.scss";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+
 const Footer = () => {
-  const [services, setService] = useState([]);
-  //  ================================================
-  // Get api for Services
-  // =================================================
-  const getServices = async () => {
-    await axios.get("services").then((resp) => {
-      
-      setService(resp.data.services);
-    });
-  };
-  useEffect(() => {
-    getServices();
-  });
+  const services = useSelector((state) => state.authReducer.services);
+
   return (
     <>
       <section className="footer-section pt-4 px-1 px-md-5">
