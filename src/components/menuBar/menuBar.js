@@ -19,7 +19,7 @@ const MainMenu = () => {
       <div className="container-fuild mx-auto">
         <div className="d-flex mainMenu_bar align-items-center ">
           <div className="mainHeading">
-            <Icon icon="gg:menu-grid-r" /> Main Services
+            <Icon icon="gg:menu-grid-r" /> All Services
             <div className="main_cat_block">
               {subservices &&
                 subservices.map((item, index) => {

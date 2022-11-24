@@ -60,10 +60,10 @@ const AdminSidebar = () => {
         </li>
         <li
           className={`sideBarLink px-2 ${
-            local.pathname == "/user/services" ? " active" : " "
+            local.pathname == "/user/ads" ? " active" : " "
           }`}
         >
-          <Link to="/user/services">
+          <Link to="/user/ads">
             <Icon icon="entypo:tools" />
             <span>Ads</span>
           </Link>
@@ -87,8 +87,14 @@ const AdminSidebar = () => {
         </li>
         <li className="sideBarLink px-2">
           <Link to="/">
-            <Icon icon="ant-design:customer-service-twotone" />
-            <span>Customer Care </span>
+            <Icon icon="mdi:like-outline" />
+            <span>Liked Ads</span>
+          </Link>
+        </li>
+        <li className="sideBarLink px-2">
+          <Link to="/">
+          <Icon icon="material-symbols:flag-circle-outline" />
+            <span>Reported Ads</span>
           </Link>
         </li>
         <li className="sideBarLink px-2">

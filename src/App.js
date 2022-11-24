@@ -38,11 +38,11 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/services/:id" element={<Services />} />
           <Route path="/addetails/:id" element={<PropertyDetailPage />} />
-          <Route path="/profiledetails/:id" element={<ProfileDetail />} />
+          <Route path="/individual/:id" element={<ProfileDetail />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Register />} />
           <Route
-            path="/user/services"
+            path="/user/ads"
             element={token ? <UserServices /> : <ProtectedRoute />}
           />
           <Route

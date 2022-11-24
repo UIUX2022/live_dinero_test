@@ -32,8 +32,11 @@ const ProfileSetting = () => {
         token,
       });
 
-      if (result.status == 200) {
-        setUserData(result.user);
+      if (result.data.status == 200) {
+        console.log("user profile setting is", result);
+        setUserData(result.data.user);
+      } else if (result.response.status == 401) {
+        navigate("/login");
       }
       dispatch(endLoader());
     } catch (e) {
@@ -137,10 +140,10 @@ const ProfileSetting = () => {
       notification["success"]({
         message: `${result.data.message}`,
       });
-    } else if (result.data.status == 401 || result.data.status == 500) {
+    } else if (result.response.status == 401 || result.response.status == 500) {
       dispatch(addUser({}));
       dispatch(addtoken(""));
-      navigate("/");
+      navigate("/login");
     } else {
       notification["error"]({
         message: `${result.data.error}`,
@@ -186,8 +189,8 @@ const ProfileSetting = () => {
         <div className="row">
           <div className="col-md-12">
             <div className="pageTitle text-start">General Information</div>
-            <div className="row align-items-center">
-              <div className="col-md-3">
+            <div className="row align-items-start">
+              <div className="col-md-3 pt-5">
                 <div className="profilePic text-center">
                   <img src="/img/profile1.jpg" alt="prfilePic" />
                   <button className="removeProfile mt-3  py-1">

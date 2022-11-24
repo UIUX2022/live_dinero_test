@@ -211,17 +211,17 @@ const Services = () => {
                       </div>
                     </div>
                   </div>
-                  <div className="services_pro_list px-md-2">
+                  <div className="services_pro_list px-md-2 pb-4">
                     {gridCard == 1 ? (
                       <>
-                        <div className="row justify-content-center justify-content-md-start">
+                        <div className="row justify-content-center justify-content-md-start px-2">
                           {ads &&
                             ads.map((adItems, index) => {
                               return (
                                 <>
                                   {adItems.ad_type_id == 1 ? (
                                     <div
-                                      className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-10"
+                                      className="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-10 px-0"
                                       key={index}
                                     >
                                       <PropertyCard data={adItems} />

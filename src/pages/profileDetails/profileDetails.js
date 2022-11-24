@@ -1,50 +1,30 @@
 import "./profileDetails.scss";
 import { Icon } from "@iconify/react";
 import MainLayout from "../../layouts/mainLayout/mainLayout.jsx";
-import Profile from "../../images/profileUser.png";
-import ProfileBg from "../../images/profilebg.png";
-import ImageGallery from "react-image-gallery";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { baseURL,baseURLImg } from "../../routes/routes";
-
+import { baseURLImg } from "../../routes/routes";
+import { useParams } from "react-router-dom";
+import { addUser } from "./../../redux/actions/index";
+import PropertyCard from "../../components/propertyCard/propertyCard";
 const ServicesDetail = () => {
   const [userDetails, setUserDetails] = useState(null);
-
-  const images = [
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1018/1000/600/",
-      thumbnail: "https://picsum.photos/id/1018/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1015/1000/600/",
-      thumbnail: "https://picsum.photos/id/1015/250/150/",
-    },
-    {
-      original: "https://picsum.photos/id/1019/1000/600/",
-      thumbnail: "https://picsum.photos/id/1019/250/150/",
-    },
-  ];
+  const [userAds, setuserAds] = useState([]);
+  const { id } = useParams();
   // ========================================================
   //  Get API for User Profile
   // ========================================================
   const getProfileDetail = async () => {
-    await axios.get("ad/14").then((resp) => {
-      console.log("get user profile api data -------->", resp.data.ad);
-      setUserDetails(resp.data.ad);
-    });
+    await axios
+      .get(`individual/${id}`)
+      .then((resp) => {
+        // console.log("get user profile api data -------->", resp.data);
+        setUserDetails(resp.data.detail);
+        setuserAds(resp.data.ads_listing.data);
+      })
+      .catch((error) => {
+        console.log("get user profile api  Error-------->", error);
+      });
   };
   useEffect(() => {
     getProfileDetail();
@@ -52,7 +32,7 @@ const ServicesDetail = () => {
   return (
     <>
       <MainLayout>
-        <div className="container">
+        <div className="container-fuild px-1 px-md-5">
           <div className="service_detail_head">
             <div className="row">
               <div className="col-12">
@@ -71,91 +51,91 @@ const ServicesDetail = () => {
                 </nav>
               </div>
             </div>
-            <div className="row">
-              <div className="col-12">
-                <div className="header-img mb-3">
-                  <img src={ProfileBg} alt="serice_head" />
-                  <h3>{userDetails?.service.title}</h3>
-                </div>
-              </div>
-            </div>
           </div>
-          <div className="services_details_body mb-2">
+          <div className="services_details_body mb-4">
             <div className="row">
-              <div className="col-md-8">
-                <div className="service_pro_details p--md-3 p-2 d-flex align-items-center gap-3">
-                  <div className="servies_pro_img">
+              <div className="col-md-6 col-xl-3">
+                <div className="service_pro_details p-md-3 p-2 text-center ">
+                  <div className="servies_pro_img mx-auto my-3">
                     <img
-                      src={`${baseURLImg}ads/detail/${
-                        userDetails && userDetails.images[0].image_name
-                      }`}
+                      src={`${baseURLImg}user/md/${userDetails?.profile_image}`}
                       alt="pro_img"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = "/img/placeholder.png";
+                      }}
                     />
                   </div>
                   <div className="servies_name">
-                    <h3>{userDetails && userDetails.title}</h3>
                     <h4>Top Level</h4>
                   </div>
-                  <div className="check_fav">
-                    <Icon icon="bi:heart" />
+                  <hr />
+                  <div className="user_otherDetails px-1 ">
+                    <div className="user_Item d-flex align-items-center justify-content-between py-2">
+                      <div className="user_item_heading d-flex align-items-center">
+                        <Icon icon="material-symbols:location-on" />
+                        &nbsp; Form
+                      </div>
+                      <h6 className="mb-0 user_item_value">
+                        {userDetails?.country ? userDetails?.country : "Qatar"}
+                      </h6>
+                    </div>
+                    <div className="user_Item d-flex align-items-center justify-content-between py-2">
+                      <div className="user_item_heading d-flex align-items-center">
+                        <Icon icon="mdi:user" />
+                        &nbsp; Member since
+                      </div>
+                      <h6 className="mb-0 user_item_value">may 2022</h6>
+                    </div>
+                    <div className="user_Item d-flex align-items-center justify-content-between py-2">
+                      <div className="user_item_heading d-flex align-items-center">
+                        <Icon icon="material-symbols:mail-rounded" />
+                        &nbsp; Email
+                      </div>
+                      <h6 className="mb-0 user_item_value">
+                        {userDetails?.email}
+                      </h6>
+                    </div>
+                    <div className="mt-4 user_link_btns">
+                      <a
+                        herf={`tel:${userDetails?.country_code}${userDetails?.mobile_no}`}
+                      >
+                        <button className="w-100 phone_btn">
+                          <Icon icon="material-symbols:phone-in-talk" />
+                          &nbsp;Phone
+                        </button>
+                      </a>
+                      <a
+                        herf={`tel:${userDetails?.country_code}${userDetails?.mobile_no}`}
+                      >
+                        <button className="w-100 whats_btn mt-3">
+                          <Icon icon="ic:sharp-whatsapp" />
+                          &nbsp;Whats App
+                        </button>
+                      </a>
+                    </div>
                   </div>
                 </div>
-                <div className="silder_div my-2">
-                  <ImageGallery items={images} />
-                </div>
-                <div className="services_slider mt-3">
-                  <div className="slider"></div>
-                  <div className="px-2 py-2">
-                    <h3>About My Profile </h3>
-                    <p>{userDetails && userDetails.short_description}</p>
+                <div></div>
+              </div>
+              <div className="col-md-6 col-xl-9">
+                <h3 className="user_name">{userDetails && userDetails?.name} ADs</h3>
+                <div className="property_ads_details">
+                  <div className="row">
+                    {userAds &&
+                      userAds.map((item, index) => {
+                        return (
+                          <>
+                            <div className="col-md-12 col-xl-4 px-0">
+                              <PropertyCard data={item} />
+                            </div>
+                          </>
+                        );
+                      })}
                   </div>
                 </div>
               </div>
-              <div className="col-md-4 mt-2 mt-md-0">
-                <div className="user_info p-3">
-                  <div className="d-flex justify-content-around">
-                    <a href="#">
-                      <div className="user_info_item">
-                        <Icon icon="carbon:phone-voice" />
-                      </div>
-                      <p className="mb-0">Call</p>
-                    </a>
-                    <a href="#">
-                      <div className="user_info_item">
-                        <Icon icon="entypo:direction" />
-                      </div>
-                      <p className="mb-0">Direction</p>
-                    </a>
-                    <a href="#">
-                      <div className="user_info_item">
-                        <Icon icon="clarity:map-marker-line" />
-                      </div>
-                      <p className="mb-0">Map</p>
-                    </a>
-                    <a href="#">
-                      <div className="user_info_item">
-                        <Icon icon="carbon:share" />
-                      </div>
-                      <p className="mb-0">Share</p>
-                    </a>
-                  </div>
-                </div>
-                <div className="service_contact_info mt-2">
-                  <div className="service_contact_card p-3">
-                    <p>Contact Information</p>
-                    <button className="w-100 py-2">CONTACT FOR inquiry</button>
-                  </div>
-                </div>
-                <div className="services-Prolinks py-2">
-                  <a className="phone-items py-2">
-                    <Icon icon="carbon:phone-voice" />
-                    &nbsp; Phone
-                  </a>
-                  <a className="Whatsapp-items py-2">
-                    <Icon icon="bi:whatsapp" />
-                  </a>
-                </div>
-              </div>
+             
             </div>
           </div>
         </div>

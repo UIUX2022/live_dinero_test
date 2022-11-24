@@ -28,13 +28,15 @@
     h4 {
       font-size: 16px;
       font-weight: 500;
-      color: $light_text;
-      padding-right: 30px;
+      color: $dark_text;
+      padding-right: 40px;
       text-overflow: ellipsis;
-      white-space: nowrap;
+      white-space: break-spaces;
       display: block;
       overflow: hidden;
       width: auto;
+      line-height: 18px;
+      max-height: 36px;
     }
     .roomdetails {
       display: flex;
@@ -43,7 +45,6 @@
         margin: 0px;
         font-size: 12px;
         color: $light_text;
-        font-weight: 600;
       }
       svg {
         color: $theme_color;
@@ -60,9 +61,13 @@
       }
     }
     .aboutAdd {
+      font-size: 14px;
+      svg {
+        font-size: 20px;
+      }
       text-align: center;
       font-size: 14px;
-      color: $dark_text;
+      color: $light_text;
     }
     .addWish {
       position: absolute;
@@ -70,7 +75,7 @@
       right: 10px;
       svg {
         font-size: 25px;
-        color: red;
+        color: $light_text;
       }
     }
   }

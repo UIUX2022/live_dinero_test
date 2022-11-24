@@ -19,7 +19,7 @@
   img {
     width: 100%;
   }
-  h3{
+  h3 {
     position: absolute;
     color: #fff;
     top: 50%;
@@ -29,9 +29,10 @@
   }
 }
 .service_pro_details {
-  box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
   border-radius: 5px;
-  background-color:$white;
+  background-color: $white;
+  position: sticky;
+  top: 10px;
   .servies_name {
     h3 {
       color: $dark_text;
@@ -53,9 +54,9 @@
   }
 }
 .servies_pro_img {
-  width: 95px;
-  height: 95px;
-  border-radius: 50%;
+  width: 125px;
+  height: 125px;
+  border-radius: 65px;
   overflow: hidden;
   border: 2px solid $theme_color;
   img {
@@ -65,39 +66,45 @@
   }
 }
 .silder_div {
-  background-color: $white;
+  border: 1px solid #f1f1f1;
   border-radius: 5px;
+  .primary_image {
+    width: 100%;
+    height: 310px;
+    object-fit: contain;
+    background-color: $white;
+  }
 }
 .user_info {
   background-color: $white;
   border-radius: 5px;
-  a{
+  a {
     color: $dark_text;
   }
-  .user_info_item{
+  .user_info_item {
     width: 50px;
     height: 50px;
     border: 1px solid $theme_color;
     position: relative;
-    border-radius:30px;
+    border-radius: 30px;
     color: $theme_color;
-    svg{
+    svg {
       position: absolute;
-      font-size:25px;
+      font-size: 25px;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
   }
-  p{
-    font-size:12px;
+  p {
+    font-size: 12px;
     text-align: center;
     padding-top: 4px;
   }
 }
 .service_contact_info {
   .service_contact_card {
-   background-color: $white;
+    background-color: $white;
     border-radius: 5px;
     text-align: center;
     p {
@@ -177,7 +184,7 @@
     font-size: 20px;
     vertical-align: middle;
     font-weight: 600;
-    background-color:$white;
+    background-color: $white;
     svg {
       font-size: 22px;
     }
@@ -195,22 +202,66 @@
     }
   }
 }
-
-@media (max-width:768px){
+.user_otherDetails {
+  font-size: 14px;
+  .user_Item {
+    text-align: left;
+    .user_item_heading {
+      svg {
+        color: rgb(98, 100, 106);
+        font-size: 20px;
+      }
+    }
+    .user_item_value {
+      font-weight: 400;
+      color: $dark_text;
+      font-size: 14px;
+    }
+  }
+}
+.user_link_btns {
+  button {
+    border: 1px solid $theme_color;
+    background-color: $white;
+    border-radius: 5px;
+    font-size: 18px;
+    padding: 8px 0px;
+    display: inline;
+    color: $theme_color;
+    box-shadow: 0px 0px 5px 3px rgba(0, 0, 0, 0.1);
+    svg {
+      font-size: 20px;
+    }
+    &:hover {
+      border: 1px solid $white;
+      background-color: $theme_color;
+      color: $white;
+    }
+  }
+  .whats_btn {
+    border: 1px solid $theme_color;
+    background-color: $theme_color;
+    color: $white;
+  }
+}
+.user_name {
+  font-size: 20px;
+}
+@media (max-width: 768px) {
   .user_info .user_info_item {
     width: 40px;
     height: 40px;
   }
   .user_info p {
-    font-size:10px
+    font-size: 10px;
   }
-  .service_contact_info .service_contact_card p{
-    font-size:16px;
+  .service_contact_info .service_contact_card p {
+    font-size: 16px;
   }
-  .service_contact_info .service_contact_card button{
-    font-size:12px;
+  .service_contact_info .service_contact_card button {
+    font-size: 12px;
   }
   .services_slider p {
     line-height: 28px;
-}
+  }
 }

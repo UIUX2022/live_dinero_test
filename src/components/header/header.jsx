@@ -13,7 +13,6 @@ import {
 } from "../../redux/actions/index";
 import { Button, Dropdown, Menu } from "antd";
 
-
 const Header = () => {
   const navigation = useNavigate();
   const local = useLocation();
@@ -22,7 +21,6 @@ const Header = () => {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState("mail");
   const [services, setServices] = useState(null);
-  
 
   // ==============================================
   // Post Api for logout
@@ -62,10 +60,16 @@ const Header = () => {
         <Link to="/user/profile/setting">&nbsp;{user.name} Profile</Link>
       </Menu.Item>
       <Menu.Item icon={<Icon icon="entypo:tools" />}>
-        <Link to="/user/services">&nbsp;Ads</Link>
+        <Link to="/user/ads">&nbsp;Ads</Link>
       </Menu.Item>
       <Menu.Item icon={<Icon icon="teenyicons:search-property-solid" />}>
         <Link to="/user/create/services">&nbsp;Create Ad</Link>
+      </Menu.Item>
+      <Menu.Item icon={<Icon icon="mdi:like-outline" />}>
+        <Link to="/user/create/services">&nbsp;Liked Ads</Link>
+      </Menu.Item>
+      <Menu.Item icon={<Icon icon="material-symbols:flag-circle-outline" />}>
+        <Link to="/user/create/services">&nbsp;Reportd Ads</Link>
       </Menu.Item>
       <Menu.Item icon={<Icon icon="clarity:notification-solid-badged" />}>
         <Link to="/profile/my-question">&nbsp;Notifications</Link>
@@ -96,7 +100,10 @@ const Header = () => {
           </div>
           <div className="searchBar px-5">
             <form className="search_barInput">
-              <input className="form-control" placeholder="Find Your Near By Property"/>
+              <input
+                className="form-control"
+                placeholder="Find Your Near By Property"
+              />
               <button type="submit" className="search_btn">
                 <Icon icon="material-symbols:search" />
               </button>

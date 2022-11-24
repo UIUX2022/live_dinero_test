@@ -11,7 +11,7 @@ import { notification, Modal } from "antd";
 
 const UserServiceCard = ({ data, updateAdList }) => {
   const dispatch = useDispatch();
-
+  console.log("current ad is", data);
   const token = useSelector((state) => state.authReducer.token);
   const [delModal, setDelModal] = useState(false);
   // ===============================================================
@@ -92,7 +92,7 @@ const UserServiceCard = ({ data, updateAdList }) => {
               onClick={() => updateStatus(data.status)}
             />
           </div>
-          <Link to="/" className="Card_name">
+          <Link to={`/addetails/${data.slug}`} className="Card_name">
             {data.title}
           </Link>
           <h6 className="mb-0">{data.short_description}</h6>

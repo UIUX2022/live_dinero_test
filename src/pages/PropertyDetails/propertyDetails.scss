@@ -3,6 +3,9 @@
 .property_details_info {
   padding: 10px;
   border-bottom: 1px solid #f1f1f1;
+  h4 {
+    font-size: 18px;
+  }
 }
 .perporty_description {
   padding: 10px 0px;
@@ -20,6 +23,7 @@
     border: 1px solid #f1f1f1;
     border-radius: 10px;
     padding: 0px 15px;
+    background: $white;
     .specif_name {
       flex: 1;
     }
@@ -43,7 +47,6 @@
   top: 5px;
 }
 .perporty_sale_details {
- 
   background: $white;
   border: 2px solid $white;
   border-radius: 5px;
@@ -53,7 +56,8 @@
     font-weight: 700;
   }
   svg {
-    font-size: 22px;
+    font-size: 28px;
+    color: $light_text;
   }
   p {
     color: $dark_text;
@@ -66,6 +70,18 @@
     padding: 3px 12px;
     width: 50%;
     color: red;
+    svg {
+      font-size: 28px;
+      color: red;
+    }
+  }
+  .perporty_details_footer {
+    span {
+      font-size: 14px;
+    }
+    svg {
+      font-size: 18px;
+    }
   }
 }
 .report_ads_modal {
@@ -124,6 +140,7 @@
       object-fit: cover;
       border-radius: 60px;
       margin: 12px 0px;
+      box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
     }
     a {
       font-size: 20px;
@@ -140,9 +157,10 @@
   }
 }
 .perporty_self_details {
-  padding: 15px;
+  padding: 15px 10px;
+  border-bottom: 1px solid #f1f1f1;
   h4 {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 .perporty_seller_contact {
@@ -174,5 +192,31 @@
 .whats_btn {
   svg {
     color: #fff;
+  }
+}
+.property_locations {
+  padding: 15px 10px;
+  h4 {
+    font-size: 20px;
+  }
+}
+.property_locations {
+  border-radius: 5px;
+  overflow: hidden;
+}
+.realted_ads {
+  h3 {
+    font-size: 24px;
+  }
+  .realted-ads-slider {
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  .realtedAdd_no {
+    min-height: 130px;
+    svg {
+      font-size: 55px;
+      color: $light_text;
+    }
   }
 }
