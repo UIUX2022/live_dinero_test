@@ -1,19 +1,19 @@
 import "./userServiceCard.scss";
 import { useState } from "react";
-import { Switch } from "antd";
+import { Switch, notification, Modal } from "antd";
 import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { baseURLImg } from "../../routes/routes";
 import { PostApiWithHeader } from "../../services";
 import { useSelector, useDispatch } from "react-redux";
 import { startLoader, endLoader } from "../../redux/actions";
-import { notification, Modal } from "antd";
-
+import EditAds from "../editAds/editAds";
 const UserServiceCard = ({ data, updateAdList }) => {
   const dispatch = useDispatch();
   console.log("current ad is", data);
   const token = useSelector((state) => state.authReducer.token);
   const [delModal, setDelModal] = useState(false);
+  const [editModal, sereditModal] = useState(false);
   // ===============================================================
   // Post API for Update status of AD
   // ===============================================================
@@ -75,6 +75,15 @@ const UserServiceCard = ({ data, updateAdList }) => {
   const delModalCancel = () => {
     setDelModal(false);
   };
+  // ================================================
+  // Edit Modal controls
+  // ================================================
+  const editModalOk = () => {
+    sereditModal(false);
+  };
+  const editModalCancel = () => {
+    sereditModal(false);
+  };
   return (
     <>
       <div className="userCard_service d-sm-flex mt-2 mt-lg-3">
@@ -115,7 +124,7 @@ const UserServiceCard = ({ data, updateAdList }) => {
               </div>
             </div>
             <div className="Card_btns d-sm-flex gap-1 justify-content-end">
-              <button className="edit_btn">
+              <button className="edit_btn" onClick={()=>sereditModal(true)}>
                 <Icon icon="material-symbols:edit" />
                 &nbsp; Edit
               </button>
@@ -131,6 +140,31 @@ const UserServiceCard = ({ data, updateAdList }) => {
         open={delModal}
         onOk={delModalOk}
         onCancel={delModalCancel}
+        footer={null}
+        header={null}
+      >
+        <div className="del_ad_modal  text-center">
+          <div className="del-ad_icon text-center">
+            <Icon icon="material-symbols:warning-rounded" />
+          </div>
+
+          <h5 className="py-2">Make sure want to delete AD </h5>
+          <div className="del_modal_btns">
+            <button className="del_con_btn" onClick={delModalCancel}>
+              Cancel
+            </button>
+            &nbsp; &nbsp;
+            <button className="del_sure_btn" onClick={delModalOk}>
+              Sure
+            </button>
+          </div>
+        </div>
+      </Modal>
+      <Modal
+        title="Edit your ad"
+        open={editModal}
+        onOk={editModalOk}
+        onCancel={editModalCancel}
         footer={null}
         header={null}
       >

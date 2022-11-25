@@ -36,10 +36,13 @@ const Login = () => {
         password: values.password,
       })
       .then((resp) => {
+        // console.log("login api result is", resp);
         if (resp.data.status == 200) {
           dispatch(addtoken(resp.data.token));
           dispatch(addUser(resp.data.user));
-         
+          notification["success"]({
+            message: "login Successful",
+          });
         } else {
           notification.error({
             message: "Error",
@@ -63,9 +66,8 @@ const Login = () => {
 
   useEffect(() => {
     if (token) {
-      return navigation("/");
+      return navigation(-1);
     }
- 
   }, [token]);
   return (
     <div className="registerPage">

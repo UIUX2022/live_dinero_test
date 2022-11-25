@@ -5,9 +5,12 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { baseURLImg } from "../../routes/routes";
 import { useParams } from "react-router-dom";
-import { addUser } from "./../../redux/actions/index";
 import PropertyCard from "../../components/propertyCard/propertyCard";
+import { useDispatch } from "react-redux";
+import { startLoader, endLoader } from "../../redux/actions";
+import moment from "moment";
 const ServicesDetail = () => {
+  const dispatch = useDispatch();
   const [userDetails, setUserDetails] = useState(null);
   const [userAds, setuserAds] = useState([]);
   const { id } = useParams();
@@ -15,6 +18,7 @@ const ServicesDetail = () => {
   //  Get API for User Profile
   // ========================================================
   const getProfileDetail = async () => {
+    dispatch(startLoader());
     await axios
       .get(`individual/${id}`)
       .then((resp) => {
@@ -25,6 +29,7 @@ const ServicesDetail = () => {
       .catch((error) => {
         console.log("get user profile api  Error-------->", error);
       });
+    dispatch(endLoader());
   };
   useEffect(() => {
     getProfileDetail();
@@ -85,7 +90,9 @@ const ServicesDetail = () => {
                         <Icon icon="mdi:user" />
                         &nbsp; Member since
                       </div>
-                      <h6 className="mb-0 user_item_value">may 2022</h6>
+                      <h6 className="mb-0 user_item_value">
+                        {moment(userDetails?.updated_at).format("MMM-YYYY")}
+                      </h6>
                     </div>
                     <div className="user_Item d-flex align-items-center justify-content-between py-2">
                       <div className="user_item_heading d-flex align-items-center">
@@ -98,7 +105,7 @@ const ServicesDetail = () => {
                     </div>
                     <div className="mt-4 user_link_btns">
                       <a
-                        herf={`tel:${userDetails?.country_code}${userDetails?.mobile_no}`}
+                        href={`tel:${userDetails?.country_code}${userDetails?.mobile_no}`}
                       >
                         <button className="w-100 phone_btn">
                           <Icon icon="material-symbols:phone-in-talk" />
@@ -106,9 +113,9 @@ const ServicesDetail = () => {
                         </button>
                       </a>
                       <a
-                        herf={`tel:${userDetails?.country_code}${userDetails?.mobile_no}`}
+                        href={`https://api.whatsapp.com/send?phone=${userDetails?.country_code}${userDetails?.mobile_no}`}
                       >
-                        <button className="w-100 whats_btn mt-3">
+                        <button className="w-100 whats_btn mt-2">
                           <Icon icon="ic:sharp-whatsapp" />
                           &nbsp;Whats App
                         </button>
@@ -119,7 +126,9 @@ const ServicesDetail = () => {
                 <div></div>
               </div>
               <div className="col-md-6 col-xl-9">
-                <h3 className="user_name">{userDetails && userDetails?.name} ADs</h3>
+                <h3 className="user_name">
+                  {userDetails && userDetails?.name} ADs
+                </h3>
                 <div className="property_ads_details">
                   <div className="row">
                     {userAds &&
@@ -135,7 +144,6 @@ const ServicesDetail = () => {
                   </div>
                 </div>
               </div>
-             
             </div>
           </div>
         </div>

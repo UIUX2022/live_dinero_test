@@ -83,6 +83,17 @@
       font-size: 18px;
     }
   }
+  .ad_fav {
+    background-color: #f3f3f3;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+
+  }
 }
 .report_ads_modal {
   ul {
@@ -213,7 +224,7 @@
     border-radius: 5px;
   }
   .realtedAdd_no {
-    min-height: 130px;
+    min-height: 230px;
     svg {
       font-size: 55px;
       color: $light_text;

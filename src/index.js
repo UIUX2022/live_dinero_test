@@ -11,8 +11,7 @@ import { Provider } from "react-redux";
 import axios from "axios";
 import { persistor, store } from "./redux/store";
 import { PersistGate } from "redux-persist/integration/react";
-
- axios.defaults.baseURL = "https://buyer.storak.qa/api/";
+axios.defaults.baseURL = "https://buyer.storak.qa/api/";
 
 // axios.defaults.baseURL = "http://192.168.18.43:9000/api/";
 

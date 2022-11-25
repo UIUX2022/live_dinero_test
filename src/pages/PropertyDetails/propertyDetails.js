@@ -52,15 +52,13 @@ const PropertyDetailPage = () => {
   let { id } = useParams();
   const [details, Setdetails] = useState({});
   const [detailsImgs, SetdetailsImgs] = useState([]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [sliderimg, setSliderImg] = useState([]);
   const [addReport, setAddReport] = useState(null);
   const [relatedAds, SetrelatedAds] = useState([]);
   const [reportReas, SetReportRes] = useState([]);
   const [reportDetails, setreportDetail] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
   const handleOk = () => {
     setIsModalOpen(false);
   };
@@ -68,14 +66,14 @@ const PropertyDetailPage = () => {
     setIsModalOpen(false);
     setAddReport(null);
   };
-  const images = [];
+
   // =============================================
   // Get API for Property data
   // =============================================
   const getDetails = async () => {
     dispatch(startLoader());
     await axios.get(`ad-detail/${id}`).then((resp) => {
-     
+      // console.log("get ad details", resp.data);
       Setdetails(resp.data.ad);
       SetdetailsImgs(resp.data.ad.images);
       SetrelatedAds(resp.data.realted_ads);
@@ -102,12 +100,15 @@ const PropertyDetailPage = () => {
     getReportReas();
   }, []);
   useEffect(() => {
+    
+    const images = [];
     detailsImgs.map((item, index) => {
       images.push({
         original: `${baseURLImg}adds/detail/lg/${item.image_name}`,
         thumbnail: `${baseURLImg}adds/detail/sm/${item.image_name}`,
       });
     });
+    setSliderImg(images);
   }, [detailsImgs]);
   // =============================================
   // Post API for AD Report
@@ -124,11 +125,12 @@ const PropertyDetailPage = () => {
         token,
         params,
       });
-      if (result.data.status == 200) {
+      // console.log("add resport api response ", result);
+      if (result?.data?.status == 200) {
         notification["success"]({
           message: `${result.data.message}`,
         });
-      } else if (result.response.status == 401) {
+      } else if (result?.response?.status == 401) {
         navigate("/login");
       }
     } catch (error) {
@@ -140,7 +142,7 @@ const PropertyDetailPage = () => {
     setreportDetail("");
   };
   // =============================================
-  // Post API to Set Ad Fav
+  // Post API to Set Ad Like or dislike
   // =============================================
   const setAdFav = async () => {
     try {
@@ -148,12 +150,12 @@ const PropertyDetailPage = () => {
         route: `user/ad/like/${details.id}`,
         token,
       });
-      if (result.data.status == 200) {
+      // console.log("add like api response ", result);
+      if (result?.data?.status == 200) {
         notification["success"]({
           message: `${result.data.message}`,
         });
-      }
-      else if(result.response.status == 401){
+      } else if (result?.response?.status == 401) {
         navigate("/login");
       }
     } catch (e) {
@@ -195,7 +197,7 @@ const PropertyDetailPage = () => {
                     <div className="col-lg-8">
                       <div className="silder_div">
                         {detailsImgs?.length > 0 ? (
-                          <ImageGallery items={images} />
+                          <ImageGallery items={sliderimg} />
                         ) : (
                           <img
                             src={`${baseURLImg}adds/primary/lg/${details?.primary_image}`}
@@ -255,12 +257,16 @@ const PropertyDetailPage = () => {
                         <div className="perporty_sale_details mt-4 mt-md-0 ">
                           <div className="d-flex justify-content-between">
                             <h5>QAR {details && details.price}</h5>
-                            <div onClick={setAdFav}>
+                            <div onClick={setAdFav} className="ad_fav">
                               <Icon icon="akar-icons:heart" />
                             </div>
                           </div>
                           <p>{details && details.title} </p>
-                          <button className="report-ad" onClick={showModal}>
+                          <button
+                            type="button"
+                            className="report-ad"
+                            onClick={() => setIsModalOpen(true)}
+                          >
                             <Icon icon="ph:flag-banner" /> &nbsp;Report
                           </button>
                           <div className="d-flex justify-content-between mt-4 perporty_details_footer">
@@ -271,7 +277,9 @@ const PropertyDetailPage = () => {
                             <span>
                               <Icon icon="mdi:clock-time-five-outline" />
                               &nbsp;
-                              {moment(details?.updated_at).format("DD-MM-YYYY")}
+                              {moment(details?.updated_at).format(
+                                "DD-MMM-YYYY"
+                              )}
                             </span>
                           </div>
                         </div>
@@ -279,7 +287,7 @@ const PropertyDetailPage = () => {
                           <h3>Contact With Seller</h3>
                           <div className="perporty_saler_info pt-2 ">
                             <img
-                              src={`${baseURLImg}adds/primary/lg/${details?.primary_image}`}
+                              src={`${baseURLImg}user/lg/${details?.user?.profile_image}`}
                               alt="pri_img"
                               onError={(e) => {
                                 e.target.onerror = null;
@@ -291,7 +299,12 @@ const PropertyDetailPage = () => {
                               <Link to={`/individual/${details?.user?.slug}`}>
                                 {details?.user?.name}
                               </Link>
-                              <p>Member since may 2022</p>
+                              <p>
+                                Member since &nbsp;
+                                {moment(details?.user?.updated_at).format(
+                                  "MMM-YYYY"
+                                )}
+                              </p>
                             </div>
                             <div className="perporty_seller_contact mt-4">
                               <div className=" gap-2">

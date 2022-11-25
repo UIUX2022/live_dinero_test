@@ -11,8 +11,10 @@ import axios from "axios";
 import { Icon } from "@iconify/react";
 import { notification } from "antd";
 import { startLoader, endLoader, addUser, addtoken } from "../../redux/actions";
+import { useRef } from "react";
 
 const ProfileSetting = () => {
+  const inputRef = useRef(null);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const token = useSelector((state) => state.authReducer.token);
@@ -21,6 +23,7 @@ const ProfileSetting = () => {
   const [country, setCountry] = useState([]);
   const [states, setStates] = useState([]);
   const [city, setCity] = useState([]);
+  const [profileImg, setProfileImg] = useState(null);
   // ==============================================
   // Get Api for User Profile
   // ==============================================
@@ -32,10 +35,10 @@ const ProfileSetting = () => {
         token,
       });
 
-      if (result.data.status == 200) {
-        console.log("user profile setting is", result);
+      if (result?.data?.status == 200) {
+        // console.log("user profile setting is", result);
         setUserData(result.data.user);
-      } else if (result.response.status == 401) {
+      } else if (result?.response?.status == 401) {
         navigate("/login");
       }
       dispatch(endLoader());
@@ -182,7 +185,68 @@ const ProfileSetting = () => {
   useEffect(() => {
     getCities(formik.values.state_id);
   }, [formik.values.state_id]);
+  // ===================================
+  // Post API for Upload Imgs
+  // ====================================
+  const PostProfileImg = async () => {
+    const params = {
+      profile_image: profileImg,
+    };
+    try {
+      const result = await PostApiWithHeader({
+        route: "user/profile-image/update",
+        params,
+        token,
+      });
+      console.log("post upload profile img error is", result.data);
+      if (result.data.status != 200) {
+        notification["error"]({
+          message: "something went wrong please try again later",
+        });
+        setProfileImg(null);
+      } else if (result.data.status == 200) {
+        notification["error"]({
+          message: "profile images upload successfully",
+        });
+      }
+    } catch (error) {
+      console.log("upload img api error is", error);
+    }
+  };
+  useEffect(() => {
+    if (profileImg) {
+      PostProfileImg();
+    }
+  }, [profileImg]);
 
+  // ==============================================================
+  // Del Api for delete account
+  // ==============================================================
+  const delAccount = async () => {
+    const result = await axios
+      .delete("user/profile/delete", {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((resp) => {
+        console.log("get message del account api", resp);
+        if (resp.data.status == 200)
+          if (resp.data.status == 200) {
+            notification["success"]({
+              massege: "User is deleted successfully",
+            });
+            dispatch(addUser({}));
+            dispatch(addtoken(""));
+            navigate("/");
+          } else {
+            notification["error"]({
+              massege: "someting want wrong please try again",
+            });
+          }
+      })
+      .catch((error) => {
+        console.log("get error account delete", error);
+      });
+  };
   return (
     <AdminLayout>
       <div className="profileUpdate">
@@ -193,10 +257,22 @@ const ProfileSetting = () => {
               <div className="col-md-3 pt-5">
                 <div className="profilePic text-center">
                   <img src="/img/profile1.jpg" alt="prfilePic" />
-                  <button className="removeProfile mt-3  py-1">
-                    Remove Photo
-                  </button>
+                  <div className="addNew_img">
+                    <Icon
+                      icon="material-symbols:linked-camera-outline"
+                      onClick={() => inputRef.current.click()}
+                    />
+                  </div>
                 </div>
+                <input
+                  type="file"
+                  className="d-none"
+                  ref={inputRef}
+                  onChange={(e) => setProfileImg(e.target.value)}
+                />
+                <button className="removeProfile mt-3  py-1">
+                  Remove Photo
+                </button>
               </div>
               <div className="col-md-8">
                 {initialValues ? (
@@ -473,7 +549,18 @@ const ProfileSetting = () => {
               </div>
             </div>
           </div>
-          <div></div>
+        </div>
+        <div className="row p-3 mt-4">
+          <div className="col-12">
+            <div className="del_account p-4 text-start">
+              <h3>Delete this account</h3>
+              <hr />
+              <h4>Are you sure you want to delete your account?</h4>
+              <button className="px-4 py-1 mt-2" onClick={delAccount}>
+                yes, Delete my account
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </AdminLayout>

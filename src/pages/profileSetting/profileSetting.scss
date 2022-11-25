@@ -1,4 +1,4 @@
-@import '../../css/variables.scss';
+@import "../../css/variables.scss";
 .profileUpdate {
   text-align: center;
   background-color: #fff;
@@ -8,16 +8,44 @@
     font-weight: 500;
     color: $dark_text;
   }
-  img {
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid $theme_color;
-    cursor: pointer;
-    @media screen and (max-width: 1024px) {
-      width: 100px;
-      height: 100px;
+  .profilePic {
+    position: relative;
+    img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1px solid $theme_color;
+      cursor: pointer;
+      @media screen and (max-width: 1024px) {
+        width: 100px;
+        height: 100px;
+      }
+    }
+    .addNew_img {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      background-color: rgba(0, 0, 0, 0.3);
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.4s ease-in;
+      cursor: pointer;
+      svg {
+        font-size: 28px;
+      }
+    }
+    &:hover {
+      .addNew_img {
+        opacity: 1;
+      }
     }
   }
 }
@@ -44,7 +72,7 @@
   .form-control {
     border: none;
     border-radius: 3px;
-    background-color:#f9f9f9;
+    background-color: #f9f9f9;
     &:focus {
       border: none;
       box-shadow: none;
@@ -62,6 +90,29 @@
       color: #fff;
       padding: 5px 10px;
       border-radius: 5px;
+    }
+  }
+}
+.del_account {
+  border: 1px solid #cfcece;
+  border-radius: 5px;
+  h3 {
+    font-size: 20px;
+  }
+  h4 {
+    font-size: 18px;
+  }
+  button {
+    color: #002f34;
+    background-color: #fff;
+    border: 2px solid #002f34;
+    border-radius: 4px;
+    width: 18rem;
+    height: 42px;
+    font-weight: 600;
+    &:hover {
+      color: red;
+      border: 2px solid red;
     }
   }
 }

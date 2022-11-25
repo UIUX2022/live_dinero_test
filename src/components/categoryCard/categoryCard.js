@@ -1,10 +1,10 @@
 import "./categoryCard.scss";
-import { Link } from "react-router-dom";
+
 const CategoryCard = ({ name, img, bg, id }) => {
   return (
     <>
       <div className="catrgory_card mt-3">
-        <Link to={`/services/${id}`}>
+      
           <div
             className="card_head_img mx-auto"
             style={{ backgroundColor: `${bg}` }}
@@ -19,7 +19,7 @@ const CategoryCard = ({ name, img, bg, id }) => {
             />
           </div>
           <h5 className="text-center">{name}</h5>
-        </Link>
+        
       </div>
     </>
   );

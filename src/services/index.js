@@ -17,8 +17,10 @@ export const PostApiWithHeader = async ({ params, route, token }) => {
     const response = await axios.post(route, params, {
       headers: { Authorization: `Bearer ${token}` },
     });
+    // console.log("current api resp is", response);
     return response;
   } catch (e) {
+    // console.log("current api error is", e);
     return e;
   }
 };
