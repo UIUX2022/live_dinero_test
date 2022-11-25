@@ -32,7 +32,7 @@ const UserReportADs = () => {
   useEffect(() => {
     GetLikedAds();
   }, []);
-  console.log("my current like ads are", adList);
+
   return (
     <>
       <Adminlayout>

@@ -73,7 +73,7 @@ const PropertyDetailPage = () => {
   const getDetails = async () => {
     dispatch(startLoader());
     await axios.get(`ad-detail/${id}`).then((resp) => {
-      // console.log("get ad details", resp.data);
+       console.log("get ad details", resp.data);
       Setdetails(resp.data.ad);
       SetdetailsImgs(resp.data.ad.images);
       SetrelatedAds(resp.data.realted_ads);
@@ -87,6 +87,7 @@ const PropertyDetailPage = () => {
     await axios
       .get("report-reasons")
       .then((resp) => {
+       
         if (resp.data.status == 200) {
           SetReportRes(resp.data.report_reasons);
         }
