@@ -23,6 +23,8 @@ import ProtectedRoute from "./protectedRoute";
 import ReserPasswords from "./pages/resetPassword/resetPassword";
 import { useDispatch } from "react-redux";
 import { getOurService } from "./redux/actions";
+import UserLikedADs from "./pages/UserLikedADs/userLikedAds";
+import UserReportADs from "./pages/userReportADs/userReportADs";
 // import ProtectedRoute from "./protectedRoute";
 import { useSelector } from "react-redux";
 function App() {
@@ -61,6 +63,14 @@ function App() {
           <Route
             path="/user/restPassword"
             element={token ? <ReserPasswords /> : <ProtectedRoute />}
+          />
+          <Route
+            path="/user/LikedADs"
+            element={token ? <UserLikedADs /> : <ProtectedRoute />}
+          />
+          <Route
+            path="/user/reportedADs"
+            element={token ? <UserReportADs /> : <ProtectedRoute />}
           />
 
           <Route path="*" element={<Error404 />} />

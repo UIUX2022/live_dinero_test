@@ -66,14 +66,14 @@ const Header = () => {
         <Link to="/user/create/services">&nbsp;Create Ad</Link>
       </Menu.Item>
       <Menu.Item icon={<Icon icon="mdi:like-outline" />}>
-        <Link to="/user/create/services">&nbsp;Liked Ads</Link>
+        <Link to="/user/LikedADs">&nbsp;Liked Ads</Link>
       </Menu.Item>
       <Menu.Item icon={<Icon icon="material-symbols:flag-circle-outline" />}>
-        <Link to="/user/create/services">&nbsp;Reportd Ads</Link>
+        <Link to="/user/reportedADs">&nbsp;Reportd Ads</Link>
       </Menu.Item>
-      <Menu.Item icon={<Icon icon="clarity:notification-solid-badged" />}>
+      {/* <Menu.Item icon={<Icon icon="clarity:notification-solid-badged" />}>
         <Link to="/profile/my-question">&nbsp;Notifications</Link>
-      </Menu.Item>
+      </Menu.Item> */}
       <Menu.Item
         icon={<Icon icon="clarity:settings-solid-badged" className="log_out" />}
       >

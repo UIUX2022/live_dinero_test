@@ -2,6 +2,9 @@
 .userCard_service {
   border: 1px solid #f5f5f5;
   border-radius: 3px;
+  &:hover {
+    box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.1);
+  }
 
   .Card_img {
     width: 210px;
@@ -37,15 +40,42 @@
     }
   }
   .card_details {
+    position: relative;
     span {
       font-size: 12px;
       color: $light_text;
     }
     a {
-      font-size: 22px;
+      font-size: 20px;
     }
     p {
       color: $light_text;
+    }
+    &::after {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 5px;
+      height: 100%;
+      content: "";
+      background-color: $theme_color;
+      z-index: 10;
+      border-radius: 3px;
+    }
+    .card_details_data {
+      flex: 1;
+      h6 {
+        font-size: 16px;
+        a {
+          font-size: 16px;
+          color: $dark_text;
+        }
+        span {
+          font-size: 20px;
+          color: $dark_text;
+          font-weight: 400;
+        }
+      }
     }
   }
 }

@@ -21,11 +21,15 @@ const UserServices = () => {
         route: "user/ad/listing",
         token,
       });
-      if (result.data.status == 200) {
+      console.log("get user all ads", result);
+      if (result?.data?.status == 200) {
         console.log("user ads list is", result);
 
-        setAds(result.data.ads.data);
-      } else if (result.data.status == 401 || result.data.status == 500) {
+        setAds(result?.data?.ads.data);
+      } else if (
+        result?.response?.status == 401 ||
+        result?.response?.status == 500
+      ) {
         dispatch(addUser({}));
         dispatch(addtoken(""));
         navigate("/login");

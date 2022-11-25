@@ -79,25 +79,37 @@ const AdminSidebar = () => {
           </Link>
         </li>
 
-        <li className="sideBarLink px-2">
+        {/* <li className="sideBarLink px-2">
           <Link to="/">
             <Icon icon="clarity:notification-solid-badged" />
             <span>Notifications</span>
           </Link>
-        </li>
-        <li className="sideBarLink px-2">
-          <Link to="/">
+        </li> */}
+        <li
+          className={`sideBarLink px-2 ${
+            local.pathname == "/user/LikedADs" ? " active" : " "
+          }`}
+        >
+          <Link to="/user/LikedADs">
             <Icon icon="mdi:like-outline" />
             <span>Liked Ads</span>
           </Link>
         </li>
-        <li className="sideBarLink px-2">
-          <Link to="/">
-          <Icon icon="material-symbols:flag-circle-outline" />
+        <li
+          className={`sideBarLink px-2 ${
+            local.pathname == "/user/reportedADs" ? " active" : " "
+          }`}
+        >
+          <Link to="/user/reportedADs">
+            <Icon icon="material-symbols:flag-circle-outline" />
             <span>Reported Ads</span>
           </Link>
         </li>
-        <li className="sideBarLink px-2">
+        <li
+          className={`sideBarLink px-2 ${
+            local.pathname == "/user/restPassword" ? " active" : " "
+          }`}
+        >
           <Link to="/user/restPassword">
             <Icon icon="clarity:settings-solid-badged" />
             <span>Reset Password</span>

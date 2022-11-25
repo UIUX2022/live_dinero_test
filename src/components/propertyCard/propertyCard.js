@@ -49,7 +49,7 @@ const PropertyCard = (props) => {
             <div>
               <Icon icon="mdi:clock-time-five-outline" />
               &nbsp;
-              {moment(cardData?.updated_at).format("DD-MM-YYYY")}
+              {moment(cardData?.updated_at).format("DD-MMM-YYYY")}
             </div>
           </div>
           <div className="addWish">

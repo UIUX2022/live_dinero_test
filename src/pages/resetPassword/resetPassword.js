@@ -27,7 +27,7 @@ const ResetPassword = () => {
       .max(50, "You can add max 50 digits")
       .required("This feild is required"),
     confpass: Yup.string()
-      .when("password", {
+      .when("newpass", {
         is: (val) => (val && val.length > 0 ? true : false),
         then: Yup.string().oneOf(
           [Yup.ref("newpass")],

@@ -9,13 +9,14 @@ import Pricefilter from "../../components/filters/priceFilter/priceFilter";
 import ProfileCard from "../../components/profileCard/profileCard";
 import ProdileCard2 from "../../components/profileLandCard/ProfileLandCArd";
 import PropertyLandCard from "../../components/propertyLandCard/propertyLandCard";
+import PropertyCard from "../../components/propertyCard/propertyCard";
 import { Collapse, Tooltip } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { startLoader, endLoader } from "../../redux/actions";
 import { useDispatch } from "react-redux";
-import PropertyCard from "../../components/propertyCard/propertyCard";
+
 import { baseURLImg } from "../../routes/routes";
 const Services = () => {
   const { id } = useParams();

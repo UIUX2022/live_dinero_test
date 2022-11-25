@@ -62,7 +62,6 @@ const Register = () => {
       .required("This feild is required"),
     account_type: Yup.string().required("This feild is required"),
   });
-
   const onSubmit = async (values, submitProps, event) => {
     getData(values);
     await axios

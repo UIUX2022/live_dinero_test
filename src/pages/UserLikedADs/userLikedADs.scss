@@ -1,0 +1,17 @@
+.userlikedads {
+  background-color: #fff;
+  min-height: 95vh;
+  .no_data_found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    p {
+      font-size: 18px;
+      color: #75757575;
+    }
+    svg {
+      font-size: 45px;
+    }
+  }
+}

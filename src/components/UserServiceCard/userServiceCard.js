@@ -8,9 +8,11 @@ import { PostApiWithHeader } from "../../services";
 import { useSelector, useDispatch } from "react-redux";
 import { startLoader, endLoader } from "../../redux/actions";
 import EditAds from "../editAds/editAds";
+import moment from "moment";
 const UserServiceCard = ({ data, updateAdList }) => {
+  console.log("current ad data is", data);
   const dispatch = useDispatch();
-  console.log("current ad is", data);
+
   const token = useSelector((state) => state.authReducer.token);
   const [delModal, setDelModal] = useState(false);
   const [editModal, sereditModal] = useState(false);
@@ -91,9 +93,13 @@ const UserServiceCard = ({ data, updateAdList }) => {
           <img
             src={`${baseURLImg}adds/primary/lg/${data.primary_image}`}
             alt="profile_img"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = "/img/placeholder.png";
+            }}
           />
         </div>
-        <div className="card_details p-2">
+        <div className="card_details p-3">
           <div className="d-flex justify-content-between">
             <span>#{data.ad_uid}</span>
             <Switch
@@ -101,13 +107,29 @@ const UserServiceCard = ({ data, updateAdList }) => {
               onClick={() => updateStatus(data.status)}
             />
           </div>
-          <Link to={`/addetails/${data.slug}`} className="Card_name">
-            {data.title}
-          </Link>
-          <h6 className="mb-0">{data.short_description}</h6>
-          <p className="mb-0">
-            {data.complete_address}, {data.country.name}
-          </p>
+          <div className="card_details_data">
+            <Link to={`/addetails/${data.slug}`} className="Card_name">
+              {data.title}
+            </Link>
+            <div className="">
+              <h6 className="mb-0 py-1">
+                Category: &nbsp;
+                <Link to={`/services/${data.service.slug}`}>
+                  {data.service.title}
+                </Link>
+              </h6>
+              <h6 className="mb-0 py-1">
+                Price: &nbsp;
+                <span>{data.price} QAR</span>
+              </h6>
+            </div>
+
+            <p className="mb-0">
+              <Icon icon="material-symbols:location-on-outline-rounded" />
+              &nbsp;
+              {data.complete_address}, {data.country.name}
+            </p>
+          </div>
           <div className="d-flex justify-content-between">
             <div className="d-flex gap-3 card_likes_details py-1 align-items-center">
               <div className="d-flex align-items-center">
@@ -124,7 +146,7 @@ const UserServiceCard = ({ data, updateAdList }) => {
               </div>
             </div>
             <div className="Card_btns d-sm-flex gap-1 justify-content-end">
-              <button className="edit_btn" onClick={()=>sereditModal(true)}>
+              <button className="edit_btn" onClick={() => sereditModal(true)}>
                 <Icon icon="material-symbols:edit" />
                 &nbsp; Edit
               </button>
@@ -167,23 +189,9 @@ const UserServiceCard = ({ data, updateAdList }) => {
         onCancel={editModalCancel}
         footer={null}
         header={null}
+        width={768}
       >
-        <div className="del_ad_modal  text-center">
-          <div className="del-ad_icon text-center">
-            <Icon icon="material-symbols:warning-rounded" />
-          </div>
-
-          <h5 className="py-2">Make sure want to delete AD </h5>
-          <div className="del_modal_btns">
-            <button className="del_con_btn" onClick={delModalCancel}>
-              Cancel
-            </button>
-            &nbsp; &nbsp;
-            <button className="del_sure_btn" onClick={delModalOk}>
-              Sure
-            </button>
-          </div>
-        </div>
+        <EditAds data={data} />
       </Modal>
     </>
   );

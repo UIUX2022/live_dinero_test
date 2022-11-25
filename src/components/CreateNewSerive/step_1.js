@@ -1,4 +1,4 @@
-import { Steps } from "antd";
+import { Steps, notification } from "antd";
 import { Icon } from "@iconify/react";
 import { useState, useEffect, useMemo } from "react";
 import { useFormik } from "formik";
@@ -83,12 +83,11 @@ const Step1 = (props) => {
     await axios
       .get(`state/${id}/cities`)
       .then((resp) => {
-        console.log("get data for city", resp.data.state_with_cities);
         SetCity(resp.data.state_with_cities);
         dispatch(endLoader());
       })
       .catch((error) => {
-        // console.log("get cities error", error);
+        console.log("get cities error", error);
       });
   };
   // ===============================================================
@@ -99,7 +98,6 @@ const Step1 = (props) => {
     await axios
       .get(`country/${id}/states`)
       .then((resp) => {
-        console.log("my current states are", resp.data.states);
         setStates(resp.data.states);
         dispatch(endLoader());
       })
@@ -149,10 +147,10 @@ const Step1 = (props) => {
     await axios
       .get(`service/${id}/attributes`)
       .then((resp) => {
-        console.log(
-          "attribute response is =================>",
-          resp.data.services.attributes
-        );
+        // console.log(
+        //   "attribute response is =================>",
+        //   resp.data.services.attributes
+        // );
         Setattribute(resp.data.services.attributes);
         dispatch(endLoader());
       })
@@ -198,8 +196,8 @@ const Step1 = (props) => {
     complete_address: Yup.string().required("This feild is required"),
     // primary_image: Yup.string().required("Primary Img is required"),
   });
+
   const onSubmit = (values) => {
-    console.log("mcreate ad data is ", values)
     const params = {
       service_id: values.service_id,
       title: values.title,
@@ -213,7 +211,7 @@ const Step1 = (props) => {
       complete_address: values.complete_address,
       specifications: attribute,
       primary_image: values.primary_image,
-      ad_type_id: "2",
+      ad_type_id: "1",
     };
     createAD(params);
   };
@@ -254,15 +252,21 @@ const Step1 = (props) => {
     }
   };
   useEffect(() => {
-    ChangeService(formik.values.service);
+    if (formik.values.service) {
+      ChangeService(formik.values.service);
+    }
   }, [formik.values.service]);
 
   useEffect(() => {
-    getStates(formik.values.country_id);
+    if (formik.values.country_id) {
+      getStates(formik.values.country_id);
+    }
   }, [formik.values.country_id]);
-  
+
   useEffect(() => {
-    getCities(formik.values.state_id);
+    if (formik.values.state_id) {
+      getCities(formik.values.state_id);
+    }
   }, [formik.values.state_id]);
 
   useEffect(() => {
@@ -281,7 +285,20 @@ const Step1 = (props) => {
         token,
         params,
       });
-      console.log(" create use add api resp is", result);
+      // console.log(" create use add api resp is", result);
+      if (result?.data?.status == 200) {
+        notification["success"]({
+          message: `${result?.data?.message}`,
+        });
+        formik.resetForm();
+        setStates([]);
+        SetCity([]);
+        setSubServices([]);
+      } else {
+        notification["error"]({
+          message: `something want wrong please try again`,
+        });
+      }
     } catch (e) {
       console.log("error --", e.toString());
     }
@@ -290,16 +307,6 @@ const Step1 = (props) => {
 
   return (
     <>
-      <div className="my-3 row">
-        <div className="mySteps col-12">
-          <Steps size="small" current={props.activeStep} className="px-5">
-            <Step title="Infromation" />
-            <Step title="Description & FAQ" />
-            <Step title="Requirement" />
-            <Step title="Publish" />
-          </Steps>
-        </div>
-      </div>
       <div className="pageStyle pb-4">
         <div className="row">
           <div className="col-12">
