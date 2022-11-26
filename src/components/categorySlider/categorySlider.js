@@ -34,6 +34,7 @@ const CategorySlider = (props) => {
       },
     },
   };
+  useEffect(() => {}, [props]);
   return (
     <>
       <div className="category_slider">

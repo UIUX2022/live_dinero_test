@@ -21,7 +21,7 @@ const Header = () => {
   const dispatch = useDispatch();
   const [current, setCurrent] = useState("mail");
   const [services, setServices] = useState(null);
-
+  const [searchValue, SetSearchValue] = useState("");
   // ==============================================
   // Post Api for logout
   // ==============================================
@@ -88,7 +88,13 @@ const Header = () => {
       </Menu.Item>
     </Menu>
   );
-
+  // ==============================================================
+  // Post Api for Search
+  // ===============================================================
+  const submitSearch = (event) => {
+    SetSearchValue("");
+    event.preventDefault();
+  };
   return (
     <div className="header_section px-1 px-md-5">
       <div className="container-fuild py-1 mx-auto">
@@ -99,12 +105,15 @@ const Header = () => {
             </Link>
           </div>
           <div className="searchBar px-5">
-            <form className="search_barInput">
+            <form className="search_barInput" onSubmit={submitSearch}>
               <input
                 className="form-control"
-                placeholder="Find Your Near By Property"
+                placeholder="Find Your Near By"
+                onChange={(e) => SetSearchValue(e.target.value)}
+                value={searchValue}
+                required
               />
-              <button type="submit" className="search_btn">
+              <button className="search_btn">
                 <Icon icon="material-symbols:search" />
               </button>
             </form>

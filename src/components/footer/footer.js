@@ -1,9 +1,17 @@
 import "./footer.scss";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 const Footer = () => {
   const services = useSelector((state) => state.authReducer.services);
-
+  const [newsEmail, SetNewsEmail] = useState("");
+  // ==============================================================
+  // Post Api for NewLetters
+  // ===============================================================
+  const submitNewsEmail = (event) => {
+    SetNewsEmail("");
+    event.preventDefault();
+  };
   return (
     <>
       <section className="footer-section pt-4 px-1 px-md-5">
@@ -59,22 +67,35 @@ const Footer = () => {
             <div className="col-md-4 col-lg-4">
               <div className="footer_newLetter mt-3 footer-links ">
                 <h4>News Letter</h4>
-                <form>
-                  <input type="email" className="form-control" />
+                <form onSubmit={submitNewsEmail}>
                   <input
-                    type="submit"
-                    className="form-control mt-2 submit_btn"
-                    value="SUBMIT"
+                    type="email"
+                    className="form-control"
+                    placeholder="Enter Email"
+                    required
+                    value={newsEmail}
+                    onChange={(e) => SetNewsEmail(e.target.value)}
                   />
+                  <button className="submit_btn form-control mt-2 ">
+                    SUBMIT
+                  </button>
                 </form>
                 <p>Note: Submit your email for news updates</p>
+              </div>
+              <div className="footer_apps_link d-flex align-items-center gap-2 justify-content-end">
+                <Link to="/">
+                  <img src="/img/andriod-icon.png" alt="img" />
+                </Link>
+                <Link to="/">
+                  <img src="/img/apple-icon.png" alt="img" />
+                </Link>
               </div>
             </div>
           </div>
         </div>
         <hr className="new1" />
         <div className="footer_button py-2 text-center">
-          <div>Copyright 2022 - 2023 © Storck Digital.</div>
+          <div>Copyright 2022 - 2023 © Storak Digital.</div>
         </div>
       </section>
     </>
