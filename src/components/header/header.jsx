@@ -133,7 +133,7 @@ const Header = () => {
               </Dropdown>
             ) : (
               <Link to="/login">
-                <button className="py-1">Log in</button>
+                <button className="py-1">Log In</button>
               </Link>
             )}
             <Link to="/user/create/services" className="ms-2">
