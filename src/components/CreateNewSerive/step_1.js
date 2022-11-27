@@ -14,7 +14,7 @@ const Step1 = (props) => {
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState(null);
   const [location, setLocation] = useState("abc");
-  const { Step } = Steps;
+
   const [services, setServices] = useState([]);
   const [sebServices, setSubServices] = useState([]);
   const [country, Setcountry] = useState([]);
@@ -36,6 +36,7 @@ const Step1 = (props) => {
       });
     }
   };
+  // save Img for Primary-img
   const saveImg = (img) => {
     const createImg = {
       type: img.type,
@@ -176,6 +177,7 @@ const Step1 = (props) => {
     },
     complete_address: "",
     primary_image: "",
+    price: "",
   });
   const validationSchema = Yup.object({
     title: Yup.string()
@@ -194,6 +196,7 @@ const Step1 = (props) => {
     city_id: Yup.string().required("Please select your city"),
     state_id: Yup.string().required("Please select your state"),
     complete_address: Yup.string().required("This feild is required"),
+    price: Yup.string().required("This feild is required"),
     // primary_image: Yup.string().required("Primary Img is required"),
   });
 
@@ -202,7 +205,7 @@ const Step1 = (props) => {
       service_id: values.service_id,
       title: values.title,
       short_description: values.short_description,
-      detailed_description: values.detailed_description,
+      detail_description: values.detailed_description,
       country_id: values.country_id,
       state_id: values.state_id,
       city_id: values.city_id,
@@ -212,6 +215,7 @@ const Step1 = (props) => {
       specifications: attribute,
       primary_image: values.primary_image,
       ad_type_id: "1",
+      price: values.price,
     };
     createAD(params);
   };
@@ -345,6 +349,7 @@ const Step1 = (props) => {
                   </div>
                 </div>
               </div>
+
               <div className="mt-3 col-12 input-feilds">
                 <label
                   style={{
@@ -367,6 +372,33 @@ const Step1 = (props) => {
                 {formik.touched.title && formik.errors.title ? (
                   <div className="error">{formik.errors.title}</div>
                 ) : null}
+              </div>
+              <div className="col-12">
+                <div className="row">
+                  <div className="mt-3 col-lg-6 col-md-10 col-12 input-feilds">
+                    <label
+                      style={{
+                        fontWeight: "500",
+                        fontSize: "16px",
+                        color: "#263238;",
+                      }}
+                    >
+                      price
+                    </label>
+                    <input
+                      type="number"
+                      placeholder="ad Price"
+                      className="form-control"
+                      name="price"
+                      value={formik.values.price}
+                      onChange={formik.handleChange}
+                      onBlur={formik.handleBlur}
+                    />
+                    {formik.touched.price && formik.errors.price ? (
+                      <div className="error">{formik.errors.price}</div>
+                    ) : null}
+                  </div>
+                </div>
               </div>
               <div className="mt-4 my-dropdown col-md-6 input-feilds">
                 <label

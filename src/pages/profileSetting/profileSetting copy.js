@@ -12,7 +12,7 @@ import { Icon } from "@iconify/react";
 import { notification } from "antd";
 import { startLoader, endLoader, addUser, addtoken } from "../../redux/actions";
 import { useRef } from "react";
-import { baseURLImg } from "../../routes/routes";
+import FileBase64 from "react-file-base64";
 
 const ProfileSetting = () => {
   const inputRef = useRef(null);
@@ -37,7 +37,7 @@ const ProfileSetting = () => {
       });
 
       if (result?.data?.status == 200) {
-        console.log("get user profile data", result?.data.user);
+        // console.log("user profile setting is", result);
         setUserData(result.data.user);
       } else if (result?.response?.status == 401) {
         navigate("/login");
@@ -103,6 +103,8 @@ const ProfileSetting = () => {
     mobile_no: "",
     date_of_birth: "",
     gender: "",
+    password: "",
+    password_confirmation: "",
     account_type: "",
     country_id: "",
     state_id: "",
@@ -125,22 +127,14 @@ const ProfileSetting = () => {
     gender: Yup.string().required("Please select you gender"),
     account_type: Yup.string().required("This feild is required"),
     country_id: Yup.string().required("Please select your country"),
+    city_id: Yup.string().required("Please select your city"),
+    state_id: Yup.string().required("Please select your state"),
     complete_address: Yup.string().required("This feild is required"),
   });
   const onSubmit = async (values) => {
     dispatch(startLoader());
 
-    const params = {
-      name: values.name,
-      country_code: values.country_code,
-      mobile_no: values.mobile_no,
-      country_id: values.country_id,
-      state_id: values.state_id,
-      city_id: values.city_id,
-      complete_address: values.complete_address,
-      gender: values.gender,
-      date_of_birth: values.date_of_birth
-    };
+    const params = values;
     const result = await PostApiWithHeader({
       route: "user/profile/update",
       token,
@@ -176,13 +170,13 @@ const ProfileSetting = () => {
     formik.values.gender = userData.gender;
     formik.values.date_of_birth = userData.date_of_birth;
     formik.values.country_code = userData.country_code;
-    formik.values.mobile_no = userData.mobile_no;
-    formik.values.city_id = userData.city_id ? userData.city_id : "";
-    formik.values.country_id = userData.country_id;
-    formik.values.state_id = userData.state_id ? user.state_id : "";
-    formik.values.account_type = userData.account_type;
-    formik.values.complete_address = userData.complete_address
-      ? userData.complete_address
+    formik.values.mobile_no = user.mobile_no;
+    formik.values.city_id = user.city_id ? user.city_id : "";
+    formik.values.country_id = user.country_id ? user.country_id : "";
+    formik.values.state_id = user.state_id ? user.state_id : "";
+    formik.values.account_type = user.account_type;
+    formik.values.complete_address = user.complete_address
+      ? user.complete_address
       : "";
   }, [userData]);
 
@@ -193,32 +187,44 @@ const ProfileSetting = () => {
     getCities(formik.values.state_id);
   }, [formik.values.state_id]);
   // ===================================
-  // Post API for Upload Profile Imgs
+  // Post API for Upload Imgs
   // ====================================
-  const PostProfileImg = async () => {
-    const params = {
-      profile_image: profileImg,
-    };
-    // console.log("my current params", params);
-    try {
-      const result = await PostApiWithHeader({
-        route: "user/profile-image/update",
-        params,
-        token,
+
+  const PostProfileImg = async (files) => {
+    console.log("current img is", files);
+    const type = files.type;
+    const getImg = type.indexOf("image");
+
+    if (getImg == -1) {
+      notification["error"]({
+        message: "Please upload only image formate png, jpg jpeg etc.",
       });
-      console.log("post upload profile img error is", result.data);
-      if (result.data.status != 200) {
-        notification["error"]({
-          message: "something went wrong please try again later",
+    } else {
+      const params = {
+        profile_image: files.base64,
+        is_image_base64: true,
+      };
+      console.log("my current update param is", params);
+      try {
+        const result = await PostApiWithHeader({
+          route: "user/profile-image/update",
+          params,
+          token,
         });
-        setProfileImg(null);
-      } else if (result.data.status == 200) {
-        notification["error"]({
-          message: "profile images upload successfully",
-        });
+        console.log("post upload profile img error is", result.data);
+        if (result.data.status != 200) {
+          notification["error"]({
+            message: "something went wrong please try again later",
+          });
+          setProfileImg(null);
+        } else if (result.data.status == 200) {
+          notification["error"]({
+            message: "profile images upload successfully",
+          });
+        }
+      } catch (error) {
+        console.log("upload img api error is", error);
       }
-    } catch (error) {
-      console.log("upload img api error is", error);
     }
   };
   useEffect(() => {
@@ -226,7 +232,7 @@ const ProfileSetting = () => {
       PostProfileImg();
     }
   }, [profileImg]);
-  console.log("get user data", userData);
+
   // ==============================================================
   // Del Api for delete account
   // ==============================================================
@@ -255,6 +261,7 @@ const ProfileSetting = () => {
         console.log("get error account delete", error);
       });
   };
+
   return (
     <AdminLayout>
       <div className="profileUpdate">
@@ -264,14 +271,7 @@ const ProfileSetting = () => {
             <div className="row align-items-start">
               <div className="col-md-3 pt-5">
                 <div className="profilePic text-center">
-                  <img
-                    src={`${baseURLImg}users/lg/${userData?.profile_image}`}
-                    alt="prfilePic"
-                    onError={(e) => {
-                      e.target.onerror = null;
-                      e.target.src = "/img/core_placeholder.png";
-                    }}
-                  />
+                  <img src="/img/profile1.jpg" alt="prfilePic" />
                   <div className="addNew_img">
                     <Icon
                       icon="material-symbols:linked-camera-outline"
@@ -279,15 +279,20 @@ const ProfileSetting = () => {
                     />
                   </div>
                 </div>
-                <input
+                {/* <input
                   type="file"
                   className="d-none"
                   ref={inputRef}
                   accept="image/*"
-                  onChange={(e) => setProfileImg(e.target.files[0])}
+                  onChange={(e) => setProfileImg(e.target.value)}
+                /> */}
+                <FileBase64
+                  multiple={false}
+                  accept="image/png, image/gif, image/jpeg"
+                  onDone={PostProfileImg.bind(this)}
                 />
                 <button className="removeProfile mt-3  py-1">
-                  Profile Image
+                  Remove Photo
                 </button>
               </div>
               <div className="col-md-8">
@@ -326,8 +331,8 @@ const ProfileSetting = () => {
                           placeholder="Email address"
                           name="email"
                           value={formik.values.email}
+                          onChange={formik.handleChange}
                           onBlur={formik.handleBlur}
-                          readonly
                         />
                         {formik.touched.email && formik.errors.email ? (
                           <div className="error">{formik.errors.email}</div>
@@ -339,10 +344,10 @@ const ProfileSetting = () => {
                           className="form-control "
                           name="gender"
                           onChange={formik.handleChange}
-                          value={formik.values.name}
+                          defaultValue={formik.values.name}
                         >
                           <option value="male">Male</option>
-                          <option value="famale" selected>
+                          <option value="famle" selected>
                             Female
                           </option>
                         </select>

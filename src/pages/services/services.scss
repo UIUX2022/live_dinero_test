@@ -8,6 +8,7 @@
     img {
       height: 280px;
       width: 100%;
+      object-fit: cover;
     }
     &::after {
       top: 0;
@@ -120,6 +121,7 @@
 }
 .services_pro_list {
   background-color: $white;
+  min-height: 95vh;
 }
 @media (max-width: 425px) {
   .servicePage_header {

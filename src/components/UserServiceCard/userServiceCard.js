@@ -10,7 +10,7 @@ import { startLoader, endLoader } from "../../redux/actions";
 import EditAds from "../editAds/editAds";
 import moment from "moment";
 const UserServiceCard = ({ data, updateAdList }) => {
-  console.log("current ad data is", data);
+
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.authReducer.token);
@@ -86,6 +86,7 @@ const UserServiceCard = ({ data, updateAdList }) => {
   const editModalCancel = () => {
     sereditModal(false);
   };
+
   return (
     <>
       <div className="userCard_service d-sm-flex mt-2 mt-lg-3">
@@ -191,7 +192,7 @@ const UserServiceCard = ({ data, updateAdList }) => {
         header={null}
         width={768}
       >
-        <EditAds data={data} />
+        <EditAds id={data.id} editModalOk={editModalOk} />
       </Modal>
     </>
   );

@@ -4,9 +4,10 @@ import { useState } from "react";
 import moment from "moment";
 import { baseURLImg } from "../../routes/routes";
 import "./propertyCard.scss";
+
 const PropertyCard = (props) => {
   const [cardData, SetCArdData] = useState(props.data);
-  // console.log("my current add is", props.data);
+ 
   return (
     <Link to={`/addetails/${cardData && cardData.slug}`}>
       <div className="AddsCardContainer my-1 mx-1">

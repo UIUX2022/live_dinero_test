@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { baseURLImg } from "../../routes/routes";
 import moment from "moment";
+
 const PropertyLandCard = (props) => {
   const [data, setData] = useState(props.data);
   return (
@@ -46,7 +47,8 @@ const PropertyLandCard = (props) => {
 
             <div className="carddel_footer d-flex justify-content-between align-items-end">
               <p>
-                <Icon icon="material-symbols:location-on" /> {data.country.name}
+                <Icon icon="material-symbols:location-on-outline-rounded" />{" "}
+                {data.country.name}
               </p>
               <p>
                 <Icon icon="mdi:clock-time-five-outline" />

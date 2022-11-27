@@ -15,7 +15,10 @@ export const PostApiWithHeader = async ({ params, route, token }) => {
   // console.log("my param is ", params);
   try {
     const response = await axios.post(route, params, {
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
     });
     // console.log("current api resp is", response);
     return response;

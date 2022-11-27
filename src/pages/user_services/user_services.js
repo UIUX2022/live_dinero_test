@@ -1,13 +1,12 @@
 import Adminlayout from "../../layouts/dashboard/dashboard";
-import ProfileCard from "../../components/profileCard/profileCard";
-import AddNewService from "../../components/addNewService/addNewService";
+
 import "./user_services.scss";
-import { GetApiWithHeader, PostApiWithHeader } from "../../services";
+import { GetApiWithHeader } from "../../services";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Tabs } from "antd";
+
 import UserServiceCard from "../../components/UserServiceCard/userServiceCard";
-import { startLoader, endLoader, addUser, addtoken } from "../../redux/actions";
+import { addUser, addtoken, startLoader, endLoader } from "../../redux/actions";
 import { useNavigate } from "react-router-dom";
 const UserServices = () => {
   const dispatch = useDispatch();
@@ -16,14 +15,15 @@ const UserServices = () => {
   const [ads, setAds] = useState([]);
 
   const getUserAds = async () => {
+    dispatch(startLoader());
     try {
       const result = await GetApiWithHeader({
         route: "user/ad/listing",
         token,
       });
-      console.log("get user all ads", result);
+
       if (result?.data?.status == 200) {
-        console.log("user ads list is", result);
+        // console.log("user ads list is", result);
 
         setAds(result?.data?.ads.data);
       } else if (
@@ -37,6 +37,7 @@ const UserServices = () => {
     } catch (e) {
       console.log("user ads list error is", e.toString());
     }
+    dispatch(endLoader());
   };
   useEffect(() => {
     getUserAds();
