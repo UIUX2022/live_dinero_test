@@ -1,6 +1,6 @@
 import { Steps, notification } from "antd";
 import { Icon } from "@iconify/react";
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -10,18 +10,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { PostApiWithHeader } from "../../services";
 
 const Step1 = (props) => {
+  const delImg = useRef(null);
   const token = useSelector((state) => state.authReducer.token);
   const dispatch = useDispatch();
   const [selectedImage, setSelectedImage] = useState(null);
   const [location, setLocation] = useState("abc");
-
   const [services, setServices] = useState([]);
   const [sebServices, setSubServices] = useState([]);
   const [country, Setcountry] = useState([]);
   const [states, setStates] = useState([]);
   const [city, SetCity] = useState([]);
   const [attribute, Setattribute] = useState([]);
-
+  const [detailsImg, setDetailsImg] = useState([]);
   // ===============================================================
   // Set SubService according to Main Service and
   // ===============================================================
@@ -44,9 +44,7 @@ const Step1 = (props) => {
       url: URL.createObjectURL(img),
     };
     setSelectedImage(createImg);
-    const fromdata = new FormData();
-    fromdata.append("image", img, img.name);
-    formik.values.primary_image = fromdata;
+    formik.values.primary_image = img;
   };
   // ===============================================================
   // Get Api for services with sub services
@@ -186,18 +184,14 @@ const Step1 = (props) => {
       .required("This feild is required"),
     service: Yup.string().required("Please select the services"),
     service_id: Yup.string().required("Please select sub services"),
-    short_description: Yup.string()
-      .required("This feild is required")
-      .max(250, "You can add max 250 digits"),
+    short_description: Yup.string().max(250, "You can add max 250 digits"),
     detailed_description: Yup.string()
       .required("This feild is required")
       .max(500, "You can add max 500 digits"),
     country_id: Yup.string().required("Please select your country"),
-    city_id: Yup.string().required("Please select your city"),
-    state_id: Yup.string().required("Please select your state"),
+    primary_image: Yup.string().required("Primary images is required"),
     complete_address: Yup.string().required("This feild is required"),
     price: Yup.string().required("This feild is required"),
-    // primary_image: Yup.string().required("Primary Img is required"),
   });
 
   const onSubmit = (values) => {
@@ -289,7 +283,7 @@ const Step1 = (props) => {
         token,
         params,
       });
-      // console.log(" create use add api resp is", result);
+      console.log(" create use add api resp is", result);
       if (result?.data?.status == 200) {
         notification["success"]({
           message: `${result?.data?.message}`,
@@ -298,9 +292,10 @@ const Step1 = (props) => {
         setStates([]);
         SetCity([]);
         setSubServices([]);
+        setSelectedImage({});
       } else {
         notification["error"]({
-          message: `something want wrong please try again`,
+          message: `something went wrong please try again`,
         });
       }
     } catch (e) {
@@ -308,7 +303,7 @@ const Step1 = (props) => {
     }
     dispatch(endLoader());
   };
-
+  console.log("details img list", detailsImg);
   return (
     <>
       <div className="pageStyle pb-4">
@@ -362,7 +357,7 @@ const Step1 = (props) => {
                 </label>
                 <input
                   type="text"
-                  placeholder="ad title"
+                  placeholder="title"
                   className="form-control"
                   name="title"
                   value={formik.values.title}
@@ -383,11 +378,11 @@ const Step1 = (props) => {
                         color: "#263238;",
                       }}
                     >
-                      price
+                      Price
                     </label>
                     <input
                       type="number"
-                      placeholder="ad Price"
+                      placeholder="price"
                       className="form-control"
                       name="price"
                       value={formik.values.price}
@@ -482,7 +477,7 @@ const Step1 = (props) => {
                 </label>
                 <input
                   type="text"
-                  placeholder="add short description"
+                  placeholder="short description"
                   className="form-control"
                   name="short_description"
                   value={formik.values.short_description}
@@ -675,7 +670,47 @@ const Step1 = (props) => {
                   })}
                 </div>
               ) : null}
+              <div className="details_imgs col-12 mt-3">
+                <div className="detal_img_view row">
+                  {detailsImg.map((img, index) => {
+                    let NewImg = URL.createObjectURL(img);
+                    return (
+                      <>
+                        <div className="col-12 col-sm-6 col-md-4 col-lg-3 mt-3">
+                          <div className="img_veiw">
+                            <img src={NewImg} alt="img" />
+                            <div className="new_img_del">
+                              <Icon icon="ic:outline-remove-shopping-cart" />
+                            </div>
+                          </div>
+                        </div>
+                      </>
+                    );
+                  })}
+                  {detailsImg.length >= 10 ? null : (
+                    <div className="col-12 col-sm-6 col-md-4 col-lg-3 mt-3">
+                      <div
+                        className="upload_newImg"
+                        onClick={() => delImg.current.click()}
+                      >
+                        <div className="text-center">
+                          <Icon icon="uil:image-upload" />
+                          <p> Upload Image</p>
+                        </div>
+                      </div>
 
+                      <input
+                        type="file"
+                        className="d-none"
+                        ref={delImg}
+                        onChange={(e) =>
+                          setDetailsImg([...detailsImg, e.target.files[0]])
+                        }
+                      />
+                    </div>
+                  )}
+                </div>
+              </div>
               <div className="text-end mt-5 col-12">
                 <button
                   className="save_Steps"
