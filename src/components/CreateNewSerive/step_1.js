@@ -210,6 +210,7 @@ const Step1 = (props) => {
       primary_image: values.primary_image,
       ad_type_id: "1",
       price: values.price,
+      detail_images: detailsImg,
     };
     createAD(params);
   };
@@ -293,6 +294,7 @@ const Step1 = (props) => {
         SetCity([]);
         setSubServices([]);
         setSelectedImage({});
+        setDetailsImg([]);
       } else {
         notification["error"]({
           message: `something went wrong please try again`,
@@ -303,7 +305,36 @@ const Step1 = (props) => {
     }
     dispatch(endLoader());
   };
-  console.log("details img list", detailsImg);
+  // ====================================================
+  // Add detail Imgs
+  // ====================================================
+  const DetailsImg = (e) => {
+    console.log("my current img is", e.target.files[0]);
+    const Img = e.target.files[0];
+    if (
+      Img.type == "image/webp" ||
+      Img.type == "image/jpeg" ||
+      Img.type == "image/png" ||
+      Img.type == "image/jpg"
+    ) {
+      setDetailsImg([...detailsImg, Img]);
+    } else {
+      notification["error"]({
+        message: "Please upload only image format",
+      });
+    }
+  };
+  const RemoveImg = (id) => {
+    console.log("current id value sof img is", id);
+    const newArray = detailsImg.filter((value, index) => {
+      if (id !== index) {
+        return value;
+      }
+    });
+    console.log("after new Array images", newArray);
+    setDetailsImg(newArray);
+  };
+
   return (
     <>
       <div className="pageStyle pb-4">
@@ -671,6 +702,15 @@ const Step1 = (props) => {
                 </div>
               ) : null}
               <div className="details_imgs col-12 mt-3">
+                <label
+                  style={{
+                    fontWeight: "500",
+                    fontSize: "16px",
+                    color: "#263238;",
+                  }}
+                >
+                  Details Images
+                </label>
                 <div className="detal_img_view row">
                   {detailsImg.map((img, index) => {
                     let NewImg = URL.createObjectURL(img);
@@ -680,7 +720,10 @@ const Step1 = (props) => {
                           <div className="img_veiw">
                             <img src={NewImg} alt="img" />
                             <div className="new_img_del">
-                              <Icon icon="ic:outline-remove-shopping-cart" />
+                              <Icon
+                                icon="material-symbols:delete-outline-sharp"
+                                onClick={() => RemoveImg(index)}
+                              />
                             </div>
                           </div>
                         </div>
@@ -703,9 +746,10 @@ const Step1 = (props) => {
                         type="file"
                         className="d-none"
                         ref={delImg}
-                        onChange={(e) =>
-                          setDetailsImg([...detailsImg, e.target.files[0]])
-                        }
+                        // onChange={(e) =>
+                        //   setDetailsImg([...detailsImg, e.target.files[0]])
+                        // }
+                        onChange={(event) => DetailsImg(event)}
                       />
                     </div>
                   )}
@@ -717,7 +761,7 @@ const Step1 = (props) => {
                   type="submit"
                   onClick={() => props.setActiveStep(0)}
                 >
-                  Save & Continue
+                  Save AD
                 </button>
               </div>
             </div>

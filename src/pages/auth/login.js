@@ -31,10 +31,19 @@ const Login = () => {
   const onSubmit = async (values) => {
     dispatch(startLoader());
     await axios
-      .post("auth/login", {
-        email: values.email,
-        password: values.password,
-      })
+      .post(
+        "auth/login",
+        {
+          email: values.email,
+          password: values.password,
+        },
+        {
+          headers: {
+            Authorization: `Bearer-token`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      )
       .then((resp) => {
         // console.log("login api result is", resp);
         if (resp.data.status == 200) {

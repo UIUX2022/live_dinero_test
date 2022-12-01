@@ -324,6 +324,7 @@ const ProfileSetting = () => {
                         md={12}
                         className=" mt-4 col-md-12 text-start input-feilds"
                       >
+                        
                         <label>Email:</label>
                         <input
                           type="email"
