@@ -41,6 +41,14 @@
   }
   .card_details {
     position: relative;
+    .active_status {
+      .status_text {
+        padding: 3px 12px;
+        color: $white;
+        background-color: $theme_color;
+        border-radius: 50px;
+      }
+    }
     span {
       font-size: 12px;
       color: $light_text;

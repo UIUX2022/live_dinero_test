@@ -8,9 +8,9 @@ import { PostApiWithHeader } from "../../services";
 import { useSelector, useDispatch } from "react-redux";
 import { startLoader, endLoader } from "../../redux/actions";
 import EditAds from "../editAds/editAds";
-import moment from "moment";
-const UserServiceCard = ({ data, updateAdList }) => {
 
+const UserServiceCard = ({ data, updateAdList }) => {
+  console.log("current ad data", data);
   const dispatch = useDispatch();
 
   const token = useSelector((state) => state.authReducer.token);
@@ -33,6 +33,7 @@ const UserServiceCard = ({ data, updateAdList }) => {
         notification["success"]({
           message: `${result.data.address}`,
         });
+        updateAdList();
       }
     } catch (e) {
       console.log("error --", e.toString());
@@ -103,10 +104,16 @@ const UserServiceCard = ({ data, updateAdList }) => {
         <div className="card_details p-3">
           <div className="d-flex justify-content-between">
             <span>#{data.ad_uid}</span>
-            <Switch
-              defaultChecked={data.status == 1 ? true : false}
-              onClick={() => updateStatus(data.status)}
-            />
+            <div className="active_status">
+              {data?.status == 1 ? (
+                <span className="mx-2 status_text">Active</span>
+              ) : null}
+
+              <Switch
+                defaultChecked={data.status == 1 ? true : false}
+                onClick={() => updateStatus(data.status)}
+              />
+            </div>
           </div>
           <div className="card_details_data">
             <Link to={`/addetails/${data.slug}`} className="Card_name">
@@ -114,14 +121,14 @@ const UserServiceCard = ({ data, updateAdList }) => {
             </Link>
             <div className="">
               <h6 className="mb-0 py-1">
+                Price: &nbsp;
+                <span>{data.price} QAR</span>
+              </h6>
+              <h6 className="mb-0 py-1">
                 Category: &nbsp;
                 <Link to={`/services/${data.service.slug}`}>
                   {data.service.title}
                 </Link>
-              </h6>
-              <h6 className="mb-0 py-1">
-                Price: &nbsp;
-                <span>{data.price} QAR</span>
               </h6>
             </div>
 
